@@ -242,7 +242,7 @@ def test_realistic_receipt_requires_broker_position_and_stops(tmp_path):
         signal_id=result.signal_id,reserved_lots=str(lots),now=now)
     assert len(proof)==64
     assert record_state(x)==[("RECONCILED",)]
-    with pytest.raises(ValueError,match="already finalized"):
+    with pytest.raises(ValueError,match="ALREADY_FINALIZED"):
         x["writer"].reconcile_fully_protected(customer_id=OWNER,account_id=CID,
             signal_id=result.signal_id,reserved_lots=str(lots),now=now)
 
@@ -258,3 +258,57 @@ def test_untrusted_writer_lock_and_false_broker_risk_refused(tmp_path):
         native=replace(x["supervisor"].evidence.native,broker_order_check_verified=False))
     with pytest.raises(FeedRefused,match="MANDATORY_PROOF_MISSING"):
         call(x)
+
+
+def test_receipt_cannot_cross_customer_or_replace_reserved_volume(tmp_path):
+    x=assemble(tmp_path)
+    result=call(x)
+    lots=D(x["port"].requests[0].volume_lots)
+    now=x["now"]
+    x["supervisor"].receipt=NativeOrderReceipt(
+        "deriv","DEMO","Deriv-Demo",CID,result.signal_id,
+        x["doc"]["symbol"],"BUY",10009,"200101","200102","200103",
+        lots,now)
+    x["supervisor"].position=NativePositionProof(
+        CID,"Deriv-Demo","200103",x["doc"]["symbol"],"BUY",
+        lots,D("100"),D("90"),D("110"),
+        now+timedelta(seconds=1),True,False)
+    x["supervisor"].included=True
+    with pytest.raises(PermissionError,match="OWNED"):
+        x["writer"].reconcile_fully_protected(
+            customer_id="9"*32, account_id=CID,
+            signal_id=result.signal_id,reserved_lots=str(lots),now=now)
+    with pytest.raises(FeedRefused,match="RESERVED_LOTS"):
+        x["writer"].reconcile_fully_protected(
+            customer_id=OWNER,account_id=CID,
+            signal_id=result.signal_id,reserved_lots="0.01",now=now)
+    x["supervisor"].position=replace(x["supervisor"].position,
+        broker_snapshot_time=now-timedelta(seconds=120))
+    with pytest.raises(FeedRefused,match="SNAPSHOT_STALE"):
+        x["writer"].reconcile_fully_protected(
+            customer_id=OWNER,account_id=CID,
+            signal_id=result.signal_id,reserved_lots=str(lots),now=now)
+    assert record_state(x)==[("UNKNOWN",)]
+
+
+def test_client_off_does_not_block_broker_reconciliation(tmp_path):
+    x=assemble(tmp_path)
+    result=call(x)
+    lots=D(x["port"].requests[0].volume_lots)
+    now=x["now"]
+    x["supervisor"].receipt=NativeOrderReceipt(
+        "deriv","DEMO","Deriv-Demo",CID,result.signal_id,
+        x["doc"]["symbol"],"BUY",10009,"300101","300102","300103",
+        lots,now)
+    x["supervisor"].position=NativePositionProof(
+        CID,"Deriv-Demo","300103",x["doc"]["symbol"],"BUY",
+        lots,D("100"),D("90"),D("110"),now+timedelta(seconds=1),True,False)
+    x["supervisor"].included=True
+    a=x["activation"].snapshot(account_id=CID,customer_id=OWNER,now=now)
+    x["activation"].request(account_id=CID,customer_id=OWNER,
+        desired_on=False,expected_revision=a.revision,now=now)
+    proof=x["writer"].reconcile_fully_protected(
+        customer_id=OWNER,account_id=CID,
+        signal_id=result.signal_id,reserved_lots=str(lots),now=now)
+    assert len(proof)==64
+    assert record_state(x)==[("RECONCILED",)]
