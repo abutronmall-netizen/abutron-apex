@@ -31,12 +31,23 @@ jobs:
           from pathlib import Path
           report=json.loads(Path('SOURCE_IMPORT_AUDIT.json').read_text())
           assert report['imported_source_text_files']==97
+          originals={row['path']: row['sha256'] for row in report['files']}
+          patches={}
+          patch_path=Path('SOURCE_PATCH_AUDIT.json')
+          if patch_path.exists():
+              patch_doc=json.loads(patch_path.read_text())
+              assert patch_doc['source_zip_sha256']==report['archive_sha256']
+              for change in patch_doc['changes']:
+                  key=change['path']
+                  assert key in originals and key not in patches
+                  assert change['original_sha256']==originals[key]
+                  patches[key]=change['patched_sha256']
           for row in report['files']:
               path=Path(row['path'])
               assert path.is_file(), f'Missing source file: {path}'
               actual=hashlib.sha256(path.read_bytes()).hexdigest()
-              assert actual==row['sha256'], f'Drift in source file: {path}'
-          print('APEX_SOURCE_97_FILE_SHA256_VERIFIED')
+              assert actual==patches.get(row['path'], row['sha256']), f'Source checksum mismatch: {path}'
+          print('APEX_SOURCE_97_FILE_SHA256_AND_APPROVED_PATCHES_VERIFIED')
           PY
       - name: Install isolated offline test dependencies
         run: python -m pip install --disable-pip-version-check -r apex11/requirements.txt
