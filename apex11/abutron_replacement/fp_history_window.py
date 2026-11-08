@@ -132,13 +132,25 @@ def inspect_native_fp_history_window(
 def require_fresh_fp_history_window(
     header: Sequence[str], *,
     observed_utc: int,
-    expected_server_offset_seconds: int = 7200,
+    expected_server_offset_seconds: int | None = None,
 ) -> FPHistoryWindow:
-    """Strict collector gate: a stale market history is never execution ready."""
+    """Strict execution-data freshness gate, NOT an order authorization.
+
+    Unlike historical research, a prospective execution snapshot requires a
+    last native quote no older than two minutes AND an independently attested
+    broker-to-UTC offset. A hardcoded default (+02:00) is insufficient because
+    FP Markets server time can change. The caller must derive its offset from
+    current authenticated same-worker evidence, not from this header alone.
+    Even a passing window does not attest account, broker, entitlement,
+    300-bar M5 warm-up, protected risk, or the order/ledger lifecycle.
+    """
+    if expected_server_offset_seconds is None:
+        raise FeedRefused("FP_HISTORY_INDEPENDENT_OFFSET_REQUIRED")
     decision = inspect_native_fp_history_window(
         header,
         observed_utc=observed_utc,
         expected_server_offset_seconds=expected_server_offset_seconds,
+        max_last_quote_age_seconds=120,
     )
     if not decision.history_window_fresh:
         raise FeedRefused("FP_HISTORY_LAST_QUOTE_STALE")
