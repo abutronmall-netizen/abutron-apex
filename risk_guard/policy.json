@@ -1,0 +1,14 @@
+{
+  "policy_id": "ABUTRON_APEX11_DUAL_LAYER_DEMO_20261108",
+  "environment": "DEMO_ONLY",
+  "live_execution": false,
+  "per_trade_risk_fraction_of_account_equity": "0.001",
+  "maximum_total_open_stop_risk_fraction_per_account": "0.02",
+  "maximum_total_open_stop_risk_fraction_per_customer": "0.02",
+  "utc_day_equity_loss_stop_fraction_per_account_and_customer": "0.03",
+  "peak_equity_drawdown_lock_fraction_per_account_and_customer": "0.20",
+  "loss_stop_reset": "REVIEW_REQUIRED_NOT_AUTOMATIC",
+  "customer_isolation": "PER_CUSTOMER_PORTFOLIO_COMBINED_ACROSS_DERIV_AND_FP",
+  "risk_measurement": "BROKER_NATIVE_STOP_LOSS_PLUS_COMMISSION_AND_STRESSED_SLIPPAGE",
+  "if_data_missing": "FAIL_CLOSED_NO_NEW_ENTRY"
+}
