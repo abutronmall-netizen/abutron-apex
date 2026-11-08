@@ -32,12 +32,13 @@ V4_PROTOCOL="APEX_NATIVE_ACCOUNT_BOUND_ORDER_V4"
 _HASH64=re.compile(r"^[a-f0-9]{64}$")
 
 
-def _read_protected(path: Path, max_size: int = 2048) -> list[str]:
+def _read_protected(path: Path, expected_uid: int, max_size: int = 2048) -> list[str]:
     if path.is_symlink():
         raise FeedRefused("NATIVE_CAPABILITY_SYMLINK")
     before=path.lstat()
     if (not stat.S_ISREG(before.st_mode) or before.st_size<1 or
-            before.st_size>max_size or before.st_mode&0o022):
+            before.st_size>max_size or before.st_mode&0o022 or
+            before.st_uid!=expected_uid):
         raise FeedRefused("NATIVE_CAPABILITY_UNSAFE")
     fd=os.open(path,os.O_RDONLY|getattr(os,"O_NOFOLLOW",0))
     try:
@@ -77,12 +78,16 @@ class NativeV4FilePort:
     """
 
     def __init__(self, *, account_id: str, account_login: str,
-                 files_dir: Path, clock: Callable[[],float] = time.time):
+                 files_dir: Path, worker_uid: int,
+                 clock: Callable[[],float] = time.time):
         if not isinstance(account_id,str) or not HEX32.fullmatch(account_id):
             raise ValueError("NATIVE_FILE_PORT_ACCOUNT_ID_INVALID")
         if (not isinstance(account_login,str) or not account_login.isascii()
                 or not account_login.isdecimal() or not account_login.endswith("6207")):
             raise ValueError("NATIVE_FILE_PORT_6207_LOGIN_INVALID")
+        if type(worker_uid) is not int or worker_uid<=0:
+            raise ValueError("NATIVE_FILE_PORT_WORKER_UID_UNVERIFIED")
+        self.worker_uid=worker_uid
         self.account_id=account_id
         self.account_login=account_login
         self.files_dir=Path(files_dir)
@@ -95,7 +100,7 @@ class NativeV4FilePort:
         for path in (root,folder,receipts):
             st=path.lstat()
             if (not stat.S_ISDIR(st.st_mode) or path.is_symlink()
-                    or st.st_mode & 0o022):
+                    or st.st_mode & 0o022 or st.st_uid != self.worker_uid):
                 raise FeedRefused("NATIVE_MQL5_ORDER_FOLDER_UNSAFE")
         return folder,receipts
 
@@ -108,7 +113,7 @@ class NativeV4FilePort:
                 not HEX32.fullmatch(request.worker_nonce)):
             raise FeedRefused("NATIVE_V4_ACCOUNT_OR_NONCE_MISMATCH")
         lines=_read_protected(self.files_dir/(
-            V4_CAPABILITY_PREFIX+request.worker_nonce+".txt"))
+            V4_CAPABILITY_PREFIX+request.worker_nonce+".txt"),self.worker_uid)
         # This proves only that the *worker-protected filesystem* has a recent
         # capability record. Independent binary/session attestation is mandatory.
         expected=[V4_CAPABILITY_MAGIC,request.worker_nonce,request.mt5_login,
@@ -175,6 +180,10 @@ class NativeV4FilePort:
             fd=os.open(name,os.O_CREAT|os.O_EXCL|os.O_WRONLY
                        |getattr(os,"O_NOFOLLOW",0),0o600,dir_fd=dirfd)
             try:
+                if os.geteuid()==0:
+                    os.fchown(fd,self.worker_uid,os.fstat(dirfd).st_gid)
+                elif os.fstat(fd).st_uid != self.worker_uid:
+                    raise FeedRefused("V4_REQUEST_OWNER_UID_UNVERIFIED")
                 with os.fdopen(fd,"wb") as f:
                     f.write(content)
                     f.flush()
