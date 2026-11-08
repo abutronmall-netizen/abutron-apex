@@ -43,6 +43,9 @@ def test_v4_request_file_written_atomically_without_v3_fallback(tmp_path):
     assert request_file.stat().st_uid==os.getuid()
     assert request_file.stat().st_mode & 0o077 == 0
     assert not (folder/V3_REQUEST_NAME).exists()
+    raw=request_file.read_bytes()
+    assert raw.count(b"\r\n")==13
+    assert b"\n" not in raw.replace(b"\r\n", b"")
     lines=request_file.read_text().splitlines()
     assert len(lines)==13
     assert lines==[
