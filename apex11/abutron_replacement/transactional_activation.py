@@ -8,6 +8,7 @@ The DB must be on a locally durable encrypted volume with restrictive access.
 from __future__ import annotations
 
 import sqlite3
+import os
 from contextlib import contextmanager
 from dataclasses import dataclass
 from datetime import datetime, timezone, timedelta
@@ -42,6 +43,14 @@ class ActivationStore:
 
     def __init__(self, db_path: str | Path) -> None:
         self.db_path = str(db_path)
+        try:
+            fd = os.open(self.db_path, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
+        except FileExistsError:
+            pass
+        else:
+            os.close(fd)
+        if os.stat(self.db_path).st_mode & 0o077:
+            raise PermissionError('ACTIVATION_LEDGER_PERMISSIONS_TOO_OPEN')
         with self._db() as con:
             con.execute('''CREATE TABLE IF NOT EXISTS account_activation (
                 account_id TEXT PRIMARY KEY,
@@ -166,6 +175,9 @@ class ActivationStore:
                 row=self._read(con,account_id,customer_id)
                 if row['revision'] != expected_revision:
                     raise ValueError('STALE_ACTIVATION_REVISION')
+                if tuple(bool(row[k]) for k in ('entitlement_ok','connected','writer_verified','kill_switch')) == flags:
+                    con.execute('COMMIT')
+                    return self._activation(row, now)
                 con.execute('''UPDATE account_activation SET
                     revision=revision+1, entitlement_ok=?,connected=?,writer_verified=?,
                     kill_switch=?,effective_on=0,ack_revision=NULL,ack_valid_until=NULL,updated_at=?
