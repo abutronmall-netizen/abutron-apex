@@ -104,18 +104,43 @@ def make_local_guardian(*, fence: NativeV4OffFence,
             self.end_headers()
             self.wfile.write(b"DENY\n")
 
+        def _authorized(self) -> bool:
+            secret=self.headers.get("X-Abutron-Worker-Token","")
+            return (self.client_address[0]=="127.0.0.1" and
+                    type(secret) is str and TOKEN.fullmatch(secret) is not None and
+                    hmac.compare_digest(sha256(secret.encode("ascii")).digest(),expected))
+
         def do_GET(self):
-            self._deny(405)
+            if self.path!="/v4/status":
+                self._deny(405)
+                return
+            if not self._authorized():
+                self._deny(403)
+                return
+            attest=getattr(fence.authority,"attest_session",None)
+            if not callable(attest):
+                self._deny(403)
+                return
+            try:
+                revision=attest(customer_id=pinned.customer_id,
+                    account_id=pinned.account_id,
+                    worker_nonce=pinned.worker_nonce,
+                    mt5_login=pinned.mt5_login,now=clock())
+                if type(revision) is not int or revision<1:
+                    raise FeedRefused("NATIVE_STATUS_REVISION_NOT_ATTESTED")
+                response=("STATUS|"+str(revision)+"\n").encode("ascii")
+            except (FeedRefused,ValueError,PermissionError,OSError,TypeError):
+                self._deny(403)
+                return
+            self.send_response(200)
+            self.send_header("Content-Type","text/plain")
+            self.send_header("Cache-Control","no-store")
+            self.send_header("Content-Length",str(len(response)))
+            self.end_headers()
+            self.wfile.write(response)
 
         def do_POST(self):
-            if self.client_address[0]!="127.0.0.1" or self.path!=ROUTE:
-                self._deny(403)
-                return
-            secret=self.headers.get("X-Abutron-Worker-Token","")
-            if type(secret) is not str or not TOKEN.fullmatch(secret):
-                self._deny(403)
-                return
-            if not hmac.compare_digest(sha256(secret.encode("ascii")).digest(),expected):
+            if self.path!=ROUTE or not self._authorized():
                 self._deny(403)
                 return
             length=self.headers.get("Content-Length","")
