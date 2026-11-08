@@ -1,0 +1,120 @@
+# Offline signal-only template. Universe intentionally empty. See example manifest.
+system:
+  name: ABUTRON-APEX11-OFFLINE
+  mode: signal_only
+  base_currency: USD
+  seed: 20261101
+  log_dir: state
+  decision_log: state/abutron_apex11_decisions.jsonl
+  memory_file: state/abutron_apex11_memory.json
+account:
+  starting_equity: 10000.0
+  leverage: 5.0
+  margin_rate: 0.2
+universe: []
+agents:
+  regime:
+    enabled: true
+    lookback: 240
+    adx_period: 14
+    adx_trend_threshold: 22.0
+    vol_percentile_high: 0.75
+  trend:
+    enabled: true
+    fast: 20
+    slow: 55
+    atr_period: 14
+  mean_reversion:
+    enabled: true
+    lookback: 40
+    entry_z: 1.6
+    exit_z: 0.4
+  breakout:
+    enabled: true
+    channel: 55
+    atr_period: 14
+    atr_buffer: 0.35
+  research:
+    enabled: false
+    refresh_every: 24
+    max_veto_bars: 24
+  carry:
+    enabled: false
+    min_strength: 0.25
+  fusion:
+    min_abs_weight: 0.015
+    rebalance_threshold: 0.04
+    smoothing: 0.0
+    rebalance_every: 1
+    memory_horizon: 24
+    memory_min_obs: 40
+    memory_influence: 0.0
+risk:
+  target_annual_vol: 0.12
+  vol_target_band:
+  - 0.06
+  - 0.3
+  per_trade_risk_pct: 0.001
+  max_position_weight: 0.2
+  max_asset_class_weight:
+    crypto: 0.3
+    us_equity: 0.45
+    fx_index: 0.4
+    deriv_synthetic: 0.3
+  max_gross_leverage: 2.5
+  max_net_exposure: 1.5
+  max_daily_loss_pct: 0.02
+  max_drawdown_pct: 0.08
+  var_confidence: 0.95
+  var_limit_pct: 0.035
+  corr_cluster_limit: 0.85
+  cluster_weight_limit: 0.35
+  kill_switch_action: flatten
+  stop_atr_mult: 4.0
+  stop_cooldown_bars: 12
+execution:
+  n_slices: 2
+  latency_bars: 1
+  working_order_ttl_bars: 3
+  participation_cap: 0.05
+  impact_coef: 0.001
+  min_notional: 50.0
+  latency_ms: 120
+  max_slippage_bps: 25
+llm:
+  enabled: false
+  provider: openai
+  model: gpt-4o-mini
+  base_url: https://api.openai.com/v1
+  temperature: 0.1
+  max_risk_scale: 0.6
+  cooldown_bars: 12
+  timeout_s: 20
+live:
+  deriv:
+    app_id: '1089'
+    endpoint: wss://ws.derivws.com/websockets/v3
+    token_env: DERIV_API_TOKEN
+    default_symbol_map:
+      R_75: R_75
+      R_100: R_100
+      BOOM500: BOOM500
+      CRASH500: CRASH500
+      stpRNG: stpRNG
+    stake_currency: USD
+    max_stake_pct: 0.05
+  alpaca:
+    endpoint: https://paper-api.alpaca.markets
+    key_env: ALPACA_KEY_ID
+    secret_env: ALPACA_SECRET_KEY
+backtest:
+  start: 2024-01-01
+  end: 2025-12-31
+  bar: 1h
+  bars_per_year: 6240
+  slippage_bps: 1.0
+  warmup_bars: 0
+api:
+  host: 0.0.0.0
+  port: 8000
+  stream_hz: 2

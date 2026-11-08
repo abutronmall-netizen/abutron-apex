@@ -1,0 +1,47 @@
+name: APEX 1.1.0 — source integrity and offline tests
+on:
+  push:
+    branches:
+      - import/apex11-clean-source-20261108
+  pull_request:
+    paths:
+      - 'apex11/**'
+      - '.github/workflows/apex11-offline-ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  offline-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout reviewed source
+        uses: actions/checkout@v4
+      - name: Configure Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify committed source hashes and completeness
+        working-directory: apex11
+        run: |
+          python - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          report=json.loads(Path('SOURCE_IMPORT_AUDIT.json').read_text())
+          assert report['imported_source_text_files']==97
+          for row in report['files']:
+              path=Path(row['path'])
+              assert path.is_file(), f'Missing source file: {path}'
+              actual=hashlib.sha256(path.read_bytes()).hexdigest()
+              assert actual==row['sha256'], f'Drift in source file: {path}'
+          print('APEX_SOURCE_97_FILE_SHA256_VERIFIED')
+          PY
+      - name: Install isolated offline test dependencies
+        run: python -m pip install --disable-pip-version-check -r apex11/requirements.txt
+      - name: Run APEX source offline tests — no broker credentials or orders
+        working-directory: apex11
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: python -m pytest -q -p no:cacheprovider

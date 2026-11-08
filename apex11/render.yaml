@@ -1,0 +1,41 @@
+# Render blueprint — one service, one disk, three roles.
+# Render volumes attach to a single service, so web + collector + trader share one
+# container and are supervised inside it (deploy/entrypoint.py).
+services:
+  - type: web
+    name: apex-desk
+    runtime: docker
+    plan: starter                # 0.5 CPU / 512 MB is enough for the demo loop
+    region: frankfurt            # closest to Deriv's edge for the WS feed
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /healthz
+    autoDeploy: true
+    disk:
+      name: apex-data
+      mountPath: /var/data
+      sizeGB: 5
+    envVars:
+      - key: APEX_DATA_DIR
+        value: /var/data
+      - key: APEX_ROLES
+        value: web,collector,trader
+      - key: APEX_CONFIG
+        value: config/default.yaml
+      - key: APEX_BAR_SECONDS
+        value: "1.0"
+      - key: APEX_COLLECT_MINUTES
+        value: "60"
+      - key: APEX_DERIV_TICK_SECONDS
+        value: "300"
+      # --- secrets -------------------------------------------------------
+      # Only the *bootstrap* token lives on the host; everything else is pulled
+      # at boot from the secrets manager. Set these two in the Render dashboard,
+      # never in this file.
+      - key: APEX_SECRETS
+        sync: false
+      - key: DOPPLER_TOKEN
+        sync: false
+      - key: DOPPLER_PROJECT
+        value: apex
+      - key: DOPPLER_CONFIG
+        value: prd

@@ -1,0 +1,399 @@
+{
+  "archive_sha256": "98f1074c28786bc7f982a9a1a175b492718824449dd301c8e8c2b7b3e016c056",
+  "imported_source_text_files": 97,
+  "excluded_files": [
+    "docs/dashboard.png",
+    "docs/real_equity.png",
+    "ABUTRON_APEX11_CUTOVER_CHECKPOINT_20261108.md"
+  ],
+  "files": [
+    {
+      "path": ".dockerignore",
+      "sha256": "ecfbeaf510a9686052c7ac044bb77bec65dfe13e3908a54fa2f3c96969d295c5"
+    },
+    {
+      "path": ".env.example",
+      "sha256": "8a04518cd520082c74802aa21f2605809f47afbc28f33872a4cfbc3a33a40852"
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "e3ef1c36290318cc298458e6eb2582d1b982e8dc057e914e6db0cba8c339c94a"
+    },
+    {
+      "path": "ABUTRON_REPLACEMENT_PLAN.md",
+      "sha256": "4f9aa632a2cdfd413eafbf23a4a1889263f83f5c1afbc6b884b7bac0dfc95388"
+    },
+    {
+      "path": "CHANGES_FROM_APEX_1_1.md",
+      "sha256": "3cfc6e32365fd1fe6bda1a510bb4734d5415e89a616e65097e64903f6020cff5"
+    },
+    {
+      "path": "CHECKSUMS_SHA256.txt",
+      "sha256": "ea577654c529e36adae06678f9371ccb7317bba5166bb1f945763ceb62354f85"
+    },
+    {
+      "path": "Dockerfile",
+      "sha256": "8bb6c523021e72be34fa00930ea7e2253b1e361c7b6db80903e070993c0cab86"
+    },
+    {
+      "path": "FOUR_BLOCKERS_VERIFIED_OFFLINE_20261108.md",
+      "sha256": "95fe4ba1312b5d9151099471eb82fa37a8cfd280299854728f056438f8111108"
+    },
+    {
+      "path": "INSTALL.md",
+      "sha256": "dc11b509ff1b96252e0102d51435f18ce13965904e319589bc9ef7795c9be242"
+    },
+    {
+      "path": "Makefile",
+      "sha256": "dee9b5597a6c1e7e368a6d124bf2ad71629e38594453972a89e50f1ad2ce67cd"
+    },
+    {
+      "path": "OFFLINE_TEST_RESULTS.txt",
+      "sha256": "a9d6c55ed9d807b32d5bf39b92352c1be384488db2b8135a515cc9266b970a29"
+    },
+    {
+      "path": "PRODUCTION_INTERFACE_VERIFIED_2026-11-08.md",
+      "sha256": "886877cf2c61784301d9342b79cf40dc80fde127615b01442251c727222fbb23"
+    },
+    {
+      "path": "README.md",
+      "sha256": "4437d82e0d55ec17b35cf41a2309ba2dc0e718e55b08063e7643276106bcced7"
+    },
+    {
+      "path": "README_REPLACEMENT_STATUS.md",
+      "sha256": "358003b8075ab222d045205efe7ab631cb10032edac474a65802d9743b52b776"
+    },
+    {
+      "path": "USER_REQUESTED_REMOVALS.md",
+      "sha256": "06e5c1f77b0e377e0a4351ba07920ec394eb5189cc830ca029e5c383cb6957d3"
+    },
+    {
+      "path": "VERSION",
+      "sha256": "1575e1af4a95f12f70b4ee6a6adce8160953d93ea17dc2611b90883ccc3ad3b8"
+    },
+    {
+      "path": "abutron_replacement/__init__.py",
+      "sha256": "e623e883cb2445d605571265785db40284e84119089495d4ec77e81632aa78d2"
+    },
+    {
+      "path": "abutron_replacement/bridge.py",
+      "sha256": "a240bfd25eda49042c104766df60bd61565db0b1cd21950adfea78b263049e59"
+    },
+    {
+      "path": "abutron_replacement/candidate_contract.py",
+      "sha256": "8f9c3c2bb57e307a4c1fdc2ffb39748beb73028cdb4e321fe902491d0eea6e7e"
+    },
+    {
+      "path": "abutron_replacement/cost_validation.py",
+      "sha256": "283254bede0a4da0d71c70d1bd894a3a8cea39445e4e5d0880f5c96a7a5ba858"
+    },
+    {
+      "path": "abutron_replacement/fp_clock.py",
+      "sha256": "a81752dac90040a0c896c76aeb754eba6538421807b236a1ae1561b702dc777a"
+    },
+    {
+      "path": "abutron_replacement/long_history.py",
+      "sha256": "f4c5d7d7794752d7f57a293ba825bcd1a0631a4544f0ba55402e463d62115f62"
+    },
+    {
+      "path": "abutron_replacement/offline_archive_cost_replay.py",
+      "sha256": "17ae8f63d4755cbb2cc386415f51260d059f1af12ebed5e595829c708509b143"
+    },
+    {
+      "path": "abutron_replacement/offline_shadow_runner.py",
+      "sha256": "66074c28bf1d78cf01c8e423a7511341bbf5e2fbbab43c0598a4cdda8aa398f1"
+    },
+    {
+      "path": "abutron_replacement/production_contracts.py",
+      "sha256": "0b80a62d006fc77f6e2455c8165d4e3d19322d1ccf148d2072ce3a24d28f181f"
+    },
+    {
+      "path": "apex/__init__.py",
+      "sha256": "3b7ce1798329de3a7d01f873a95a7886cb80cba5fce98ec3ba988eef415d9983"
+    },
+    {
+      "path": "apex/agents/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apex/agents/base.py",
+      "sha256": "7b747350296d241cd88875a4b7919f193e1842a01a3351c1307cd6bd4d665d7b"
+    },
+    {
+      "path": "apex/agents/execution.py",
+      "sha256": "f8468a660efe70dc516974282c02cda1c5be866f089ab648a9021f9f083b459e"
+    },
+    {
+      "path": "apex/agents/portfolio.py",
+      "sha256": "36a6d9f93d250867015196ed2cbbaa14eab754a241b688d02308483d3b11cde5"
+    },
+    {
+      "path": "apex/agents/regime.py",
+      "sha256": "183a4b85bd64a69671afadb21334ddc1fd585688277cf6174aebb72877c62c14"
+    },
+    {
+      "path": "apex/agents/research.py",
+      "sha256": "55b273971362b7cb7428fcafd99633daba4d528f7b83be8e4df2595e43ebeeb8"
+    },
+    {
+      "path": "apex/agents/risk.py",
+      "sha256": "97bf54dc34b042562bd66f424227e663ea7d8455b4785e11b620d1b64d389e07"
+    },
+    {
+      "path": "apex/agents/signals.py",
+      "sha256": "96137615a498e3b2485af2619fd251b781d78ea58d20632fc192feb180828561"
+    },
+    {
+      "path": "apex/api/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apex/api/server.py",
+      "sha256": "9fdd6a544cc7ca61c6eb6d8ac1973ca1b254342362da3472ad3b8e2395e83085"
+    },
+    {
+      "path": "apex/api_server.py",
+      "sha256": "15680c2c47e41e6f325e540442337e0d9fa1424febe508f0c52a2e52e0f76943"
+    },
+    {
+      "path": "apex/backtest/__init__.py",
+      "sha256": "763d8be6ecfeed9e8f2ea4c66ea9f2cfea322da3f45d3f8c5b3c95474eab4613"
+    },
+    {
+      "path": "apex/backtest/metrics.py",
+      "sha256": "82c56cbaa4e9fd097ce266acf3c9858178c1e66edee3d8568b8d635f97b9da9a"
+    },
+    {
+      "path": "apex/backtest/runner.py",
+      "sha256": "18d645b6a176b287ebbd9cdf9da579ac0152b02c61e359ad26aa9f19be0cb562"
+    },
+    {
+      "path": "apex/brokers/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apex/brokers/adapters.py",
+      "sha256": "45ee809029f7d198ca667d0c8c04b98062541c4577f5d7c101d8d43ed1e53a62"
+    },
+    {
+      "path": "apex/brokers/base.py",
+      "sha256": "648a5b8afad10a65b16eaaa4549e3d073bdb73d83040bb386228833170a4a88e"
+    },
+    {
+      "path": "apex/brokers/paper.py",
+      "sha256": "19337ac9533e958441dae5724a711ad8eafa764226b359733ee1dbb4a9e544ca"
+    },
+    {
+      "path": "apex/config.py",
+      "sha256": "09e123e6428f1f5f147af401af9d9d8341a9414bda18ed14ff69831e644043c0"
+    },
+    {
+      "path": "apex/core/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apex/core/bus.py",
+      "sha256": "845826445e00883b23c4cfb04f3e3e8872c332ff84754ce51f86cf5fa63fcd1b"
+    },
+    {
+      "path": "apex/core/history.py",
+      "sha256": "9f4f9e7b2e63c23c70673c2b1dee3014d9096190d56640006c6f8402468d0abd"
+    },
+    {
+      "path": "apex/core/models.py",
+      "sha256": "1158f0fd2458b90c8fff30adc029ec2010696c301b6cd85d3c271f1b36b817df"
+    },
+    {
+      "path": "apex/data/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "apex/data/base.py",
+      "sha256": "f57c45f7a4811c0392c99b5daeb8612913cab17294733af0c9a726ee46e7cce1"
+    },
+    {
+      "path": "apex/data/deriv_ws.py",
+      "sha256": "83d924e82ce3d2d9d507d34fea01f483248d958083cafab989b03d305211fd1b"
+    },
+    {
+      "path": "apex/data/real.py",
+      "sha256": "4d706c94663851b55ba9349da36fc1b660a8eb775d2f74041c67266d8ebe96b1"
+    },
+    {
+      "path": "apex/data/synthetic.py",
+      "sha256": "3bef07161a18eb088e6873bb457d8b2fc6365a9cd8c732bb6bd73f3d90450dd9"
+    },
+    {
+      "path": "apex/engine.py",
+      "sha256": "511a6723959596ad4a608ea8cde4bbdde2f56fc46d966f56408b955f945fbbc7"
+    },
+    {
+      "path": "apex/live.py",
+      "sha256": "69b2a9c6db9f38d8a91f77bf2a8925edf17b61f7ac203c24aa963bb7bf4ed250"
+    },
+    {
+      "path": "apex/llm/__init__.py",
+      "sha256": "a4cac7cfae97fba355d9068a72a7173811cd024fd5b8489a6212c9245fce6afb"
+    },
+    {
+      "path": "apex/llm/advisor.py",
+      "sha256": "51193617870fb87ea182cd09f101875a0cbad4b2ff9393db1668d9f24000bd12"
+    },
+    {
+      "path": "apex/memory.py",
+      "sha256": "025df5bbfe5e5ca69243810e208e3c7ebc088fc417e5abd504a0ea06c369bf86"
+    },
+    {
+      "path": "apex/paths.py",
+      "sha256": "3b1f52d931add760ab6ee0ab4870ebfe8ee21e7906853ce671619f9d9dd60aeb"
+    },
+    {
+      "path": "apex/risk/__init__.py",
+      "sha256": "e84e0fb48796d452f7dfd8bf698f66cb30b50b9aad1564d387c27023af188112"
+    },
+    {
+      "path": "apex/risk/limits.py",
+      "sha256": "92d8159021aa0f14b797718f401f538c767138ffa70889698f3d71fcce08e6cc"
+    },
+    {
+      "path": "apex/secrets.py",
+      "sha256": "2a8fccaf87587ecaf85b7d1f913ef23d3444fdbdb35041a0ccbf5e58e827c20b"
+    },
+    {
+      "path": "apex/strategy/__init__.py",
+      "sha256": "fc1a04f27754be85a0c3648623a3718b633e6800ba0f9159fb5258ec8cfc6273"
+    },
+    {
+      "path": "apex/strategy/indicators.py",
+      "sha256": "dac419360512e286af6b5fd63d95aff766061a9fbce366a9b5d16c8050a315a6"
+    },
+    {
+      "path": "config/abutron_signal_only.yaml",
+      "sha256": "36f518da5ef2b401877d1ed780f8f1d07e6e019d34c8c3899850e332949cfd59"
+    },
+    {
+      "path": "config/default.yaml",
+      "sha256": "bac16f7760fac78a306ccdaa7361bcc8fcae6bc3cf7e9ad908531ffc46cd2238"
+    },
+    {
+      "path": "config/deriv_only.yaml",
+      "sha256": "a527cc01c5a56ff288715cb4970392c888c3e38345ff490d95b6e496da0d0dcd"
+    },
+    {
+      "path": "deploy/entrypoint.py",
+      "sha256": "84a463ebe4099655eb111bc47b3cb0b57f97cb4ad1ebdd5f2b4e33d7014c27f3"
+    },
+    {
+      "path": "docs/deploy.md",
+      "sha256": "63e5ee8371fb8d7cb8da74018cb8c417e4a972604eeb365df68f7b4af23f8cff"
+    },
+    {
+      "path": "docs/from-the-five-repos.md",
+      "sha256": "3e638f658e909acefded7e8a893dde4aaf60185963d312dc0476a627e5f580e9"
+    },
+    {
+      "path": "docs/real-data-test.md",
+      "sha256": "79ce183ec9801c8361e0e749c238f844c16fdbdf5f0d28afbb1bf9f690571bfd"
+    },
+    {
+      "path": "docs/tauric-integration.md",
+      "sha256": "730e9fbec7c719ac8ccaddedb83aa748a97ffe397b56bc9b76f6dbe55477cd78"
+    },
+    {
+      "path": "examples/deriv_spread_reference_FROM_NATIVE_20261106_NO_SLIPPAGE.json",
+      "sha256": "af7347a824ea42d6e2e489b878917cfe63a1cf3727402c68ced900193e0879e2"
+    },
+    {
+      "path": "examples/inspect_offline.py",
+      "sha256": "8fd66cfe52c77b53af5d9174d0267da6c17a671f5b3e3fcdfc5b123ab05f9a86"
+    },
+    {
+      "path": "examples/manifest_EXAMPLE_NOT_REAL_COSTS.json",
+      "sha256": "bea6712af63d44ba9b92e819795930a647f5ddaaec85c7a9f95f1e381f778dd1"
+    },
+    {
+      "path": "fly.toml",
+      "sha256": "e1d01ffd4b3231165eae9e48cea22b79fe3bdbd2cc426f52232e37a50448490c"
+    },
+    {
+      "path": "install.sh",
+      "sha256": "8e13665a1079f40edb6501a6a88f84aae888dce5afe502e117dd4677cecfc391"
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "b96901e6d78faf235f91036a2ade7bf210c663f32f4a4030a5dc9c360b07c110"
+    },
+    {
+      "path": "render.yaml",
+      "sha256": "bc44d3353832195a8644c795cc56b28a5834fd76286713049200c5a24e1683ed"
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "0702d2f47251ec5760ba9d4009ae11108a9c13684df3bf0ad9ad1c969cb4864c"
+    },
+    {
+      "path": "scripts/agent_ablation.py",
+      "sha256": "e27bfc6a4b4fe5c917bd34ad6eb2445a11929aca355b3b7878ec4756a67e9604"
+    },
+    {
+      "path": "scripts/check_server.py",
+      "sha256": "1d0fd7f567a86ad99b75719b9091f38dbfd282e5293d05ca89ab664f1e94ded2"
+    },
+    {
+      "path": "scripts/collect.py",
+      "sha256": "b584d3cb5d0139d0975829e595d1067a60aaed3dce43f3b8ba246dbd34c96590"
+    },
+    {
+      "path": "scripts/make_snapshot.py",
+      "sha256": "26a435032f07dd0ab404cc68e2b5859006ce9198cf406fb7411d2295009225a1"
+    },
+    {
+      "path": "scripts/remote_report.py",
+      "sha256": "2b6f505604ec27680cf0abaea37757a2ee3bf7aae35eab32fa99f02976749b09"
+    },
+    {
+      "path": "scripts/run_backtest.py",
+      "sha256": "dd59cc6763ee9b9901b5a38d77d051db325d46c22fadfaf05677bcb524d8ba95"
+    },
+    {
+      "path": "scripts/run_deriv.py",
+      "sha256": "621e1134b258a03243a083ce338563eb9081a4aab17d83c41f89593c318c08b1"
+    },
+    {
+      "path": "scripts/run_real.py",
+      "sha256": "c4a4745799713eec293819ec7683c891e42ac2b5468a66bb73658c270300218c"
+    },
+    {
+      "path": "scripts/run_server.py",
+      "sha256": "77eb0a87b9435f6f62d47981e961e58a5948028f5c7c0ba6adce2bd3dc30dcb1"
+    },
+    {
+      "path": "scripts/sweep.py",
+      "sha256": "dd2b90bb10546d1514e39ff18d2512ec90bb662126195235c54176fbb4e87cfa"
+    },
+    {
+      "path": "tests/test_abutron_replacement.py",
+      "sha256": "a9baf14a5d257244670da114bdfd3f5fe7e333ad3509f6b11eb96e9ebcca9c5a"
+    },
+    {
+      "path": "tests/test_apex.py",
+      "sha256": "dcaa54caa5a1d56cf8036ca2c3727e876e15d79b91fb892f3cad8967430db10e"
+    },
+    {
+      "path": "tests/test_hardening_4_blockers.py",
+      "sha256": "20fa7bba133e026527caf516976f94cd7d7a4fb41bdacf3e86cc092d4700ac38"
+    },
+    {
+      "path": "tests/test_production_contracts.py",
+      "sha256": "5b0e39b71e749559779e9426b06887fcde695aac0c2e179a82d2b630a83b9890"
+    },
+    {
+      "path": "tests/test_user_requested_gate_removals.py",
+      "sha256": "cbf6427d4ecb9136fa5d46f8e07db4d0c0f946ce63a48fbba470b7a4f3e2b200"
+    },
+    {
+      "path": "ui/dashboard.html",
+      "sha256": "0196f5edd1bbc7bab340396b8e47fcf04eb32256afbc14e887880ad2cb13f5c9"
+    }
+  ]
+}

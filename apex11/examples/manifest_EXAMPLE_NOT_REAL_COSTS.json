@@ -1,0 +1,7 @@
+{
+  "WARNING": "HYPOTHETICAL TEST VALUES ONLY. REPLACE USING AUTHENTICATED MT5 SYMBOL METADATA.",
+  "universe": [
+    {"symbol":"R_75","broker":"deriv","asset_class":"deriv_synthetic","tick_size":0.0001,"spread_bps":3.0,"commission_bps":0.0,"annual_vol":0.75,"max_weight":0.2,"timeframe_seconds":300},
+    {"symbol":"EURUSD.r","broker":"fp_markets","asset_class":"fx_index","tick_size":0.00001,"spread_bps":3.0,"commission_bps":1.0,"annual_vol":0.08,"max_weight":0.2,"timeframe_seconds":300}
+  ]
+}

@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "apex-agentic-trader"
+version = "1.1.0"
+description = "APEX — agentic multi-asset portfolio execution engine with a risk governor"
+requires-python = ">=3.10"
+dependencies = [
+  "numpy>=1.26", "pandas>=2.0", "PyYAML>=6.0",
+  "fastapi>=0.110", "uvicorn[standard]>=0.29",
+]
+
+[project.optional-dependencies]
+live = ["websockets>=12.0"]
+dev = ["pytest>=8.0", "httpx>=0.27"]
+
+[project.scripts]
+apex-backtest = "apex.backtest.runner:main"
+apex-dashboard = "apex.api.server:main"
+
+[tool.setuptools.packages.find]
+include = ["apex*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
