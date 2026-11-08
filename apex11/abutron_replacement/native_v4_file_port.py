@@ -142,9 +142,7 @@ class NativeV4FilePort:
         entry=Decimal(str(evidence.native.price))
         stop=_decimal(request.stop_price)
         take=_decimal(request.take_price)
-        if (evidence.proposal.symbol != request.symbol or
-                vol <= 0 or request.symbol != evidence.gate.connection_id and
-                request.symbol != evidence.proposal.symbol):
+        if (evidence.proposal.symbol != request.symbol or vol <= 0):
             raise FeedRefused("V4_INSTRUMENT_OR_LOT_MISMATCH")
         if request.side=="BUY" and not(stop<entry<take):
             raise FeedRefused("V4_BUY_SL_TP_INVALID")
