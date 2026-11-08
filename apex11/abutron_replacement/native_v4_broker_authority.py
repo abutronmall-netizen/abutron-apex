@@ -34,6 +34,28 @@ class Verified6207NativeAuthority:
         self.activation=activation
         self.reservations=reservations
 
+    def attest_session(self, *, customer_id: str, account_id: str,
+                       worker_nonce: str, mt5_login: str, now: datetime) -> int:
+        """Read-only active V4 EA/CRM session proof for native capability.
+
+        The status heartbeat is NOT execution authorization. It must be
+        independently matched to a truly attached V4 EA and checked again
+        for exact proposal+reservation before CLAIM/SEND.
+        """
+        a=self.activation.snapshot(account_id=account_id,
+                                   customer_id=customer_id,now=now)
+        if (a.broker!="deriv" or a.environment!="DEMO" or not a.desired_on or
+                not a.effective_on or a.kill_switch):
+            raise FeedRefused("NATIVE_SESSION_ACCOUNT_NOT_EFFECTIVE")
+        e=self.supervisor.attest(customer_id=customer_id,
+                    account_id=account_id,observed_at=now)
+        _evidence(e,customer_id=customer_id,account_id=account_id,
+                  now=now,revision=a.revision)
+        if (e.mt5_login!=mt5_login or e.worker_nonce!=worker_nonce or
+                not self.supervisor.verify_unchanged(evidence=e,observed_at=now)):
+            raise FeedRefused("NATIVE_SESSION_WORKER_MISMATCH")
+        return a.revision
+
     def assert_eligible(self, *, identity: NativeOrderIdentity,
                         phase: str, now: datetime) -> None:
         if phase not in ("CLAIM","SEND"):
