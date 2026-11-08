@@ -485,8 +485,53 @@ bool PortfolioCanAdd(string next_symbol)
 // MQL5 WebRequest requires operator-approved 127.0.0.1 URL in MT5 settings.
 // NO LIVE mode. The root process must validate broker+CRM independently.
 #define V4_LOCAL_GUARD_URL "http://127.0.0.1:19743/v4/guard"
+#define V4_LOCAL_STATUS_URL "http://127.0.0.1:19743/v4/status"
 #define V4_LOCAL_TOKEN_FILE "ABUTRON\\v4-guardian-worker.token"
 string gV4LeaseID="";
+
+bool V4WorkerToken(string &token)
+{
+ int f=FileOpen(V4_LOCAL_TOKEN_FILE,FILE_READ|FILE_TXT|FILE_ANSI,0,CP_UTF8);
+ if(f==INVALID_HANDLE)return false;
+ token=FileReadString(f);
+ bool end=FileIsEnding(f);
+ FileClose(f);
+ return end&&IsHex64(token);
+}
+
+// Read-only status is fetched exclusively from the privileged supervisor.
+// A local ON file or the mere existence of this EA never constitutes proof.
+// Only a verified, root-owned backend session can supply an active revision.
+void WriteV4Capability()
+{
+ if(!EnableNativeDemoOrders||!EnableApex11V4DemoOrders||
+    !VerifiedDemoAccount()||gNonce==""||gLogin=="")return;
+ string token="";
+ if(!V4WorkerToken(token))return;
+ char data[],result[];
+ string responseHeaders="";
+ string headers="X-Abutron-Worker-Token: "+token+"\r\n";
+ ResetLastError();
+ int code=WebRequest("GET",V4_LOCAL_STATUS_URL,headers,550,
+                     data,result,responseHeaders);
+ if(code!=200)return;
+ string reply=CharArrayToString(result,0,-1,CP_UTF8);
+ StringTrimRight(reply);
+ if(StringSubstr(reply,0,7)!="STATUS|")return;
+ string revisionText=StringSubstr(reply,7);
+ long revision=(long)StringToInteger(revisionText);
+ if(revision<1||revisionText!=IntegerToString(revision))return;
+ string name="ABUTRON_APEX_NATIVE_V4_CAPABILITY_"+gNonce+".txt";
+ int h=FileOpen(name,FILE_WRITE|FILE_TXT|FILE_ANSI,0,CP_UTF8);
+ if(h==INVALID_HANDLE)return;
+ string body="APEX_NATIVE_REVISION_FENCED_CAPABILITY_V4\r\n"+
+  gNonce+"\r\n"+gLogin+"\r\n"+gServer+"\r\nDEMO\r\n"+
+  revisionText+"\r\n"+IntegerToString((long)TimeGMT())+"\r\n"+
+  "0.10\r\nOFF_REVISION_CHECK_AT_CONSUME\r\nLIVE_FORBIDDEN\r\n";
+ FileWriteString(h,body);
+ FileFlush(h);
+ FileClose(h);
+}
 
 bool V4RevisionAuthorized(string signalKey,long crmRevision,string phase,
                           string symbol,string side,string lotsText,
@@ -499,12 +544,8 @@ bool V4RevisionAuthorized(string signalKey,long crmRevision,string phase,
     return false;
  if(phase=="SEND"&&!IsHex64(gV4LeaseID))return false;
  // Missing token or unallowed localhost WebRequest is an absolute denial.
- int f=FileOpen(V4_LOCAL_TOKEN_FILE,FILE_READ|FILE_TXT|FILE_ANSI,0,CP_UTF8);
- if(f==INVALID_HANDLE)return false;
- string token=FileReadString(f);
- bool end=FileIsEnding(f);
- FileClose(f);
- if(!end||!IsHex64(token))return false;
+ string token="";
+ if(!V4WorkerToken(token))return false;
  string lease=(phase=="CLAIM"?"-":gV4LeaseID);
  string body="ABUTRON_V4_LOCAL_GUARD_V1\r\n"+phase+"\r\n"+
              gNonce+"\r\n"+signalKey+"\r\n"+gLogin+"\r\n"+
@@ -899,6 +940,7 @@ void OnTimer()
     Print("APEX_V2_BROKER_FEED_RECOVERED_AFTER_",gConsecutiveFeedFailures,"_CHECKS");
  gConsecutiveFeedFailures=0;
  WriteReadiness();WriteOptionCAdaptiveCapability();WriteExecutionAuditReady();UpdateEvidence();
+ WriteV4Capability();
  // LEGACY_V2_V3_CONSUMPTION_DISABLED: do not call HandleRequest().
  HandleV4Request();
  AuditSpreadPulse();
