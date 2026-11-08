@@ -32,7 +32,7 @@ def make(tmp_path):
     with socket.socket() as sock:
         sock.bind(("127.0.0.1",0))
         port=sock.getsockname()[1]
-    server=make_local_guardian(fence=fence,pinned=pinned,port=port)
+    server=make_local_guardian(fence=fence,pinned=pinned,port=port,clock=lambda:START)
     worker=threading.Thread(target=server.serve_forever,daemon=True)
     worker.start()
     return act,i,broker,fence,server,worker,port
