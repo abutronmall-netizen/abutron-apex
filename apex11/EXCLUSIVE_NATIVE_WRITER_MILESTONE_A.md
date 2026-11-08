@@ -64,3 +64,31 @@ Owner's 2026-11-08 05:18 UTC read-only production code inspection verifies:
    Do not bypass broker stop/risk checks or turn on LIVE.
 
 Mock unit tests passing cannot certify Step 1–4 or claim full Milestone A.
+
+
+## Account-bound V4 native file port added
+
+The new native_v4_file_port.py is a concrete atomic filesystem transport
+implementation. It writes a 13-line order request to a **new name**
+ABUTRON_APEX_V4.req with protocol APEX_NATIVE_ACCOUNT_BOUND_ORDER_V4.
+
+The body contains actual reserved broker lots and explicit protected SL/TP
+prices plus the exact CRM activation revision. It does not accept V3's
+AUTO lot recalculation or STRUCTURE_M5 unspecified stops. It verifies the
+MT5 worker account, nonce, trusted non-root UID, native-only V4 capability
+heartbeat, absence of pending V3/V4 request and prior receipt, and can only
+publish a file once using fsync plus atomic hard-link create.
+
+The exact V4 capability file and parsing protocol are a **new proposed EA
+contract**. No installed MQL5 EA currently produces or consumes it, and
+this port must NEVER be pointed at an existing V3 EA or treated as proof
+of broker dispatch. Actual V4 native EA source, binary signature, timeout
+handling, broker OrderCheck/OrderCalcProfit, CRM revision recheck at
+OrderSend, and receipt evidence still require end-to-end implementation.
+
+Broker receipt reconciliation now requires the original persisted
+customer-owned reservation volume and a fresh native position snapshot,
+including when the portal account has subsequently turned OFF.
+
+All tests for these modules use mock broker objects / local temporary
+filesystems, not authenticated MT5 orders.
