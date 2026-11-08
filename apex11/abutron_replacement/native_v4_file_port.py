@@ -172,7 +172,9 @@ class NativeV4FilePort:
                request.volume_lots,request.stop_price,request.take_price,
                str(request.activation_revision),str(request.expires_at_utc),
                "SEND_DEMO_ONLY"]
-        content=("\n".join(lines)+"\n").encode("ascii")
+        # MQL5 FileReadString(FILE_TXT) uses CRLF record delimiters.
+        # Explicit CRLF prevents a 13-field V4 request being misparsed.
+        content=("\r\n".join(lines)+"\r\n").encode("ascii")
         dirfd=os.open(folder,os.O_RDONLY|getattr(os,"O_DIRECTORY",0)
                       |getattr(os,"O_NOFOLLOW",0))
         name=".abutron-apex11-"+request.signal_id+".tmp"
