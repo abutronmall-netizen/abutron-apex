@@ -1,0 +1,11 @@
+{
+  "source_zip_sha256": "98f1074c28786bc7f982a9a1a175b492718824449dd301c8e8c2b7b3e016c056",
+  "changes": [
+    {
+      "path": "apex/risk/limits.py",
+      "original_sha256": "92d8159021aa0f14b797718f401f538c767138ffa70889698f3d71fcce08e6cc",
+      "patched_sha256": "ae0c8ea1bba9072b1880c54f36d501202e4bccbacfd62b941f67e4ecc5f9249f",
+      "reason": "Floating-point covariance shrinkage may put an exactly-threshold 0.85 correlation one ULP below the comparison; apply a 1e-12 absolute tie tolerance without changing the threshold."
+    }
+  ]
+}
