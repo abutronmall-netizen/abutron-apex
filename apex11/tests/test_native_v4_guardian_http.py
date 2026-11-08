@@ -95,8 +95,8 @@ def test_wrong_token_method_path_account_and_phase_denied(tmp_path):
         assert post(port,raw(i),token="")== (403,"DENY\n")
         assert post(port,raw(i),path="/other")== (403,"DENY\n")
         assert post(port,raw(i),method="GET")==(405,"DENY\n")
-        assert post(port,raw(i),overrides={4:"1000512"})==(403,"DENY\n")
-        assert post(port,raw(i),overrides={6:"GBPUSD"})==(403,"DENY\n")
+        assert post(port,raw(i,overrides={4:"1000512"}))==(403,"DENY\n")
+        assert post(port,raw(i,overrides={6:"GBPUSD"}))==(403,"DENY\n")
         assert post(port,raw(i),phase="SEND",lease="0"*64)==(403,"DENY\n")
         assert not b.attempts
     finally:
