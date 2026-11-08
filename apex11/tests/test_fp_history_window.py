@@ -1,6 +1,5 @@
 """Offline-only FP Markets native clock regression tests. No broker or MT5."""
 from datetime import datetime, timezone
-from dataclasses import replace
 import pytest
 
 from abutron_replacement.fp_history_window import (
@@ -73,7 +72,7 @@ def test_raw_server_time_does_not_hide_utc_last_quote_staleness():
     ({"tag": "DISPATCH_ENABLED"}, "TAG"),
     ({"at": SUNDAY - 180}, "EXPORT_STALE"),
     ({"end_server": SUNDAY + 7200 + 300}, "FUTURE_END"),
-    ({"end_server": 1}, "UTC_WINDOW_INVALID"),
+    ({"end_server": 1}, "BEGIN_MALFORMED"),
 ])
 def test_invalid_or_untrusted_header_is_rejected(change, reason):
     with pytest.raises(FeedRefused, match=reason):
