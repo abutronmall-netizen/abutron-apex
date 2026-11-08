@@ -2,6 +2,12 @@
 
 **Status: source implementation + isolated native compilation and offline contract tests. NOT production-enabled.**
 
+## Final native QA with read-only capability
+
+- Final MQL5 EA source blob `9e3a9487f6931554f79f4a2596ebf3460004f81a` (V4 capability status + CLAIM/SEND).
+- Disposable, Authenticode-signed MetaQuotes Windows MetaEditor run [42459796202](https://github.com/abutronmall-netizen/abutron-ops/actions/runs/42459796202): **0 errors, 0 warnings**, 4,033 ms. Built 87,218-byte EX5 SHA256 `458afad273cb5c2446f52d766d2617cc277bca6b1e990450bb6955c2da64973a`.
+- This binary is **UNAPPROVED for production**. No root-owned guardian daemon or actual current portal/CRM/MT5 session verifier is deployed. The Deriv 6207 installed V2 EX5 and all demo/live trade switches remain unchanged.
+
 ## Verified source and build
 
 - MQL5 original adaptive execution source (November 7 recovered) remains the base; original `AdaptiveRiskProofV2.mqh` SHA256 `e2e4e01ef5e96f888f687a45e21de83cfc78b419787a0c3667d96914d1cc3c44`.
