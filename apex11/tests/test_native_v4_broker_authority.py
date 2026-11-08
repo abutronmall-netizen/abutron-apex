@@ -98,3 +98,22 @@ def test_no_order_result_never_faked_by_broker_authority(tmp_path):
         desired_on=False,expected_revision=a.revision,now=now)
     assert fence.off_state(customer_id=OWNER,account_id=CID,
         now=now)=="STOPPING_BROKER_RECONCILIATION_REQUIRED"
+
+
+def test_native_v4_status_requires_active_broker_attested_session(tmp_path):
+    x,i,authority,fence,now=build(tmp_path)
+    assert authority.attest_session(
+        customer_id=OWNER,account_id=CID,worker_nonce=i.worker_nonce,
+        mt5_login=i.login,now=now)==i.revision
+    with pytest.raises(FeedRefused,match="WORKER_MISMATCH"):
+        authority.attest_session(
+            customer_id=OWNER,account_id=CID,worker_nonce="0"*32,
+            mt5_login=i.login,now=now)
+    a=x["activation"].snapshot(account_id=CID,customer_id=OWNER,now=now)
+    x["activation"].request(
+        account_id=CID,customer_id=OWNER,desired_on=False,
+        expected_revision=a.revision,now=now)
+    with pytest.raises(FeedRefused,match="ACCOUNT_NOT_EFFECTIVE"):
+        authority.attest_session(
+            customer_id=OWNER,account_id=CID,worker_nonce=i.worker_nonce,
+            mt5_login=i.login,now=now)
