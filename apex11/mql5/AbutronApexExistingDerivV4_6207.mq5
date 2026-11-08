@@ -10,7 +10,7 @@ input bool AdaptiveV2ReconcilerApproved = false; // OFF until native V2 lifecycl
 // Native V4 is inert until BOTH supervisor and EA revision checks are proven.
 input bool EnableApex11V4DemoOrders = false;
 // Previous V3 request path remains present but disabled by default for exclusive-writer handoff.
-input bool EnableLegacyNativeRequests = false;
+// The old V2/V3 writer is permanently disabled in this V4-only build.
 
 #define DIR_BASE "ABUTRON\\"
 #define DIR_RECEIPTS "ABUTRON\\receipts\\"
@@ -98,10 +98,8 @@ void WriteOptionCAdaptiveCapability()
  string name="ABUTRON_OPTIONC_DERIV_CAPABILITY_V2_"+gNonce+".txt";
  int h=FileOpen(name,FILE_WRITE|FILE_TXT|FILE_ANSI,0,CP_UTF8);
  if(h==INVALID_HANDLE)return;
- int approved=(int)(EnableNativeDemoOrders&&EnableAdaptiveEquityV2&&
-    AdaptiveV2ReconcilerApproved&&VerifiedDemoAccount()&&
-    TerminalInfoInteger(TERMINAL_TRADE_ALLOWED)&&
-    AccountInfoInteger(ACCOUNT_TRADE_ALLOWED));
+ // Old V2/3 proof MUST NOT claim it can authorize new orders.
+ int approved=0;
  string body="APEX_OPTIONC_ADAPTIVE_CAPABILITY_V2\r\n"+gNonce+"\r\n"+
     gLogin+"\r\n"+gServer+"\r\nDERIV\r\n"+
     IntegerToString((long)TimeGMT())+"\r\n"+IntegerToString(approved)+
@@ -120,7 +118,7 @@ void WriteReadiness()
  if(h!=INVALID_HANDLE)
  {
   FileWriteString(h,"APEX_NATIVE_BRIDGE_READY_V2\r\n"+base+
-                    IntegerToString((long)EnableNativeDemoOrders)+"\r\n");
+                    IntegerToString((long)0)+"\r\n");
   FileFlush(h);FileClose(h);
  }
  // Distinct capability proof: only a multi-position-capable V2 EA writes this.
@@ -130,7 +128,7 @@ void WriteReadiness()
  if(mh!=INVALID_HANDLE)
  {
   FileWriteString(mh,"APEX_NATIVE_BRIDGE_READY_V3\r\n"+base+
-    IntegerToString((long)EnableNativeDemoOrders)+"\r\n");
+    IntegerToString((long)0)+"\r\n");
   FileFlush(mh);FileClose(mh);
  }
  // Exact new policy marker; only the $50/$100 build emits this proof.
@@ -140,7 +138,7 @@ void WriteReadiness()
  if(ph!=INVALID_HANDLE)
  {
   FileWriteString(ph,"APEX_NATIVE_BRIDGE_USD_50_100_V1\r\n"+base+
-    IntegerToString((long)EnableNativeDemoOrders)+"\r\n");
+    IntegerToString((long)0)+"\r\n");
   FileFlush(ph);FileClose(ph);
  }
  // Keep the existing production dashboard/preflight V1 reader compatible.
@@ -845,7 +843,7 @@ void OnTimer()
     Print("APEX_V2_BROKER_FEED_RECOVERED_AFTER_",gConsecutiveFeedFailures,"_CHECKS");
  gConsecutiveFeedFailures=0;
  WriteReadiness();WriteOptionCAdaptiveCapability();WriteExecutionAuditReady();UpdateEvidence();
- if(EnableLegacyNativeRequests)HandleRequest();
+ // LEGACY_V2_V3_CONSUMPTION_DISABLED: do not call HandleRequest().
  HandleV4Request();
  AuditSpreadPulse();
 }
