@@ -1,0 +1,248 @@
+# =============================================================
+#  APEX — Agentic Portfolio EXecution engine
+#  Master configuration.  Every value here is overridable with an
+#  environment variable of the same name in UPPER_SNAKE (see apex/config.py).
+# =============================================================
+
+system:
+  name: APEX
+  mode: paper                 # paper | backtest | live_demo | live
+  base_currency: USD
+  seed: 20261101              # deterministic synthetic data
+  log_dir: state
+  decision_log: state/decisions.jsonl
+
+account:
+  starting_equity: 100000.0
+  leverage: 5.0               # max gross notional / equity
+  margin_rate: 0.2            # 20% margin => 5x max
+
+# ------------------------------------------------------------------
+# Universe. asset_class drives limits, cost model and session logic.
+# deriv_synthetic = Deriv-style synthetic indices (24/7, no session).
+# ------------------------------------------------------------------
+universe:
+  - symbol: BTCUSD
+    asset_class: crypto
+    tick_size: 0.5
+    spread_bps: 2.0
+    commission_bps: 2.0
+    annual_vol: 0.55
+    ref_price: 68000
+    max_weight: 0.20
+  - symbol: ETHUSD
+    asset_class: crypto
+    tick_size: 0.05
+    spread_bps: 2.5
+    commission_bps: 2.0
+    annual_vol: 0.65
+    ref_price: 3400
+    max_weight: 0.15
+  - symbol: SPY
+    asset_class: us_equity
+    tick_size: 0.01
+    spread_bps: 0.6
+    commission_bps: 0.2
+    annual_vol: 0.17
+    ref_price: 560
+    max_weight: 0.25
+  - symbol: QQQ
+    asset_class: us_equity
+    tick_size: 0.01
+    spread_bps: 0.7
+    commission_bps: 0.2
+    annual_vol: 0.22
+    ref_price: 480
+    max_weight: 0.20
+  - symbol: NVDA
+    asset_class: us_equity
+    tick_size: 0.01
+    spread_bps: 1.2
+    commission_bps: 0.2
+    annual_vol: 0.48
+    ref_price: 128
+    max_weight: 0.15
+  - symbol: EURUSD
+    asset_class: fx_index
+    tick_size: 0.0001
+    spread_bps: 0.5
+    commission_bps: 0.5
+    annual_vol: 0.08
+    ref_price: 1.0850
+    max_weight: 0.20
+  - symbol: US500
+    asset_class: fx_index
+    tick_size: 0.1
+    spread_bps: 1.2
+    commission_bps: 0.5
+    annual_vol: 0.16
+    ref_price: 5450
+    max_weight: 0.25
+  - symbol: GER40
+    asset_class: fx_index
+    tick_size: 0.1
+    spread_bps: 1.5
+    commission_bps: 0.5
+    annual_vol: 0.19
+    ref_price: 18400
+    max_weight: 0.20
+  # ---- Deriv-style synthetic indices (demo only) -------------------
+  - symbol: R_75
+    asset_class: deriv_synthetic
+    tick_size: 0.0001
+    spread_bps: 1.5
+    commission_bps: 0.0
+    annual_vol: 0.75
+    ref_price: 105000
+    max_weight: 0.15
+    synthetic_model: volatility   # R_* : pure random walk, scaled vol
+  - symbol: R_100
+    asset_class: deriv_synthetic
+    tick_size: 0.0001
+    spread_bps: 1.5
+    commission_bps: 0.0
+    annual_vol: 1.00
+    ref_price: 1600
+    max_weight: 0.15
+    synthetic_model: volatility
+  - symbol: BOOM500
+    asset_class: deriv_synthetic
+    tick_size: 0.0001
+    spread_bps: 2.0
+    commission_bps: 0.0
+    annual_vol: 0.60
+    ref_price: 9800
+    max_weight: 0.12
+    synthetic_model: boom         # slow drift up + violent down spikes
+  - symbol: CRASH500
+    asset_class: deriv_synthetic
+    tick_size: 0.0001
+    spread_bps: 2.0
+    commission_bps: 0.0
+    annual_vol: 0.60
+    ref_price: 7400
+    max_weight: 0.12
+    synthetic_model: crash        # slow drift down + violent up spikes
+  - symbol: stpRNG
+    asset_class: deriv_synthetic
+    tick_size: 0.1
+    spread_bps: 2.0
+    commission_bps: 0.0
+    annual_vol: 0.35
+    ref_price: 9200
+    max_weight: 0.10
+    synthetic_model: step        # discretised random walk, 1-in-5 step days
+
+# ------------------------------------------------------------------
+# Agents
+# ------------------------------------------------------------------
+agents:
+  regime:
+    enabled: true
+    lookback: 240
+    adx_period: 14
+    adx_trend_threshold: 22.0
+    vol_percentile_high: 0.75
+  trend:
+    enabled: true
+    fast: 20
+    slow: 55
+    atr_period: 14
+  mean_reversion:
+    enabled: true
+    lookback: 40
+    entry_z: 1.6
+    exit_z: 0.4
+  breakout:
+    enabled: true
+    channel: 55
+    atr_period: 14
+    atr_buffer: 0.35
+  research:
+    enabled: false                # event-intelligence overlay (down-only). see docs/tauric-integration.md
+    refresh_every: 24             # bars between research calls (low frequency by design)
+    max_veto_bars: 24
+  carry:
+    enabled: true                 # structural drift bias (Boom/Crash synthetics)
+    min_strength: 0.25
+  fusion:
+    min_abs_weight: 0.015         # ignore dust allocations
+    rebalance_threshold: 0.04     # hysteresis: skip |delta weight| below this
+    smoothing: 0.5                # EWMA on target weights (0=no smoothing)
+    rebalance_every: 72           # bars between full re-optimisations (3 days)
+    memory_horizon: 24            # bars until a decision is settled + scored
+    memory_min_obs: 40            # observations before a (agent, regime) cell can vote
+    memory_influence: 0.0         # sizing influence of the memory: 0 = observe-only (default). A/B in docs/tauric-integration.md
+
+risk:
+  target_annual_vol: 0.12         # portfolio vol target
+  vol_target_band: [0.06, 0.30]
+  per_trade_risk_pct: 0.0075      # equity risked per trade (vol-based stop)
+  max_position_weight: 0.25
+  max_asset_class_weight:
+    crypto: 0.30
+    us_equity: 0.45
+    fx_index: 0.40
+    deriv_synthetic: 0.30
+  max_gross_leverage: 2.5
+  max_net_exposure: 1.5
+  max_daily_loss_pct: 0.03
+  max_drawdown_pct: 0.12
+  var_confidence: 0.95
+  var_limit_pct: 0.035            # 1-day 95% VaR cap on equity
+  corr_cluster_limit: 0.85        # corr above this => treat as same cluster
+  cluster_weight_limit: 0.35
+  kill_switch_action: flatten     # flatten | halt
+  stop_atr_mult: 4.0
+  stop_cooldown_bars: 12          # no re-entry for N bars after a stop-out
+
+execution:
+  n_slices: 2                     # child orders per parent
+  latency_bars: 1              # orders fill on a later bar, never the one that generated them
+  working_order_ttl_bars: 3    # unfilled remainder dies after N bars
+  participation_cap: 0.05         # max % of bar volume per slice
+  impact_coef: 0.001              # bps = 1e4 * coef * sqrt(Q/ADV)  (1bp at 1% ADV)
+  min_notional: 50.0
+  latency_ms: 120
+  max_slippage_bps: 25
+
+llm:
+  enabled: false                  # requires OPENAI_API_KEY / APEX_LLM_API_KEY
+  provider: openai
+  model: gpt-4o-mini
+  base_url: https://api.openai.com/v1
+  temperature: 0.1
+  max_risk_scale: 0.60            # LLM may only scale risk DOWN to 60% or veto
+  cooldown_bars: 12                # min bars between LLM consultations
+  timeout_s: 20
+
+live:
+  deriv:
+    app_id: "1089"                # '1089' = public demo app id; use your own
+    endpoint: wss://ws.derivws.com/websockets/v3
+    token_env: DERIV_API_TOKEN    # DEMO account token only
+    default_symbol_map:
+      R_75: R_75
+      R_100: R_100
+      BOOM500: BOOM500
+      CRASH500: CRASH500
+      stpRNG: stpRNG
+    stake_currency: USD
+    max_stake_pct: 0.05
+  alpaca:
+    endpoint: https://paper-api.alpaca.markets
+    key_env: ALPACA_KEY_ID
+    secret_env: ALPACA_SECRET_KEY
+
+backtest:
+  start: 2024-01-01
+  end: 2025-12-31
+  bar: 1h
+  bars_per_year: 6240             # 24/7 hourly; overridden per asset class
+  slippage_bps: 1.0
+  warmup_bars: 300
+
+api:
+  host: 0.0.0.0
+  port: 8000
+  stream_hz: 2

@@ -1,0 +1,19 @@
+{
+  "schema": "abutron.deriv.microstructure_cost_deal_evidence.v1",
+  "source": "VERIFIED_2026_11_06_DERIV_DEMO_NATIVE_MQL5_TICK_SPREAD_SNAPSHOT",
+  "reference_window": "2026-11-06T21:05Z to 2026-11-06T23:05Z",
+  "cost_reference_source_sha256": "ae08da119677d6768ea06b1634209ca7a6c1d8668fe7642a43be61ed08d41b58",
+  "no_full_historical_spread_distribution": true,
+  "actual_order_slippage_distribution_verified": false,
+  "actual_client_requested_price_verified": false,
+  "research_only": true,
+  "orders_authorized": false,
+  "notes": "Source numbers viewed from protected production research report, not a full historically aligned spread/commission/slippage series. Commission bps is a historical estimate at a prior quote, not a verified schedule for every backtested entry. Any assumed 5/10 bps slippage is HYPOTHETICAL. No profitable trading claim is permitted.",
+  "spreads": {
+    "Volatility 10 Index.0": {"tick_count":3590,"spread_bps_p95":0.002059,"historical_broker_deal_roundtrip_commission_bps_at_prior_quote":0.3974,"quote_records_passed":true,"historical_slippage_verified":false},
+    "Volatility 25 Index.0": {"tick_count":3592,"spread_bps_p95":0.003506,"historical_broker_deal_roundtrip_commission_bps_at_prior_quote":0.9112,"quote_records_passed":true,"historical_slippage_verified":false},
+    "Volatility 50 Index.0": {"tick_count":3595,"spread_bps_p95":0.009976,"historical_broker_deal_roundtrip_commission_bps_at_prior_quote":1.791,"quote_records_passed":true,"historical_slippage_verified":false},
+    "Volatility 75 Index.0": {"tick_count":3599,"spread_bps_p95":0.002810,"historical_broker_deal_roundtrip_commission_bps_at_prior_quote":3.1236,"quote_records_passed":true,"historical_slippage_verified":false},
+    "Volatility 100 Index.0": {"tick_count":3507,"spread_bps_p95":0.176886,"historical_broker_deal_roundtrip_commission_bps_at_prior_quote":3.7564,"quote_records_passed":true,"historical_slippage_verified":false}
+  }
+}
