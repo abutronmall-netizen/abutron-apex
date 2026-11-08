@@ -170,6 +170,30 @@ class ReservationStore:
                 raise
         return tuple(x[3] for x in crossed)
 
+    def require_pending_volume(self, *, customer_id: str, account_id: str,
+                               signal_id: str):
+        """Read the immutable reserved volume before broker reconciliation.
+
+        This is owner-bound. A caller-supplied volume or native receipt cannot
+        substitute for the original customer-risk reservation. Account OFF must
+        never prevent reconciliations needed to clear an UNKNOWN order.
+        """
+        if not customer_id or not account_id or not signal_id:
+            raise ValueError("INVALID_PENDING_RESERVATION_IDENTITY")
+        with self._db() as db:
+            row = db.execute(
+                "SELECT customer_id, state, volume FROM intents WHERE signal_key=?",
+                (_signal_key(account_id, signal_id),)
+            ).fetchone()
+        if row is None or row[0] != customer_id:
+            raise PermissionError("NO_OWNED_PENDING_RISK_RESERVATION")
+        if row[1] not in ("RESERVED", "UNKNOWN"):
+            raise ValueError("RISK_RESERVATION_ALREADY_FINALIZED")
+        volume = D(row[2])
+        if volume <= 0:
+            raise ValueError("INVALID_PERSISTED_RESERVED_VOLUME")
+        return volume
+
     def mark_unknown(self, account_id: str, signal_id: str):
         """For timeout, crash or missing receipt. Risk stays reserved."""
         with self._db() as db:
