@@ -73,6 +73,8 @@ class DemoNativeRequest:
     signal_id: str
     activation_revision: int
     volume_lots: str
+    stop_price: str
+    take_price: str
     expires_at_utc: int
 
 
@@ -253,6 +255,7 @@ class ExclusiveApex11DemoWriter:
                 server="Deriv-Demo",mt5_login=e.mt5_login,worker_nonce=e.worker_nonce,
                 symbol=signal["symbol"],side=signal["status"],signal_id=signal_id,
                 activation_revision=a.revision,volume_lots=str(reserved.reserved_volume),
+                stop_price=str(e.native.stop_price),take_price=str(e.native.take_price),
                 expires_at_utc=int(now.timestamp())+12)
             # Persist UNKNOWN before any native file write; NEVER auto retry.
             self.reservations.mark_unknown(account_id,signal_id)
