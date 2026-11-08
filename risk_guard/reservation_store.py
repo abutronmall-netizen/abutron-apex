@@ -194,6 +194,31 @@ class ReservationStore:
             raise ValueError("INVALID_PERSISTED_RESERVED_VOLUME")
         return volume
 
+    def require_finalized_broker_proof(self, *, customer_id: str,
+                                      account_id: str, signal_id: str,
+                                      outcome: str, proof_ref: str) -> None:
+        """Finalized risk ledger must match the independently proven broker outcome.
+
+        An ACK alone is not reconciliation. An OFF transition may only be
+        considered settled when the authenticated broker history and the
+        protected position (or verified no-order) are represented in the
+        original customer-owned risk ledger.
+        """
+        expected = {"PROTECTED_POSITION": "RECONCILED",
+                    "BROKER_REJECTED_NO_ORDER": "REJECTED"}.get(outcome)
+        if expected is None or not proof_ref:
+            raise ValueError("NATIVE_FENCE_FINALIZED_RISK_PROOF_REQUIRED")
+        with self._db() as db:
+            row = db.execute(
+                "SELECT customer_id, account_id, state, broker_proof_ref "
+                "FROM intents WHERE signal_key=?",
+                (_signal_key(account_id, signal_id),)
+            ).fetchone()
+        if row is None or row[0] != customer_id or row[1] != account_id:
+            raise PermissionError("NATIVE_FENCE_FINALIZED_RISK_OWNER_MISMATCH")
+        if row[2] != expected or row[3] != proof_ref:
+            raise ValueError("NATIVE_FENCE_FINALIZED_RISK_PROOF_REQUIRED")
+
     def mark_unknown(self, account_id: str, signal_id: str):
         """For timeout, crash or missing receipt. Risk stays reserved."""
         with self._db() as db:
