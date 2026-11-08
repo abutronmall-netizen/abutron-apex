@@ -103,3 +103,29 @@ def test_wrong_token_method_path_account_and_phase_denied(tmp_path):
         server.shutdown()
         server.server_close()
         worker.join(timeout=3)
+
+
+def test_v4_capability_status_denied_without_independent_native_session(tmp_path):
+    act,i,b,g,server,worker,port=make(tmp_path)
+    try:
+        assert post(port,b"",method="GET",path="/v4/status")==(403,"DENY\n")
+        assert post(port,b"",token="a"*64,method="GET",path="/v4/status")==(403,"DENY\n")
+        def read_session(*,customer_id,account_id,worker_nonce,mt5_login,now):
+            if customer_id!=OWNER or account_id!=ACCOUNT or worker_nonce!=NONCE or mt5_login!="1006207":
+                raise PermissionError("WRONG_NATIVE_ACCOUNT")
+            a=act.snapshot(account_id=account_id,customer_id=customer_id,now=now)
+            if not a.effective_on:
+                from abutron_replacement.production_contracts import FeedRefused
+                raise FeedRefused("CLIENT_OFF")
+            return a.revision
+        b.attest_session=read_session
+        status,answer=post(port,b"",method="GET",path="/v4/status")
+        assert (status,answer)==(200,"STATUS|"+str(i.revision)+"\n")
+        a=act.snapshot(account_id=ACCOUNT,customer_id=OWNER,now=START)
+        act.request(account_id=ACCOUNT,customer_id=OWNER,desired_on=False,
+                    expected_revision=a.revision,now=START)
+        assert post(port,b"",method="GET",path="/v4/status")==(403,"DENY\n")
+    finally:
+        server.shutdown()
+        server.server_close()
+        worker.join(timeout=3)
