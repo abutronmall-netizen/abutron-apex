@@ -20,6 +20,7 @@ jobs:
         working-directory: apex11
     env:
       PYTHONDONTWRITEBYTECODE: "1"
+      PYTHONPATH: ".."
     steps:
       - uses: actions/checkout@v4
       - name: Use Python 3.12
