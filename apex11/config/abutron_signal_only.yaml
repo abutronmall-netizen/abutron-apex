@@ -63,8 +63,8 @@ risk:
     deriv_synthetic: 0.3
   max_gross_leverage: 2.5
   max_net_exposure: 1.5
-  max_daily_loss_pct: 0.02
-  max_drawdown_pct: 0.08
+  max_daily_loss_pct: 0.03
+  max_drawdown_pct: 0.20
   var_confidence: 0.95
   var_limit_pct: 0.035
   corr_cluster_limit: 0.85
