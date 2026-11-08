@@ -30,7 +30,7 @@ def ready(tmp_path):
         "OFF_REVISION_CHECK_AT_CONSUME","LIVE_FORBIDDEN",
     ])+"\n")
     port=NativeV4FilePort(account_id=CID,account_login=request.mt5_login,
-        files_dir=files,clock=lambda:x["now"].timestamp())
+        files_dir=files,worker_uid=os.getuid(),clock=lambda:x["now"].timestamp())
     return x,port,request,e,cap,folder
 
 
@@ -40,6 +40,8 @@ def test_v4_request_file_written_atomically_without_v3_fallback(tmp_path):
     port.queue_once(req,e)
     request_file=folder/V4_REQUEST_NAME
     assert request_file.is_file()
+    assert request_file.stat().st_uid==os.getuid()
+    assert request_file.stat().st_mode & 0o077 == 0
     assert not (folder/V3_REQUEST_NAME).exists()
     lines=request_file.read_text().splitlines()
     assert len(lines)==13
