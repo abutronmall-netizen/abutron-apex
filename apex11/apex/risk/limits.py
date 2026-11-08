@@ -59,7 +59,7 @@ def corr_clusters(symbols: Sequence[str], cov: np.ndarray, threshold: float = 0.
 
     for i in range(n):
         for j in range(i + 1, n):
-            if abs(corr[i, j]) >= threshold:
+            # Off-diagonal covariance shrinkage may land one ULP below the threshold\n            # even for perfectly identical return series. Compare with a tiny\n            # numerical tolerance; do not change the configured risk threshold.\n            if abs(corr[i, j]) >= threshold - 1e-12:
                 union(i, j)
     groups: Dict[int, List[str]] = {}
     for i, s in enumerate(symbols):
