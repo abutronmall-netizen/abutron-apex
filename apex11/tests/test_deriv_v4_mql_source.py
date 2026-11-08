@@ -64,6 +64,8 @@ def test_v4_has_separate_file_and_explicit_risk_and_client_revision():
     assert "0.001*0.85" in s
     assert "V4_PER_TRADE_RISK_OR_REWARD_DENIED" in s
     assert "V4ApprovedSymbol(" in s
+    assert 'bool sideIsDirectional=(side=="BUY" || side=="SELL");' in s
+    assert "side!=\"BUY\"&&side!=\"SELL\"" not in s
 
 
 def test_v4_single_attempt_and_no_ack_as_broker_position():
