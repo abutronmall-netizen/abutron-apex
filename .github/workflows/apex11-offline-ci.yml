@@ -44,4 +44,5 @@ jobs:
         working-directory: apex11
         env:
           PYTHONDONTWRITEBYTECODE: '1'
+          PYTHONPATH: '..:../risk_guard:tests'
         run: python -m pytest -q -p no:cacheprovider
