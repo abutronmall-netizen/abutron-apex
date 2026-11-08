@@ -525,8 +525,9 @@ void HandleV4Request()
  string archive=V4_CONSUMED_DIR+"apex11-v4-"+key+".consumed";
  if(FileIsExist(archive)||FileIsExist(DIR_RECEIPTS+key+".txt"))return;
  if(!FileMove(V4_REQ,0,archive,0))return;
+ bool sideIsDirectional=(side=="BUY" || side=="SELL");
  if(version!=V4_MAGIC||nonce!=gNonce||login!=gLogin||server!=gServer||
-    side!="BUY"&&side!="SELL"||mode!="SEND_DEMO_ONLY"||
+    !sideIsDirectional||mode!="SEND_DEMO_ONLY"||
     !V4ApprovedSymbol(symbol)||!VerifiedDemoAccount()||
     !StringEndsWith(login,"6207"))
  {Receipt(key,"BLOCKED","V4_DEMO_ACCOUNT_OR_PROTOCOL_DENIED");return;}
