@@ -473,14 +473,65 @@ bool PortfolioCanAdd(string next_symbol)
 // authenticated activation supervisor is present. Local permission flags,
 // MQL5 input booleans or an EA-writable ON file are NOT authorization.
 //
-// The native V4 supervisor must atomically fence the CRM account revision,
-// concurrent OFF acknowledgements, customer risk inventory and in-flight
-// unknown orders. Merely checking an ON file before OrderSend has an OFF race.
-// No safe supervisor protocol has yet been deployed; always fail closed.
-bool V4RevisionAuthorized(string signalKey,long crmRevision)
+// The root-owned trusted guardian has two durable lease phases. A CLAIM
+// is never authorization to send; a separate SEND is recorded in SQLite
+// under the same BEGIN IMMEDIATE barrier as client OFF. An OFF request
+// after SEND is only STOPPING until independent broker reconciliation.
+// Without a configured local guardian, token file, URL allowlist and
+// independently authenticated broker authority, WebRequest fails closed.
+//
+// Security boundary: local worker token is provisioned out-of-band and is
+// NEVER hard-coded in compiled source or written to a GitHub repository.
+// MQL5 WebRequest requires operator-approved 127.0.0.1 URL in MT5 settings.
+// NO LIVE mode. The root process must validate broker+CRM independently.
+#define V4_LOCAL_GUARD_URL "http://127.0.0.1:19743/v4/guard"
+#define V4_LOCAL_TOKEN_FILE "ABUTRON\\v4-guardian-worker.token"
+string gV4LeaseID="";
+
+bool V4RevisionAuthorized(string signalKey,long crmRevision,string phase,
+                          string symbol,string side,string lotsText,
+                          string slText,string tpText,long expires)
 {
- if(!IsHex64(signalKey)||crmRevision<1)return false;
- return false; // FAIL CLOSED until independent supervisor handshake exists.
+ if(!IsHex64(signalKey)||crmRevision<1||expires<(long)TimeGMT()||
+    phase!="CLAIM"&&phase!="SEND"||gNonce==""||gLogin==""||
+    !VerifiedDemoAccount()||!StringEndsWith(gLogin,"6207"))
+    return false;
+ if(phase=="SEND"&&!IsHex64(gV4LeaseID))return false;
+ // Missing token or unallowed localhost WebRequest is an absolute denial.
+ int f=FileOpen(V4_LOCAL_TOKEN_FILE,FILE_READ|FILE_TXT|FILE_ANSI,0,CP_UTF8);
+ if(f==INVALID_HANDLE)return false;
+ string token=FileReadString(f);
+ bool end=FileIsEnding(f);
+ FileClose(f);
+ if(!end||!IsHex64(token))return false;
+ string lease=(phase=="CLAIM"?"-":gV4LeaseID);
+ string body="ABUTRON_V4_LOCAL_GUARD_V1\r\n"+phase+"\r\n"+
+             gNonce+"\r\n"+signalKey+"\r\n"+gLogin+"\r\n"+
+             gServer+"\r\n"+symbol+"\r\n"+side+"\r\n"+
+             lotsText+"\r\n"+slText+"\r\n"+tpText+"\r\n"+
+             IntegerToString(crmRevision)+"\r\n"+
+             IntegerToString(expires)+"\r\n"+lease+"\r\n";
+ char data[],result[];
+ int length=StringToCharArray(body,data,0,WHOLE_ARRAY,CP_UTF8);
+ if(length<=1)return false;
+ ArrayResize(data,length-1); // omit terminating NUL
+ string headers="Content-Type: text/plain\r\nX-Abutron-Worker-Token: "+token+"\r\n";
+ string responseHeaders="";
+ ResetLastError();
+ int code=WebRequest("POST",V4_LOCAL_GUARD_URL,headers,650,
+                     data,result,responseHeaders);
+ if(code!=200)return false;
+ string answer=CharArrayToString(result,0,-1,CP_UTF8);
+ StringTrimRight(answer);
+ if(StringLen(answer)!=70||StringSubstr(answer,0,6)!="ALLOW|")return false;
+ string actualLease=StringSubstr(answer,6);
+ if(!IsHex64(actualLease))return false;
+ if(phase=="CLAIM")
+ {
+    gV4LeaseID=actualLease;
+    return true;
+ }
+ return gV4LeaseID==actualLease;
 }
 
 // V4 only supports the five DERIV volatility symbols from the APEX M5 journal.
@@ -543,7 +594,9 @@ void HandleV4Request()
     !MQLInfoInteger(MQL_TRADE_ALLOWED)||
     !AccountInfoInteger(ACCOUNT_TRADE_ALLOWED))
  {Receipt(key,"BLOCKED","V4_EXECUTION_SWITCH_OR_LEGACY_PENDING");return;}
- if(!V4RevisionAuthorized(key,revision))
+ gV4LeaseID="";
+ if(!V4RevisionAuthorized(key,revision,"CLAIM",symbol,side,
+                          lotsText,slText,tpText,expires))
  {Receipt(key,"BLOCKED","V4_ROOT_ACTIVATION_SUPERVISOR_NOT_ATTESTED");return;}
  if(!PortfolioCanAdd(symbol)||!SymbolSelect(symbol,true))
  {Receipt(key,"BLOCKED","V4_PORTFOLIO_OR_SYMBOL_DENIED");return;}
@@ -604,7 +657,8 @@ void HandleV4Request()
  {Receipt(key,"BLOCKED","V4_ORDER_AUDIT_NOT_DURABLE");return;}
  // The trusted supervisor must fence OFF while an in-flight send is
  // unresolved; without such a service this guard always blocks.
- if(!V4RevisionAuthorized(key,revision))
+ if(!V4RevisionAuthorized(key,revision,"SEND",symbol,side,
+                          lotsText,slText,tpText,expires))
  {Receipt(key,"BLOCKED","V4_AUTHORIZATION_EXPIRED_BEFORE_SEND");return;}
  datetime sentUtc=TimeGMT();ulong sentMono=GetTickCount64();
  bool sent=OrderSend(req,result); // EXACTLY ONE attempted send; no retries
