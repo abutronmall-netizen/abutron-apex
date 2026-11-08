@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.env
+state/*.jsonl
+results/*.json
+results/*.csv
+results/*.md
+!results/.gitkeep
+state/*.json
