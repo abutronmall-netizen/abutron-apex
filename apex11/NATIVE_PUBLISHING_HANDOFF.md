@@ -35,3 +35,32 @@ From repo root:
 cd apex11
 PYTHONPATH="..:../risk_guard:tests" python -m pytest -q -p no:cacheprovider tests ../risk_guard/tests
 ```
+
+## Production evidence update: 2026-11-08 04:48:58 UTC
+
+Owner-authorized read-only localhost audit executed via the separate ABUTRON Ops
+fixed self-hosted GitHub workflow run:
+https://github.com/abutronmall-netizen/abutron-ops/actions/runs/42448305328
+
+- Deriv DEMO: 3 connected accounts; requested ON=3, effective ON=0.
+  Deriv 6207 client worker connected, while isolated broker read-only sidecar
+  remains BROKER_PROOF_STALE and failed. This is not a certified MT5 receipt.
+- FP Markets DEMO: 6 accounts, requested ON=1, effective ON=0. FP target
+  worker connected but the read-only native history collector is failed;
+  source metadata is fresh but native quote time stale during weekend.
+- One Deriv LIVE account row exists with desired ON=0, effective ON=0;
+  **LIVE must remain OFF**.
+- Existing APEX native order timer remains inactive. Legacy TradingAgents /
+  quant dispatcher timer is still active, so exclusive order-writer handoff
+  has not been demonstrated.
+- Platform portal, signup and V7 API services are running, not certified
+  customer/billing functionality. Most recent backup-log mtime does NOT
+  prove a verified offsite restore or rollback.
+- Security: GitHub runner principal still has unrestricted NOPASSWD sudo;
+  restrict to audited staging/deploy commands before unattended production use.
+- The FP broker-server-time correction and fail-closed weekend history checks
+  were delivered and CI-tested in PR #8, merged into this feature branch.
+  See FP_NATIVE_HISTORY_CLOCK_RECOVERY.md. They were not deployed.
+
+These facts supersede older claims of account requested switches being OFF.
+Passing source CI is not an MT5 deployment or Milestone A/B/C acceptance.
