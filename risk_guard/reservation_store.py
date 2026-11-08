@@ -219,6 +219,44 @@ class ReservationStore:
         if row[2] != expected or row[3] != proof_ref:
             raise ValueError("NATIVE_FENCE_FINALIZED_RISK_PROOF_REQUIRED")
 
+    def require_held_or_matching_reconciled_volume(
+            self, *, customer_id: str, account_id: str,
+            signal_id: str, broker_proof_ref: str):
+        """Crash-recovery read for a protected DEMO native broker receipt.
+
+        When the broker and risk write succeeded but the separate activation
+        lease transaction rolled back, the same authenticated broker proof
+        must be able to finish the OFF handshake. This does NOT release a
+        pending reservation, accept a new receipt, or permit another send.
+        A finalized risk record is reusable only for the identical owner,
+        signal, exact volume, RECONCILED state and matching proof reference.
+        The native authority independently validates fresh broker evidence
+        again before using this result.
+        """
+        if (not all(isinstance(v, str) and v
+                    for v in (customer_id, account_id, signal_id))
+                or not isinstance(broker_proof_ref, str)
+                or len(broker_proof_ref) != 64
+                or any(ch not in "0123456789abcdef"
+                       for ch in broker_proof_ref)):
+            raise ValueError("NATIVE_RECOVERY_IDENTITY_OR_PROOF_INVALID")
+        with self._db() as db:
+            row = db.execute(
+                "SELECT customer_id, account_id, state, volume, broker_proof_ref "
+                "FROM intents WHERE signal_key=?",
+                (_signal_key(account_id, signal_id),)
+            ).fetchone()
+        if row is None or row[0] != customer_id or row[1] != account_id:
+            raise PermissionError("NATIVE_RECOVERY_RISK_OWNER_MISMATCH")
+        volume = D(row[3])
+        if volume <= 0:
+            raise ValueError("NATIVE_RECOVERY_RESERVED_VOLUME_INVALID")
+        if row[2] in ("RESERVED", "UNKNOWN"):
+            return volume, False
+        if row[2] == "RECONCILED" and row[4] == broker_proof_ref:
+            return volume, True
+        raise ValueError("NATIVE_RECOVERY_RISK_NOT_MATCHING_PROOF")
+
     def mark_unknown(self, account_id: str, signal_id: str):
         """For timeout, crash or missing receipt. Risk stays reserved."""
         with self._db() as db:

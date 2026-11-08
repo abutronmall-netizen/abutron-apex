@@ -109,9 +109,17 @@ class Verified6207NativeAuthority:
                 position.broker_snapshot_time.utcoffset() is None or
                 not -2 <= (now-position.broker_snapshot_time).total_seconds() <= 20):
             raise FeedRefused("NATIVE_AUTHORITY_BROKER_SNAPSHOT_NOT_FRESH")
-        reserved=self.reservations.require_pending_volume(
-            customer_id=identity.customer_id,account_id=identity.account_id,
-            signal_id=identity.signal_id)
+        # Preserve the public fail-closed broker-proof error contract even
+        # when a malformed caller proof cannot be looked up in the ledger.
+        if (type(proof_ref) is not str or len(proof_ref) != 64 or
+                any(ch not in "0123456789abcdef" for ch in proof_ref)):
+            raise FeedRefused("NATIVE_AUTHORITY_BROKER_PROOF_MISMATCH")
+        reserved, already_finalized = (
+            self.reservations.require_held_or_matching_reconciled_volume(
+                customer_id=identity.customer_id,
+                account_id=identity.account_id,
+                signal_id=identity.signal_id,
+                broker_proof_ref=proof_ref))
         native_proof=verify_demo_broker_position(
             receipt=receipt,position=position,
             expected_account_id=identity.account_id,
@@ -122,8 +130,28 @@ class Verified6207NativeAuthority:
             raise FeedRefused("NATIVE_AUTHORITY_BROKER_PROOF_MISMATCH")
         # The exact protected native broker snapshot has already been
         # included in customer risk inventory; ONLY THEN finalize.
-        self.reservations.complete(
-            identity.account_id,identity.signal_id,
-            outcome="RECONCILED",broker_proof=native_proof,
-            now=position.broker_snapshot_time,
-            reconciled_snapshot_includes_position=True)
+        if already_finalized:
+            # A prior authenticated broker proof finalized the risk ledger,
+            # but the separate activation lease transaction may have failed.
+            # It is safe to retry ONLY after reattesting the SAME protected
+            # broker snapshot and matching its immutable 64-byte proof.
+            self.reservations.require_finalized_broker_proof(
+                customer_id=identity.customer_id,
+                account_id=identity.account_id,
+                signal_id=identity.signal_id,
+                outcome="PROTECTED_POSITION",proof_ref=native_proof)
+        else:
+            try:
+                self.reservations.complete(
+                    identity.account_id,identity.signal_id,
+                    outcome="RECONCILED",broker_proof=native_proof,
+                    now=position.broker_snapshot_time,
+                    reconciled_snapshot_includes_position=True)
+            except ValueError:
+                # Reconciliation raced with another finalizer: accept only
+                # the independently proven identical broker outcome.
+                self.reservations.require_finalized_broker_proof(
+                    customer_id=identity.customer_id,
+                    account_id=identity.account_id,
+                    signal_id=identity.signal_id,
+                    outcome="PROTECTED_POSITION",proof_ref=native_proof)
