@@ -13,7 +13,10 @@ from dataclasses import asdict
 from datetime import datetime
 from pathlib import Path
 
-from abutron_risk_guard import CustomerRisk, Proposal, RiskPolicy, Decision, D, evaluate
+try:
+    from .abutron_risk_guard import CustomerRisk, Proposal, RiskPolicy, Decision, D, evaluate
+except ImportError:  # standalone Python use from within risk_guard/
+    from abutron_risk_guard import CustomerRisk, Proposal, RiskPolicy, Decision, D, evaluate
 
 
 def _signal_key(account_id: str, signal_id: str) -> str:
