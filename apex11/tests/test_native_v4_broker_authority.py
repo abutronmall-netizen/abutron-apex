@@ -117,3 +117,106 @@ def test_native_v4_status_requires_active_broker_attested_session(tmp_path):
         authority.attest_session(
             customer_id=OWNER,account_id=CID,worker_nonce=i.worker_nonce,
             mt5_login=i.login,now=now)
+
+
+def test_native_reconcile_recovers_after_risk_finalize_before_lease_commit(tmp_path):
+    """No second order: exact authenticated broker proof repairs interrupted OFF.
+
+    The broker/risk transaction can commit before the separate activation
+    SQLite transaction. A subsequent retry must not misclassify the already
+    reconciled risk reservation as missing, and must reauthenticate the broker
+    evidence rather than inventing a receipt or allowing a second SEND.
+    """
+    x,i,authority,fence,now=build(tmp_path)
+    lease=fence.claim(identity=i,now=now)
+    fence.send(identity=i,lease_id=lease.lease_id,now=now)
+    a=x["activation"].snapshot(account_id=CID,customer_id=OWNER,now=now)
+    x["activation"].request(
+        account_id=CID,customer_id=OWNER,
+        desired_on=False,expected_revision=a.revision,now=now)
+
+    lots=Decimal(i.volume)
+    receipt=NativeOrderReceipt(
+        "deriv","DEMO","Deriv-Demo",CID,i.signal_id,i.symbol,i.side,
+        10009,"71001","71002","71003",lots,now)
+    position=NativePositionProof(
+        CID,"Deriv-Demo","71003",i.symbol,i.side,lots,
+        Decimal("100"),Decimal("90"),Decimal("110"),
+        now+timedelta(seconds=1),True,False)
+    x["supervisor"].receipt=receipt
+    x["supervisor"].position=position
+    x["supervisor"].included=True
+    proof=verify_demo_broker_position(
+        receipt=receipt,position=position,expected_account_id=CID,
+        expected_signal_id=i.signal_id,expected_symbol=i.symbol,
+        expected_side=i.side,reserved_lots=lots,
+        trusted_native_worker_verified=True)
+
+    real_assert=authority.assert_broker_result
+    def interrupted_after_real_risk_commit(**kwargs):
+        real_assert(**kwargs)
+        raise FeedRefused("SIMULATED_ACTIVATION_COMMIT_INTERRUPTED")
+    authority.assert_broker_result=interrupted_after_real_risk_commit
+
+    with pytest.raises(FeedRefused,match="COMMIT_INTERRUPTED"):
+        fence.reconcile(
+            identity=i,lease_id=lease.lease_id,
+            outcome="PROTECTED_POSITION",proof_ref=proof,
+            now=now+timedelta(seconds=1))
+    x["kw"]["store"].require_finalized_broker_proof(
+        customer_id=OWNER,account_id=CID,signal_id=i.signal_id,
+        outcome="PROTECTED_POSITION",proof_ref=proof)
+    assert fence.off_state(
+        customer_id=OWNER,account_id=CID,
+        now=now+timedelta(seconds=1))=="STOPPING_BROKER_RECONCILIATION_REQUIRED"
+
+    authority.assert_broker_result=real_assert
+    fence.reconcile(
+        identity=i,lease_id=lease.lease_id,
+        outcome="PROTECTED_POSITION",proof_ref=proof,
+        now=now+timedelta(seconds=1))
+    assert fence.off_state(
+        customer_id=OWNER,account_id=CID,
+        now=now+timedelta(seconds=1))=="OFF_SETTLED"
+    with pytest.raises(FeedRefused,match="REPLAY"):
+        fence.send(identity=i,lease_id=lease.lease_id,now=now)
+
+
+def test_native_reconcile_denies_different_finalized_proof(tmp_path):
+    """Existing different ledger proof cannot be substituted for broker truth."""
+    x,i,authority,fence,now=build(tmp_path)
+    lease=fence.claim(identity=i,now=now)
+    fence.send(identity=i,lease_id=lease.lease_id,now=now)
+    a=x["activation"].snapshot(account_id=CID,customer_id=OWNER,now=now)
+    x["activation"].request(
+        account_id=CID,customer_id=OWNER,
+        desired_on=False,expected_revision=a.revision,now=now)
+
+    lots=Decimal(i.volume)
+    receipt=NativeOrderReceipt(
+        "deriv","DEMO","Deriv-Demo",CID,i.signal_id,i.symbol,i.side,
+        10009,"72001","72002","72003",lots,now)
+    position=NativePositionProof(
+        CID,"Deriv-Demo","72003",i.symbol,i.side,lots,
+        Decimal("100"),Decimal("90"),Decimal("110"),
+        now+timedelta(seconds=1),True,False)
+    x["supervisor"].receipt=receipt
+    x["supervisor"].position=position
+    x["supervisor"].included=True
+    genuine_proof=verify_demo_broker_position(
+        receipt=receipt,position=position,expected_account_id=CID,
+        expected_signal_id=i.signal_id,expected_symbol=i.symbol,
+        expected_side=i.side,reserved_lots=lots,
+        trusted_native_worker_verified=True)
+    x["kw"]["store"].complete(
+        CID,i.signal_id,outcome="RECONCILED",
+        broker_proof="0"*64,now=now+timedelta(seconds=1),
+        reconciled_snapshot_includes_position=True)
+    with pytest.raises(ValueError,match="NOT_MATCHING_PROOF"):
+        fence.reconcile(
+            identity=i,lease_id=lease.lease_id,
+            outcome="PROTECTED_POSITION",proof_ref=genuine_proof,
+            now=now+timedelta(seconds=1))
+    assert fence.off_state(
+        customer_id=OWNER,account_id=CID,
+        now=now+timedelta(seconds=1))=="STOPPING_BROKER_RECONCILIATION_REQUIRED"
