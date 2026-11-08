@@ -1,0 +1,27 @@
+name: APEX risk guard — isolated unit tests
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - feature/apex11-dual-layer-demo-risk-v1
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify isolated unit tests (NO BROKER ORDERS)
+        run: |
+          cd risk_guard
+          python -m unittest discover -s tests -v
