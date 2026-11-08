@@ -262,6 +262,12 @@ class NativeV4OffFence:
                     raise FeedRefused("NATIVE_FENCE_RECONCILE_IDENTITY_OR_STATE")
                 self.authority.assert_broker_result(
                     identity=identity,outcome=outcome,proof_ref=proof_ref,now=now)
+                try:
+                    self.reservations.require_finalized_broker_proof(
+                        customer_id=identity.customer_id,account_id=identity.account_id,
+                        signal_id=identity.signal_id,outcome=outcome,proof_ref=proof_ref)
+                except (ValueError, PermissionError) as exc:
+                    raise FeedRefused("NATIVE_FENCE_FINALIZED_RISK_PROOF_REQUIRED") from exc
                 db.execute("""UPDATE native_v4_leases SET state='RESOLVED',
                     resolved_at=?, outcome=?, proof_ref=? WHERE lease_id=?""",
                     (now.isoformat(),outcome,proof_ref,lease_id))
