@@ -39,11 +39,11 @@ def test_real_sunday_observation_is_stale_and_stays_blocked():
     assert d.broker_order_authorized is False
     assert d.orders_submitted == 0
     with pytest.raises(FeedRefused, match="LAST_QUOTE_STALE"):
-        require_fresh_fp_history_window(doc, observed_utc=SUNDAY)
+        require_fresh_fp_history_window(doc, observed_utc=SUNDAY, expected_server_offset_seconds=7200)
 
 
 def test_fresh_broker_local_history_converts_to_utc_without_granting_orders():
-    d = require_fresh_fp_history_window(header(), observed_utc=SUNDAY)
+    d = require_fresh_fp_history_window(header(), observed_utc=SUNDAY, expected_server_offset_seconds=7200)
     assert d.history_end_utc == SUNDAY + 60
     assert d.last_quote_utc == SUNDAY
     assert d.status == "HISTORY_WINDOW_RECENT_NOT_EXECUTION_AUTHORITY"
@@ -99,3 +99,27 @@ def test_weekend_is_a_hint_not_a_broker_market_certification():
     assert d.status == "BROKER_QUOTES_STALE"
     assert not d.possible_weekend_closure
     assert not d.history_window_fresh
+
+
+def test_execution_freshness_does_not_inherit_24_hour_history_diagnostic():
+    # The research diagnostic may still describe a recent history window,
+    # but a broker order must not use even minutes-old native quotes.
+    h=header(end_server=SUNDAY+7200+60-121)
+    assert inspect_native_fp_history_window(
+        h,observed_utc=SUNDAY).history_window_fresh
+    with pytest.raises(FeedRefused,match="LAST_QUOTE_STALE"):
+        require_fresh_fp_history_window(
+            h,observed_utc=SUNDAY,expected_server_offset_seconds=7200)
+    h=header(end_server=SUNDAY+7200+60-120)
+    assert require_fresh_fp_history_window(
+        h,observed_utc=SUNDAY,expected_server_offset_seconds=7200
+    ).history_window_fresh
+
+
+def test_execution_history_fails_closed_without_external_offset_proof():
+    with pytest.raises(FeedRefused,match="INDEPENDENT_OFFSET_REQUIRED"):
+        require_fresh_fp_history_window(header(),observed_utc=SUNDAY)
+    with pytest.raises(FeedRefused,match="BROKER_OFFSET_UNVERIFIED"):
+        require_fresh_fp_history_window(
+            header(),observed_utc=SUNDAY,
+            expected_server_offset_seconds=0)
