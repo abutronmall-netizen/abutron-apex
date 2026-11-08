@@ -23,7 +23,7 @@ def test_mql5_original_risk_broker_evidence_preserved():
         'bool NativeAdaptivePlan(', 'bool PortfolioCanAdd(',
         'bool VerifiedNativeFeed(', 'bool VerifiedDemoAccount(',
         'bool AuditRequestBeforeSend(', 'void AuditSendResult(',
-        'void AuditBrokerProtection(', 'bool OrderCheck(req,check);',
+        'void AuditBrokerProtection(', 'bool checked=OrderCheck(req,check);',
         'void UpdateEvidenceFor(', 'void UpdateEvidence()',
         'OptionCVerifyOpenPosition(', 'OptionCWriteIntent(',
         'OrderCalcProfit(', 'OrderCalcMargin(', 'OrderSend(req,res)',
@@ -58,7 +58,7 @@ def test_v4_has_separate_file_and_explicit_risk_and_client_revision():
     assert "FileIsEnding(h)" in s
     assert "FileMove(V4_REQ,0,archive,0)" in s
     assert "FileIsExist(REQ)" in s
-    assert "V4_NATIVE" in s
+    assert "V4_INVALID_NATIVE_SIZE_OR_STOPS" in s
     assert "0.001*0.85" in s
     assert "V4_PER_TRADE_RISK_OR_REWARD_DENIED" in s
     assert "V4ApprovedSymbol(" in s
