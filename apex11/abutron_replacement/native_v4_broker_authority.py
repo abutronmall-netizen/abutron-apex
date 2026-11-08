@@ -109,6 +109,11 @@ class Verified6207NativeAuthority:
                 position.broker_snapshot_time.utcoffset() is None or
                 not -2 <= (now-position.broker_snapshot_time).total_seconds() <= 20):
             raise FeedRefused("NATIVE_AUTHORITY_BROKER_SNAPSHOT_NOT_FRESH")
+        # Preserve the public fail-closed broker-proof error contract even
+        # when a malformed caller proof cannot be looked up in the ledger.
+        if (type(proof_ref) is not str or len(proof_ref) != 64 or
+                any(ch not in "0123456789abcdef" for ch in proof_ref)):
+            raise FeedRefused("NATIVE_AUTHORITY_BROKER_PROOF_MISMATCH")
         reserved, already_finalized = (
             self.reservations.require_held_or_matching_reconciled_volume(
                 customer_id=identity.customer_id,
