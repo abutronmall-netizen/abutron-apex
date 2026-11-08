@@ -1,0 +1,34 @@
+# ABUTRON — Production milestones verified 8 November 2026
+
+Source status is not production acceptance. Never infer a broker order from CI, connected MT5 or green services.
+
+## Verified completed
+
+- GitHub main commit 1776a1dabfc538a69ced9cea9f53443cbb46b2bb contains audited APEX 1.1.0 source, 0.10% DEMO risk library, transactional activation contracts, shadow M5 publisher, native receipt-consistency guard and FP time normalization helper. Offline source/integration CI passed. Prior main preserved as backup/main-before-apex11-source-20261108. No live production writer integration demonstrated.
+- Fresh encrypted offsite backup completed 2026-11-08 04:57:59 UTC: FULL_BACKUP_END_SUCCESS, RESTIC_REPO_METADATA_CHECK_PASS, V7_DATABASE_REMOTE_DUMP_READBACK_PASS. Evidence: https://github.com/abutronmall-netizen/abutron-ops/actions/runs/42448631845. Isolated full restoration not certified.
+- FP native collector's server-time/UTC comparison patched atomically at 2026-11-08 04:59:42 UTC. New SHA256 2e093fd1cd8d6a33419f805ab4337735097685109ee06d9578b4c3d765ce3f8f; local rollback /var/backups/abutron-fp-native-history-clock-prechange-20261108T045942Z/fp_native_history_collect.py. No broker order, account flags or service restart. Evidence: https://github.com/abutronmall-netizen/abutron-ops/actions/runs/42448973032. Weekend quotes remain genuinely stale and must block new execution.
+- Deriv DEMO 6207 isolated read-only sidecar recovered after guarded one-time restart. At 2026-11-08 05:06:39 UTC it was active/running, with fresh authenticated read-only broker proof (identity and native history verified; 601 native tick rows, 152 deal exports, 0 current errors). Evidence: https://github.com/abutronmall-netizen/abutron-ops/actions/runs/42449456426. This is not an APEX broker execution receipt.
+- Runner wildcard root permission removed 2026-11-08 05:11:30 UTC; fixed root-owned staging-only verifier sudo preserved; visudo full parse passed, rollback copy retained. Evidence: https://github.com/abutronmall-netizen/abutron-ops/actions/runs/42449781376. Privileged temporary workflows removed.
+
+## Last verified account and code state
+
+- 2026-11-08 04:48:58 UTC production read-only audit: Deriv DEMO 3 accounts, requested ON 3, effective ON 0. FP DEMO 6 accounts, requested ON 1, effective ON 0. Deriv LIVE 1 account, desired/effective OFF. Portal, signup, V7 API services running only (functional acceptance not proven). Evidence: https://github.com/abutronmall-netizen/abutron-ops/actions/runs/42448305328.
+- Root native order dispatcher still uses old apex_signal_native_router_v1 importing apex_fast_scanner and abutron_selective_tradingagents_v1. It writes risk_governor_approved=True as a literal, and nominal $52 per-position / 20% current equity check is not a 20% durable peak drawdown. New APEX 1.1.0 dual-layer risk and publisher NOT wired to native writer.
+- APEX order timer disabled in 05:06:39 UTC read-only audit; old quant dispatch timer still active in 04:48 audit. Do not enable competing writers, touch stale legacy promotion timestamp or reset consumed 6207 pilot.
+- Original APEX source staging exists in nested /opt/abutron-apex11-staging directories. This does not prove current GitHub merged modules were installed there or activated. Source inventory: https://github.com/abutronmall-netizen/abutron-ops/actions/runs/42449637920.
+
+## Acceptance still outstanding
+
+### Milestone A — Deriv DEMO 6207 (BLOCKED)
+
+Verify source hashes and new broker-authenticated closed M5 publisher, exclusive existing native MT5 writer lease, real CRM owner/entitlements and desired/effective switch revision, full 0.10%-per-trade / 2%-portfolio / 3%-daily / 20%-cashflow-adjusted-peak drawdown guard, OrderCalcProfit/OrderCheck, stop/TP and unknown-order locking. Then observe a genuinely qualified fresh APEX signal; execute only permitted DEMO; reconcile actual broker order/deal/position IDs, stops and ledger, and test account OFF / restart. No forced trade or simulated broker proof.
+
+### Milestone B — Deriv and FP Markets DEMO (PARTIAL, BLOCKED)
+
+Requires A first. Recheck FP genuine fresh quotes after market opens, complete M5 export, session/offset, per-account exclusive writer and aggregate customer risk, broker-native costs/stops, authenticated protected DEMO receipt/reconciliation. Expand Deriv accounts independently. Never enable LIVE.
+
+### Milestone C — portal, billing, Prop Firm, AB Markets, security (PARTIAL, BLOCKED)
+
+Authenticate portal/account controls and audit log, CRM MFA/trials/entitlements, payments sandbox without real charges, real broker P/L, Prop Firm and AB Markets flows, isolated offsite restore and rollback, TLS/firewall/secret isolation. Retire legacy only when new owner and broker lifecycle verified.
+
+**As of this checkpoint no Milestone A/B/C has a complete acceptance packet; all LIVE execution remains OFF.**
