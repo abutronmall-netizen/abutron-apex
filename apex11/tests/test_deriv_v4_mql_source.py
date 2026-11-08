@@ -35,8 +35,10 @@ def test_v4_native_disabled_default_and_v3_dispatch_stays_opt_in():
     s=source()
     assert "input bool EnableNativeDemoOrders = false;" in s
     assert "input bool EnableApex11V4DemoOrders = false;" in s
-    assert "input bool EnableLegacyNativeRequests = false;" in s
-    assert "if(EnableLegacyNativeRequests)HandleRequest();" in s
+    assert "EnableLegacyNativeRequests" not in s
+    assert "LEGACY_V2_V3_CONSUMPTION_DISABLED" in s
+    assert "int approved=0;" in s
+    assert "IntegerToString((long)EnableNativeDemoOrders)+\"\\r\\n\");" not in s
     assert "HandleV4Request();" in s
     assert "V4_ROOT_ACTIVATION_SUPERVISOR_NOT_ATTESTED" in s
     assert "V4_AUTHORIZATION_EXPIRED_BEFORE_SEND" in s
