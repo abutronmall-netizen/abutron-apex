@@ -20,9 +20,6 @@ jobs:
         working-directory: apex11
     env:
       PYTHONDONTWRITEBYTECODE: "1"
-      APEX_API_TOKEN: ""
-      DERIV_API_TOKEN: ""
-      APEX_LLM_API_KEY: ""
     steps:
       - uses: actions/checkout@v4
       - name: Use Python 3.12
