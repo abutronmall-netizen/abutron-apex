@@ -59,7 +59,10 @@ def corr_clusters(symbols: Sequence[str], cov: np.ndarray, threshold: float = 0.
 
     for i in range(n):
         for j in range(i + 1, n):
-            if abs(corr[i, j]) >= threshold:
+            # Floating-point shrinkage may yield 0.8499999999999999 at an
+            # exact 0.85 boundary. Include boundary ties within numerical
+            # tolerance without lowering the correlation-risk threshold.
+            if abs(corr[i, j]) >= threshold or np.isclose(abs(corr[i, j]), threshold, rtol=0.0, atol=1e-12):
                 union(i, j)
     groups: Dict[int, List[str]] = {}
     for i, s in enumerate(symbols):
