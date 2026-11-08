@@ -19,6 +19,7 @@ from hashlib import sha256
 import hmac
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import re
+from typing import Callable
 
 from .native_v4_off_fence import NativeV4OffFence, NativeOrderIdentity
 from .production_contracts import FeedRefused
@@ -79,7 +80,9 @@ def parse_request(body: bytes, *, pinned: LocalGuardianIdentity,
 
 def make_local_guardian(*, fence: NativeV4OffFence,
                         pinned: LocalGuardianIdentity,
-                        port: int=19743) -> ThreadingHTTPServer:
+                        port: int=19743,
+                        clock: Callable[[],datetime] = lambda: datetime.now(timezone.utc)
+                        ) -> ThreadingHTTPServer:
     """Never expose this handler on 0.0.0.0 or user-supplied hostnames."""
     pinned.validate()
     if type(port) is not int or port<1024 or port>65535:
@@ -120,7 +123,7 @@ def make_local_guardian(*, fence: NativeV4OffFence,
                 self._deny(413)
                 return
             try:
-                now=datetime.now(timezone.utc)
+                now=clock()
                 phase,i,lease=parse_request(
                     self.rfile.read(int(length)),pinned=pinned,now=now)
                 if phase=="CLAIM":
