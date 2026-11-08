@@ -492,8 +492,9 @@ bool V4RevisionAuthorized(string signalKey,long crmRevision,string phase,
                           string symbol,string side,string lotsText,
                           string slText,string tpText,long expires)
 {
+ bool validPhase=(phase=="CLAIM" || phase=="SEND");
  if(!IsHex64(signalKey)||crmRevision<1||expires<(long)TimeGMT()||
-    phase!="CLAIM"&&phase!="SEND"||gNonce==""||gLogin==""||
+    !validPhase||gNonce==""||gLogin==""||
     !VerifiedDemoAccount()||!StringEndsWith(gLogin,"6207"))
     return false;
  if(phase=="SEND"&&!IsHex64(gV4LeaseID))return false;
