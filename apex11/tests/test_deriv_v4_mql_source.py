@@ -43,8 +43,15 @@ def test_v4_native_disabled_default_and_v3_dispatch_stays_opt_in():
     assert "V4_ROOT_ACTIVATION_SUPERVISOR_NOT_ATTESTED" in s
     assert "V4_AUTHORIZATION_EXPIRED_BEFORE_SEND" in s
     gate=s.split("bool V4RevisionAuthorized(",1)[1].split("// V4 only supports",1)[0]
+    assert "WebRequest(" in gate
+    assert 'V4_LOCAL_GUARD_URL "http://127.0.0.1:19743/v4/guard"' in gate
+    assert "gV4LeaseID==actualLease" in gate
+    assert "if(code!=200)return false;" in gate
+    assert "if(f==INVALID_HANDLE)return false;" in gate
+    assert 'bool validPhase=(phase=="CLAIM" || phase=="SEND");' in gate
+    assert 'string token=FileReadString(f);' in gate
     assert "return false;" in gate
-    assert "return true;" not in gate
+    assert "if(phase==\"CLAIM\")" in gate
 
 
 def test_v4_has_separate_file_and_explicit_risk_and_client_revision():
@@ -74,9 +81,11 @@ def test_v4_single_attempt_and_no_ack_as_broker_position():
         "// Helper avoids",1)[0]
     assert handler.count("OrderSend(req,result)") == 1
     assert handler.index("FileMove(V4_REQ,0,archive,0)") < handler.index("OrderSend(req,result)")
-    assert handler.index("V4RevisionAuthorized(key,revision)") < handler.index(
+    assert handler.index('V4RevisionAuthorized(key,revision,"CLAIM"') < handler.index(
         "OrderSend(req,result)")
-    assert handler.count("V4RevisionAuthorized(key,revision)") == 2
+    assert handler.count("V4RevisionAuthorized(key,revision,") == 2
+    assert handler.index('V4RevisionAuthorized(key,revision,"SEND"') < handler.index(
+        "OrderSend(req,result)")
     assert handler.index("bool orderChecked=OrderCheck(req,checked)") < handler.index(
         "OrderSend(req,result)")
     assert handler.index("OptionCWriteIntent(") < handler.index(
