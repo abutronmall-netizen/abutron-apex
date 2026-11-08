@@ -1,0 +1,32 @@
+name: APEX 1.1.0 — combined isolated integration tests
+on:
+  push:
+    branches:
+      - integration/apex11-milestone-a-demoguard-20261108
+  pull_request:
+    paths:
+      - 'apex11/**'
+      - 'risk_guard/**'
+      - '.github/workflows/apex11-integrated-unit-ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  offline-integration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install offline test dependencies
+        run: python -m pip install --disable-pip-version-check -r apex11/requirements.txt
+      - name: Run APEX, risk and activation contract tests (NO MT5 access)
+        working-directory: apex11
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+          PYTHONPATH: '..:../risk_guard:tests'
+        run: python -m pytest -q -p no:cacheprovider tests ../risk_guard/tests
