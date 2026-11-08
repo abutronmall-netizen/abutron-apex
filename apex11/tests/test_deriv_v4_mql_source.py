@@ -44,7 +44,7 @@ def test_v4_native_disabled_default_and_v3_dispatch_stays_opt_in():
     assert "V4_AUTHORIZATION_EXPIRED_BEFORE_SEND" in s
     gate=s.split("bool V4RevisionAuthorized(",1)[1].split("// V4 only supports",1)[0]
     assert "WebRequest(" in gate
-    assert 'V4_LOCAL_GUARD_URL "http://127.0.0.1:19743/v4/guard"' in gate
+    assert '#define V4_LOCAL_GUARD_URL "http://127.0.0.1:19743/v4/guard"' in s
     assert "gV4LeaseID==actualLease" in gate
     assert "if(code!=200)return false;" in gate
     assert "if(f==INVALID_HANDLE)return false;" in gate
