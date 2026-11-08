@@ -27,3 +27,11 @@ This review branch is not production-installed. No user switch, risk configurati
 3. Fix FP broker clock and worker matching at source; do not guess offset.
 4. Verify actual Deriv DEMO 6207 receipt, native stops and close-deal reconciliation before expanding to customer DEMO accounts.
 5. Only after that, retire obsolete decision services without disturbing backups, customer controls or reconciler services.
+
+## Post-import review changes (not in the original archive)
+
+- `apex11/apex/risk/limits.py`: numerically tolerant comparison in correlation clustering to avoid NumPy-version-dependent rounding at the exact 0.85 shrinkage boundary. This file intentionally differs from the uploaded source archive and its historical manifest SHA. The archive's original contents and verified archive SHA remain documented above.
+- `apex11/abutron_replacement/native_risk_preflight.py`: NEW **offline-only** joint APEX candidate identity + per-account/per-customer 0.10/2/3/20 risk reservation preflight, with no MT5 transport, no switch modifications and no broker order authorization.
+- `apex11/tests/test_native_risk_preflight.py`: 11 additional offline cross-component tests (119 APEX tests total if CI passes); `risk_guard/` retains 47 isolated tests.
+- The compatibility adapter deliberately keeps existing native account, entitlement, broker-order-check, single-writer and stop/reconciliation checks. It rejects old 20% nominal open-risk allowance when the newer 2% aggregate risk limit is reached; 20% remains a distinct peak-equity drawdown lock.
+- The production risk authority, authentic broker OrderCalcProfit/OrderCheck provenance, durable equity baseline, order writer integration and LIVE/DEMO switch are NOT implemented by this source import.
