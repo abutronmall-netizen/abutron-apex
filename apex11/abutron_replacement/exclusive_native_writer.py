@@ -280,12 +280,27 @@ class ExclusiveApex11DemoWriter:
                 isinstance(signal_id,str) and _HEX64.fullmatch(signal_id)):
             raise FeedRefused("INVALID_RECONCILIATION_IDENTITY")
         with existing_native_writer_lock(self.shared_lock):
+            # Authoritative owner binding applies even after the client turns
+            # OFF. Never accept a caller-provided volume to release someone
+            # else's risk or an unrelated older broker position.
+            account=self.activation.snapshot(
+                account_id=account_id,customer_id=customer_id,now=now)
+            if account.broker!="deriv" or account.environment!="DEMO":
+                raise FeedRefused("RECONCILE_DEMO_ACCOUNT_BINDING_INVALID")
+            expected_lots=self.reservations.require_pending_volume(
+                customer_id=customer_id,account_id=account_id,signal_id=signal_id)
+            if D(reserved_lots)!=expected_lots:
+                raise FeedRefused("RECEIPT_RESERVED_LOTS_NOT_MATCHED")
             receipt,position,included=self.supervisor.authenticated_receipt_and_position(
                 account_id=account_id,signal_id=signal_id,observed_at=now)
             if (receipt.account_id!=account_id or receipt.environment!="DEMO" or
                     receipt.broker!="deriv" or receipt.signal_id!=signal_id or
                     included is not True):
                 raise FeedRefused("AUTHENTICATED_BROKER_EXPOSURE_NOT_RECONCILED")
+            if (position.broker_snapshot_time.tzinfo is None or
+                    position.broker_snapshot_time.utcoffset() is None or
+                    not -2 <= (now-position.broker_snapshot_time).total_seconds() <= 20):
+                raise FeedRefused("BROKER_PROTECTED_POSITION_SNAPSHOT_STALE")
             return finalize_fully_reconciled_demo_receipt(
                 store=self.reservations,receipt=receipt,position=position,
-                reserved_lots=D(reserved_lots),trusted_native_worker_verified=True)
+                reserved_lots=expected_lots,trusted_native_worker_verified=True)
