@@ -98,3 +98,12 @@ def test_reprovision_does_not_override_existing_off(store):
         store.provision(account_id='deriv6207',customer_id='other',broker='deriv',now=NOW)
     with pytest.raises(PermissionError):
         store.provision(account_id='deriv6207',customer_id='ownerA',broker='fp_markets',now=NOW)
+
+def test_ledger_is_private_and_repeat_attestation_does_not_churn_revision(store):
+    import os
+    assert os.stat(store.db_path).st_mode & 0o077 == 0
+    first=attested(store)
+    second=store.update_attestation(account_id='deriv6207',customer_id='ownerA',
+        expected_revision=first.revision,entitlement_ok=True,connected=True,
+        writer_verified=True,kill_switch=False,now=NOW)
+    assert second.revision==first.revision
