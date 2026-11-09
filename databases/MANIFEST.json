@@ -1,0 +1,135 @@
+{
+  "export_utc": "2026-11-09T14:04:27.853150+00:00",
+  "encryption": "NONE. Gzip is compression, not encryption.",
+  "source_host": "ABUTRON FX current production host (localhost)",
+  "postgresql_databases": 3,
+  "sqlite_databases": 10,
+  "files": [
+    {
+      "path": "databases/postgresql/abutron_recovery_legacy_app_20261023.sql",
+      "bytes": 59133,
+      "sha256": "10496454a7b58da40dd101e71b080b0fc8c939cc4daed426141637019c2901c2",
+      "format": "plaintext PostgreSQL SQL"
+    },
+    {
+      "path": "databases/postgresql/abutron_recovery_legacy_platform_20261023.sql",
+      "bytes": 25859,
+      "sha256": "a9b41278af9b646286441083e068f4556695decaf115fe1f1d81b126496ac660",
+      "format": "plaintext PostgreSQL SQL"
+    },
+    {
+      "path": "databases/postgresql/abutron_v7_release_store.sql",
+      "bytes": 241271,
+      "sha256": "f5c9ee94ce681b611ed8c93f7194fad59a415b712bb34dbe29973d92fcd23bca",
+      "format": "plaintext PostgreSQL SQL"
+    },
+    {
+      "path": "databases/sqlite/apex_broker_warehouse.sqlite.gz",
+      "bytes": 1693710,
+      "sha256": "8f99d081edaf5656f821ae2b1b7682d9e813ac2fe6096d29d3d67977ecdbee3b",
+      "format": "gzip-compressed unencrypted SQLite database"
+    },
+    {
+      "path": "databases/sqlite/apex_dashboard_backtest.sqlite.gz",
+      "bytes": 82763,
+      "sha256": "2a30f7eb9ee71be1abeec726394282cffb176a1011e2de74c932335d0469f617",
+      "format": "gzip-compressed unencrypted SQLite database"
+    },
+    {
+      "path": "databases/sqlite/apex_demo_execution.sqlite.gz",
+      "bytes": 1527,
+      "sha256": "89826c57e8f3c6fb6dac9eb5e0e02a29f5a55c93279f6978bdd85de87630240a",
+      "format": "gzip-compressed unencrypted SQLite database"
+    },
+    {
+      "path": "databases/sqlite/apex_demo_execution_legacy_checkpoint.sqlite.gz",
+      "bytes": 1017,
+      "sha256": "859ab80a653b4e72928e1cb7bb6ff5b74de1802764aeaf2ea09f104a849f283e",
+      "format": "gzip-compressed unencrypted SQLite database"
+    },
+    {
+      "path": "databases/sqlite/apex_execution_ledger.sqlite.gz",
+      "bytes": 4655,
+      "sha256": "6face086ee92e1e209acd49a18e9592fda23b01ed76c85373bba39265e2641f3",
+      "format": "gzip-compressed unencrypted SQLite database"
+    },
+    {
+      "path": "databases/sqlite/apex_precision_history.sqlite.gz",
+      "bytes": 3820536,
+      "sha256": "d88bc167beadc707ae1a78ffd1de4e3386d16eab64ea80c41d53c0329cdb8142",
+      "format": "gzip-compressed unencrypted SQLite database",
+      "github_parts": [
+        {
+          "path": "databases/sqlite/apex_precision_history.sqlite.gz.part00",
+          "sha256": "c6c605cf027a5aabe801540533cd2a3a3967f8725a062345e9e5b71abadccdb9",
+          "bytes": 1200000
+        },
+        {
+          "path": "databases/sqlite/apex_precision_history.sqlite.gz.part01",
+          "sha256": "00a9e21f8845a7d52ad4f1c2015a229a432281e8c9b2d3a12dc4b97884ee6f84",
+          "bytes": 1200000
+        },
+        {
+          "path": "databases/sqlite/apex_precision_history.sqlite.gz.part02",
+          "sha256": "daf605fe7d31155e80f6be572ca6c63d639827578e7a4681eff7c0f1ebf7e993",
+          "bytes": 1200000
+        },
+        {
+          "path": "databases/sqlite/apex_precision_history.sqlite.gz.part03",
+          "sha256": "098530b885486822c9eed2388390f551941a210844f6e0e7d2d0f20cea7de852",
+          "bytes": 220536
+        }
+      ]
+    },
+    {
+      "path": "databases/sqlite/apex_precision_history_ai_snapshot.sqlite.gz",
+      "bytes": 3820548,
+      "sha256": "d6e0ef1ce6105355e83d16df6b331a7c46e2a4ee757aebeec1edba6f9d257d41",
+      "format": "gzip-compressed unencrypted SQLite database",
+      "github_parts": [
+        {
+          "path": "databases/sqlite/apex_precision_history_ai_snapshot.sqlite.gz.part00",
+          "sha256": "a06b012ca65216e24156323f38fd1d785ef099dc172757a473a7959a9afa3276",
+          "bytes": 1200000
+        },
+        {
+          "path": "databases/sqlite/apex_precision_history_ai_snapshot.sqlite.gz.part01",
+          "sha256": "57fc3a5d301ce54bd83b5a0b5361b3b7cc6a3145473fdf70b8c00b0d2fe11568",
+          "bytes": 1200000
+        },
+        {
+          "path": "databases/sqlite/apex_precision_history_ai_snapshot.sqlite.gz.part02",
+          "sha256": "7fd02642e8976c04f6f381ce35021b5875946238a1fb81784c04a23ad0449362",
+          "bytes": 1200000
+        },
+        {
+          "path": "databases/sqlite/apex_precision_history_ai_snapshot.sqlite.gz.part03",
+          "sha256": "6e9359b73a39430a29b82531eb7cac8e4a0d7946aedf0e939d049b6c379aace4",
+          "bytes": 220548
+        }
+      ]
+    },
+    {
+      "path": "databases/sqlite/apex_runtime_pre_restore_seed.sqlite.gz",
+      "bytes": 97236,
+      "sha256": "6a7f2951a6e8bb122ff10514e569d3d9292e244c13c8207f7401bc04122623d6",
+      "format": "gzip-compressed unencrypted SQLite database"
+    },
+    {
+      "path": "databases/sqlite/apex_runtime_recovery_seed.sqlite.gz",
+      "bytes": 82766,
+      "sha256": "d3cc11ced5caa7d6fcc78a85f3a8bfd76c2e36d1191348996bb359722f6d4ebb",
+      "format": "gzip-compressed unencrypted SQLite database"
+    },
+    {
+      "path": "databases/sqlite/signup_accounts.sqlite.gz",
+      "bytes": 75753,
+      "sha256": "68ab7108f450218e0b4ce12a38fec357bd9d533a358b5e952b90b0fba95b1448",
+      "format": "gzip-compressed unencrypted SQLite database"
+    }
+  ],
+  "verification": {
+    "postgresql": "pg_dump exit 0 and nonempty SQL files",
+    "sqlite": "consistent SQLite backup + PRAGMA quick_check + gzip roundtrip SHA256"
+  }
+}

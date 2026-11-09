@@ -1,20 +1,7 @@
 {
   "created_utc": "2026-11-09T13:47:17.927959+00:00",
   "database_encryption": "OpenPGP, recipient fingerprint AFBF993AC0333F9D208E31992A75B0617439DE26; private key NOT in GitHub",
-  "excluded": [
-    {
-      "reason": "credential-pattern match",
-      "source": "/opt/apex-client-portal/mailer.py"
-    },
-    {
-      "reason": "credential-pattern match",
-      "source": "/opt/apex-signup/account_flow.py"
-    },
-    {
-      "reason": "credential-pattern match",
-      "source": "/opt/apex-signup/resend_webhook.py"
-    }
-  ],
+  "excluded": [],
   "files": [
     {
       "bytes": 3224,
@@ -1983,6 +1970,24 @@
       "path": "portals/apex/runtime-modules/test_apex_multi_v3.py",
       "sha256": "767fbbe28273f115671b4c9a8478cc4d0ed3fd38430fb25446734a613b51b9c5",
       "source": "/opt/apex/runtime/test_apex_multi_v3.py"
+    },
+    {
+      "bytes": 3915,
+      "path": "portals/shared/crm-api/mailer.py",
+      "sha256": "9bdff6cfdf69f861ee3615a7557d592491183f4b48d4be3da46c52cb326f9d26",
+      "source": "/opt/apex-client-portal/mailer.py"
+    },
+    {
+      "bytes": 5974,
+      "path": "portals/shared/registration-api/account_flow.py",
+      "sha256": "f23482a9c5c5276f6bbfe000074462cf7aa48e7c8da8de53d39a22da7fd137a8",
+      "source": "/opt/apex-signup/account_flow.py"
+    },
+    {
+      "bytes": 2966,
+      "path": "portals/shared/registration-api/resend_webhook.py",
+      "sha256": "74ed486b0a722d113a18db77e2769d38385511fb0336e9159e0b4cb5165f149a",
+      "source": "/opt/apex-signup/resend_webhook.py"
     }
   ],
   "source": "abutronfx.online localhost"
