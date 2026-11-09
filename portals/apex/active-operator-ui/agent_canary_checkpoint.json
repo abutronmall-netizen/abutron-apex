@@ -1,0 +1,7 @@
+{
+  "schema": "abutron.apex.ai_canary.root_verified.v1",
+  "sha256": "72cc184e80dd2a36c92be501ab254cf9e360ca01829a2f21f5c7e39880457b5b",
+  "model": "qwen3:4b-instruct",
+  "state": "STAGED_RESEARCH_ONLY",
+  "verified_at_utc": "2026-11-05T21:45:18.372658+00:00"
+}

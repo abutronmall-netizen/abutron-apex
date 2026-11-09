@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>APEX | Trading Operations</title>
+<link rel="stylesheet" href="/apex/assets/style.css">
+<script src="/apex/assets/app.js" defer></script>
+</head>
+<body>
+<div class="shell">
+<aside class="sidebar">
+  <div class="brand"><span class="brandmark">A<span>▲</span></span><div><b>APEX</b><small>TRADING INTELLIGENCE</small></div></div>
+  <div class="side-label">WORKSPACE</div>
+  <nav class="nav" aria-label="Operations navigation">
+    <button class="navitem active" data-view="overview"><span>◫</span> Overview</button>
+    <button class="navitem" data-view="markets"><span>▥</span> Markets <small>13</small></button>
+    <button class="navitem" data-view="signals"><span>⌁</span> AI Decisions</button>
+    <button class="navitem" data-view="systems"><span>⬡</span> System & Risk</button>
+  </nav>
+  <div class="side-bottom">
+    <div class="state-row"><i class="dot" id="connectionDot"></i><span id="connectionLabel">Connecting to broker feed</span></div>
+    <div class="engine-label">BROKER ENVIRONMENT</div><div class="broker-title">Deriv MT5 · DEMO</div>
+    <div class="fineprint">Local access through your SSH tunnel. No external dashboard account needed.</div>
+  </div>
+</aside>
+
+<div class="workspace">
+<header class="topbar">
+  <div class="crumb">APEX <span>/</span> <strong id="screenName">Operations Overview</strong></div>
+  <div class="top-actions"><span class="live-pill"><span class="pulse"></span><span id="refreshLabel">LIVE FEED</span></span><span id="clockUtc" class="clock">--:-- UTC</span><button class="refresh" id="refreshNow" title="Refresh now" aria-label="Refresh dashboard">↻</button></div>
+</header>
+
+<main>
+<section class="intro">
+  <div><p class="eyebrow">YOUR APEX TRADING SYSTEM</p><h1 id="pageHeading">Operations overview</h1><p class="subhead" id="pageSubhead">Broker prices, automatic AI decisions and real infrastructure status.</p></div>
+  <div class="mode-stack"><div class="mode on">● AUTOMATIC ANALYSIS <b id="analysisStatus">CHECKING</b></div><div class="mode off">● AUTOMATIC ORDERS <b>DISABLED</b></div></div>
+</section>
+
+<div class="notice" id="safetyNotice"><span class="notice-icon">◈</span><div><b>Deriv DEMO environment</b><span>The agent researches and records signals. Broker order execution has not been certified or enabled.</span></div></div>
+
+<section id="overview" class="view active">
+  <div class="kpis">
+    <article class="metric"><span>Verified instruments</span><strong id="kpiSymbols">—</strong><small>Deriv synthetic indices</small></article>
+    <article class="metric"><span>Timeframe coverage</span><strong id="kpiTimeframes">—</strong><small>M1 · M5 · M15 · H1 · H4 · D1</small></article>
+    <article class="metric"><span>Latest AI direction</span><strong id="kpiSignal">—</strong><small id="kpiSignalName">No completed signal yet</small></article>
+    <article class="metric"><span>Broker feed</span><strong id="kpiFreshness">—</strong><small id="kpiAge">Verifying update time</small></article>
+  </div>
+
+  <div class="main-grid">
+  <article class="panel chart-panel">
+    <div class="panel-head"><div><p class="panel-kicker">MARKET DATA · DERIV MT5</p><h2 id="chartTitle">Volatility index</h2></div><div class="control-group"><select id="symbolSelect" aria-label="Select broker symbol"></select><select id="timeframeSelect" aria-label="Select timeframe"><option>M1</option><option selected>M5</option><option>M15</option><option>H1</option><option>H4</option><option>D1</option></select></div></div>
+    <div class="chart-meta"><span id="lastPrice" class="quote">—</span><span id="priceChange" class="price-diff">—</span><span class="mini-source">Completed broker candles</span></div>
+    <div class="chart-wrap"><canvas id="marketChart" role="img" aria-label="Historical Deriv broker candlestick chart"></canvas><div class="chart-empty" id="chartEmpty">Loading broker candles…</div></div>
+    <div class="chart-footer"><span>Broker source: Deriv MT5 DEMO</span><span id="chartUpdated">Last refresh: —</span></div>
+  </article>
+  <article class="panel decision-panel">
+    <div class="panel-head"><div><p class="panel-kicker">ORIGINAL TRADINGAGENTS + LOCAL QWEN</p><h2>Latest AI decision</h2></div><span class="chip" id="agentCycleChip">CHECKING</span></div>
+    <p class="last-symbol" id="decisionSymbol">Waiting for decision</p>
+    <div class="decision-card"><div><span>Technical direction</span><strong id="technicalAction">—</strong></div><div class="separator">→</div><div><span>Agent rating</span><strong id="agentRating">—</strong></div></div>
+    <div class="final-decision"><span>FINAL SHADOW DIRECTION</span><strong id="shadowAction">—</strong></div>
+    <p class="decision-reason" id="decisionReason">The first verified decision will appear here.</p>
+    <div class="decision-bottom"><div><span>AI model</span><b id="decisionModel">—</b></div><div><span>Recorded at</span><b id="decisionTime">—</b></div></div>
+  </article>
+  </div>
+
+  <div class="bottom-grid">
+    <article class="panel"><div class="panel-head"><div><p class="panel-kicker">AUTOMATIC RESEARCH</p><h2>Decision history</h2></div><button class="textbutton" data-jump="signals">All decisions ›</button></div><div id="signalPreview" class="history-rows"><div class="empty">Loading decision journal…</div></div></article>
+    <article class="panel"><div class="panel-head"><div><p class="panel-kicker">INFRASTRUCTURE</p><h2>System health</h2></div><button class="textbutton" data-jump="systems">Details ›</button></div><div id="servicePreview" class="service-list"><div class="empty">Checking system services…</div></div></article>
+  </div>
+</section>
+
+<section id="markets" class="view">
+  <article class="panel"><div class="panel-head"><div><p class="panel-kicker">BROKER DATA / 13 SYNTHETIC INSTRUMENTS</p><h2>Market watch</h2></div><input id="marketSearch" class="search" type="search" placeholder="Search instruments…" aria-label="Search instruments"></div>
+  <div class="table-scroll"><table><thead><tr><th>Instrument</th><th>Last close</th><th>M5 change</th><th>M15</th><th>H1</th><th>H4</th><th>Last candle (UTC)</th></tr></thead><tbody id="marketsBody"></tbody></table></div>
+  <p class="table-foot">Values use the last completed broker candles. Trend = 9/21-period EMA comparison, not trade authorization.</p>
+  </article>
+</section>
+
+<section id="signals" class="view">
+  <article class="panel"><div class="panel-head"><div><p class="panel-kicker">PERSISTENT DECISION JOURNAL</p><h2>TradingAgents decisions</h2></div><span class="chip">SHADOW MODE</span></div>
+  <div class="table-scroll"><table><thead><tr><th>Recorded (UTC)</th><th>Symbol</th><th>Technical</th><th>AI rating</th><th>Final shadow</th><th>Execution</th></tr></thead><tbody id="signalsBody"></tbody></table></div>
+  <p class="table-foot">A BUY or SELL research direction does not execute an order. Order execution requires separately verified risk controls and authorization.</p>
+  </article>
+</section>
+
+<section id="systems" class="view">
+  <div class="system-grid">
+  <article class="panel"><div class="panel-head"><div><p class="panel-kicker">SERVICE SUPERVISION</p><h2>Infrastructure services</h2></div></div><div id="serviceDetails" class="service-list"></div></article>
+  <article class="panel"><div class="panel-head"><div><p class="panel-kicker">USD 10 REFERENCE · DEMO ONLY</p><h2>Broker contract risk</h2></div></div>
+    <div class="risk-numbers"><div><span>Below risk reference</span><strong id="riskBelow">—</strong></div><div><span>At / above reference</span><strong id="riskAbove">—</strong></div></div>
+    <p class="muted" id="riskAge">Risk assessment not yet loaded.</p><p class="warning-copy">These are hypothetical single-trade estimates from MT5 contract calculations. They are <b>not</b> an enforceable cumulative-loss limit, trade authorization or a guarantee against slippage.</p>
+  </article>
+  </div>
+  <article class="panel"><div class="panel-head"><div><p class="panel-kicker">DERIV CONTRACT SPECIFICATIONS</p><h2>Minimum-lot estimated stop losses</h2></div></div>
+  <div class="table-scroll"><table><thead><tr><th>Instrument</th><th>Minimum lot</th><th>BUY estimated loss</th><th>SELL estimated loss</th><th>$10 reference</th></tr></thead><tbody id="riskBody"></tbody></table></div></article>
+</section>
+</main>
+<footer><span>APEX © 2026 · Broker-backed operational view</span><span id="footerUpdated">Data refreshes every 20 seconds</span></footer>
+</div>
+</div>
+</body></html>

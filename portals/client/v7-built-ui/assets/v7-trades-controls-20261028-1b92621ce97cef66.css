@@ -1,0 +1,6 @@
+/* V7 client: isolated broker-reconciled trade history toolbar only. */
+.trade-controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:12px;align-items:end;margin:16px 0}
+.trade-controls label{display:flex;flex-direction:column;gap:5px;font-size:0.89rem}
+.trade-controls select,.trade-controls input{min-width:0;width:100%;box-sizing:border-box;padding:10px 12px;border-radius:8px;font:inherit}
+.trade-controls .outline-button{min-height:44px;align-self:end;justify-self:stretch}
+@media(max-width:640px){.trade-controls{grid-template-columns:1fr;gap:10px}}

@@ -1,0 +1,98 @@
+"""APEX eight-timeframe candle-bias comparison for Deriv MT5 DEMO.
+
+Differentiate one CLOSED candle open/close bias from EMA/RSI trend.
+The separate Abutron V7 uses Deriv public Options data; no claim that
+a private MT5 position/account is the source of V7 public research.
+"""
+from datetime import datetime,timezone
+from pathlib import Path
+import json
+from apex_fast_scanner import EXPECTED
+
+MAIN=Path("/var/lib/apex/mt5-market/deriv_demo_bars.json")
+EXTRA=Path("/var/lib/apex/mt5-market/deriv_demo_extra_candles.json")
+SCANNER=Path("/var/lib/apex/scanner/latest.json")
+FRAMES=(("M1",60),("M3",180),("M5",300),("M15",900),("M30",1800),
+        ("H1",3600),("H4",14400),("D1",86400))
+
+def read(path):
+    try:
+        if path.stat().st_size>8_000_000:return None
+        obj=json.loads(path.read_text(encoding="utf8"))
+        return obj if isinstance(obj,dict) else None
+    except (OSError,ValueError,UnicodeError):
+        return None
+
+def age(raw,now):
+    try:
+        t=datetime.fromisoformat(str(raw).replace("Z","+00:00"))
+        return (now-t).total_seconds() if t.tzinfo is not None else None
+    except (TypeError,ValueError):return None
+
+def compare(symbol,main=None,extra=None,scanner=None,now=None):
+    now=now or datetime.now(timezone.utc)
+    if symbol not in EXPECTED:raise ValueError("Not an approved Deriv MT5 DEMO symbol")
+    if main is None:main=read(MAIN)
+    if extra is None:extra=read(EXTRA)
+    if scanner is None:scanner=read(SCANNER)
+    if (not isinstance(main,dict) or main.get("schema")!="apex.mt5.market.v1"
+        or main.get("source")!="Deriv DEMO MT5"
+        or main.get("execution_enabled") is not False):
+        raise ValueError("Primary broker feed unverified")
+    main_age=age(main.get("generated_at_utc"),now)
+    if main_age is None or not -30<=main_age<=660:
+        raise ValueError("Primary broker feed stale")
+    if (not isinstance(extra,dict)
+        or extra.get("schema")!="apex.mt5.extra_candles.v1"
+        or extra.get("source")!="Deriv DEMO MT5"
+        or extra.get("orders_placed")!=0
+        or extra.get("execution_enabled") is not False):
+        raise ValueError("M3/M30 broker feed unverified")
+    extra_age=age(extra.get("generated_at_utc"),now)
+    if extra_age is None or not -30<=extra_age<=660:
+        raise ValueError("M3/M30 broker feed stale")
+    primary=main.get("data",{}).get(symbol,{})
+    supplements=extra.get("data",{}).get(symbol,{})
+    indicators={}
+    if (isinstance(scanner,dict) and scanner.get("schema")=="apex.scanner.shadow.v1"
+        and scanner.get("source")=="Deriv DEMO MT5"
+        and scanner.get("orders_enabled") is False):
+        scan_age=age(scanner.get("generated_at_utc"),now)
+        if scan_age is not None and -30<=scan_age<=660:
+            for item in scanner.get("instruments",[]):
+                if item.get("symbol")==symbol:
+                    indicators=item.get("indicators",{})
+                    break
+    rows=[]
+    for frame,seconds in FRAMES:
+        arr=(supplements if frame in ("M3","M30") else primary).get(frame,[])
+        if not isinstance(arr,list) or not arr:
+            raise ValueError("Missing completed "+frame+" candles")
+        b=arr[-1]
+        start=int(b["time"]); end=start+seconds
+        if end>now.timestamp()-1:
+            raise ValueError("Incomplete "+frame+" candle")
+        opening=float(b["open"]);closing=float(b["close"])
+        bias="BUY" if closing>opening else "SELL" if closing<opening else "NEUTRAL"
+        info=indicators.get(frame,{})
+        trend=info.get("trend","UNAVAILABLE") if info.get("bar_time")==start else "UNAVAILABLE"
+        rows.append({
+            "timeframe":frame,"candle_open_utc":datetime.fromtimestamp(start,timezone.utc).isoformat(),
+            "candle_closed_utc":datetime.fromtimestamp(end,timezone.utc).isoformat(),
+            "open":opening,"close":closing,
+            "candle_bias":bias,"basis":"LAST_CLOSED_CANDLE_CLOSE_MINUS_OPEN",
+            "ema_rsi_trend":trend,
+            "strategy_proposal_is_not_candle_bias":True,
+            "closed":True,
+            "closed_age_seconds":round((now.timestamp()-end),1),
+        })
+    return {
+        "schema":"apex.candle_comparison.v1","generated_at_utc":now.isoformat(),
+        "symbol":symbol,"source":"Deriv DEMO MT5",
+        "other_platform_source":"Abutron V7 uses Deriv PUBLIC OPTIONS candles (not this account)",
+        "main_snapshot_age_seconds":round(main_age,1),
+        "extra_snapshot_age_seconds":round(extra_age,1),
+        "timeframe_count":len(rows),"rows":rows,
+        "orders_enabled":False,"live_enabled":False,
+        "disclaimer":"Candle bias is close-vs-open of ONE completed broker candle; EMA/RSI is a multi-candle calculation. Neither is a certified trade signal.",
+    }

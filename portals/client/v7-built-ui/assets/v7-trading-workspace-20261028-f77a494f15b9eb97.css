@@ -1,0 +1,7 @@
+.v7-broker-selection{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));align-items:end;gap:12px;margin:18px 0}
+.v7-broker-selection label{display:flex;flex-direction:column;gap:6px}
+.v7-broker-selection select{min-width:0;width:100%;box-sizing:border-box;min-height:44px;padding:10px 12px;font:inherit;border-radius:8px}
+.v7-broker-selection button{min-height:44px;opacity:.6;cursor:not-allowed}
+.v7-symbol-matrix{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 20px}
+.v7-symbol-target{display:inline-block;padding:6px 10px;border:1px solid currentColor;border-radius:12px;font-size:.83rem;opacity:.78}
+@media(max-width:640px){.v7-broker-selection{grid-template-columns:1fr}}

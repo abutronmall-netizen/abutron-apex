@@ -1,0 +1,32 @@
+/* Abutron V7 additive MT5 Trading Accounts form — safe UI only */
+.abutron-mt5-setup {
+  border:1px solid #806535;
+  border-radius:12px;
+  padding:1.25rem;
+  background:linear-gradient(140deg,rgba(61,43,19,.45),rgba(14,16,19,.8));
+  margin:1rem 0 1.5rem;
+}
+.abutron-mt5-kicker {margin:0 0 .3rem;color:#e4bd70;font-size:.7rem;letter-spacing:.15em;font-weight:800}
+.abutron-mt5-setup h3 {margin:0 0 .4rem;color:#f5dca8;font-size:1.15rem}
+.abutron-mt5-help {color:#c5b6a0;font-size:.89rem;line-height:1.6;margin:0 0 1.1rem}
+.abutron-mt5-form {display:grid;gap:1rem;margin:0}
+.abutron-mt5-row {display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.abutron-mt5-label {display:grid;gap:.45rem;min-width:0;color:#ddc69f;font-size:.78rem;font-weight:650}
+.abutron-mt5-label select,.abutron-mt5-label input {
+  width:100%;min-width:0;color:#f2e8d8;background:#101318;border:1px solid #735c37;
+  border-radius:8px;padding:.8rem .95rem;font-size:.9rem;
+}
+.abutron-mt5-label select:focus-visible,.abutron-mt5-label input:focus-visible {
+  outline:2px solid #d7b679;outline-offset:2px
+}
+.abutron-mt5-label input:disabled {opacity:.65;cursor:not-allowed}
+.abutron-mt5-lock-note {
+  margin:.2rem 0 0;color:#f8d999;background:#2b210f;padding:.85rem .95rem;
+  border:1px solid #806331;border-radius:8px;line-height:1.55;font-size:.83rem
+}
+.abutron-mt5-submit {
+  border:0;border-radius:9px;font-weight:800;background:linear-gradient(125deg,#d6bb84,#a88441);
+  color:#15120c;padding:.85rem 1rem;width:min(270px,100%);cursor:not-allowed;opacity:.5
+}
+.abutron-mt5-helper {color:#a89a85;font-size:.78rem;line-height:1.55;margin:0}
+@media(max-width:700px){.abutron-mt5-row{grid-template-columns:1fr}.abutron-mt5-setup{padding:1rem}}

@@ -1,0 +1,99 @@
+/* Honor hidden on forms and admin-only controls even when layout CSS uses display:grid. */
+[hidden]{display:none!important}
+/* APEX Client Workspace -- visual shell. Retains existing client CRM and broker flow. */
+body.apex-authenticated {background:#09131c}
+body.apex-authenticated > .header,
+body.apex-authenticated .intro {display:none}
+body.apex-authenticated main.wrap {width:100%;max-width:none;margin:0}
+body.apex-authenticated #portalSection {width:100%;max-width:none;margin:0}
+.apex-workspace {display:grid;grid-template-columns:248px minmax(0,1fr);min-height:100vh;--apex-gold:#e4bc72;--apex-gold-dim:#af915c;--apex-ink:#0b1521;--apex-border:#273948}
+.apex-workspace .apex-sidebar {position:sticky;top:0;align-self:start;min-height:100vh;height:100vh;background:linear-gradient(165deg,#0e1a29,#08111b 85%);border-right:1px solid #273c49;padding:27px 16px;display:flex;flex-direction:column;z-index:25}
+.apex-side-brand {display:flex;align-items:center;gap:12px;padding:6px 12px 31px;border-bottom:1px solid #283b48}
+.apex-side-mark {width:41px;height:41px;display:grid;place-items:center;flex:0 0 auto;border:1px solid #d3a960;border-radius:12px;background:linear-gradient(135deg,#caa05c,#59401e);color:#101923;font-size:23px;font-weight:900}
+.apex-side-brand strong{display:block;color:#f8fafc;font-size:22px;font-weight:820;letter-spacing:.22em}
+.apex-side-brand small{display:block;color:#9fadb8;font-size:9px;letter-spacing:.15em;margin-top:2px}
+.apex-nav-label{color:#7992a3;letter-spacing:.17em;font-size:10px;font-weight:800;margin:28px 13px 10px}
+.apex-side-links{display:flex;flex-direction:column;gap:4px;flex:1;overflow:auto;scrollbar-width:thin}
+.apex-side-link{display:flex;gap:13px;align-items:center;width:100%;border:1px solid transparent;border-radius:10px;background:transparent;color:#a9bdcc;padding:12px 14px;text-align:left;font-size:13px;font-weight:650;line-height:1.2;transition:background .15s,color .15s,border-color .15s}
+.apex-side-link svg{flex-shrink:0;opacity:.85}
+.apex-side-link:hover{color:#fff;background:#172a39}
+.apex-side-link.active{color:#f8e1b4;background:linear-gradient(90deg,#393026,#1d2a32);border-color:#856b4673}
+.apex-side-link.active svg{color:var(--apex-gold);opacity:1}
+.apex-side-foot{border-top:1px solid #293947;padding:21px 12px 4px;display:flex;align-items:center;gap:9px;color:#91acb5;font-size:11px}
+.apex-session-dot{width:8px;height:8px;border-radius:50%;background:#53d9b6;box-shadow:0 0 0 4px #53d9b623}
+.apex-workspace .apex-main{min-width:0;background:radial-gradient(circle at 90% 2%,#193132 0,transparent 36%),#0b1521}
+.apex-toolbar{min-height:112px;border-bottom:1px solid #293c49;display:flex;align-items:center;gap:20px;justify-content:space-between;padding:21px clamp(20px,3vw,46px);background:#0c1924db}
+.apex-toolbar-labels{min-width:0}
+.apex-overline{font-size:10px;font-weight:820;letter-spacing:.15em;color:var(--apex-gold)}
+.apex-screen-title{font-size:clamp(24px,2.5vw,33px);font-weight:770;line-height:1.15;letter-spacing:-.035em;margin:5px 0!important}
+.apex-screen-subtitle{margin:0;color:#9bb3c0;font-size:12px}
+.apex-privacy-chip{display:inline-flex;color:#dfc18b;border:1px solid #6c5b3d;background:#272821;border-radius:999px;padding:7px 11px;letter-spacing:.08em;font-size:10px;font-weight:750;white-space:nowrap}
+.apex-menu-toggle{display:none;background:#142835;color:#f0f8fa;border:1px solid #3b5060;border-radius:9px;width:42px;height:42px;align-items:center;justify-content:center}
+.apex-content{max-width:1580px;padding:30px clamp(20px,3vw,46px) 70px;margin:0 auto;min-height:calc(100vh - 112px)}
+.apex-view[hidden]{display:none!important}
+.apex-view{animation:apex-in .18s ease both}
+@keyframes apex-in{from{opacity:.7;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
+.apex-view .account-top{margin:0 0 23px;border:1px solid #314453;background:linear-gradient(105deg,#162c39,#10212d);border-radius:14px;padding:23px 27px}
+.apex-view .account-top h2{font-size:27px;margin:6px 0}
+.apex-view .account-top p{margin:0}
+.apex-view .account-top>.button{white-space:nowrap}
+.apex-view .account-top #adminNavLink{margin-left:auto}
+.apex-view .stats{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:0 0 24px}
+.apex-view .stat{background:#101f2d;border:1px solid #314452;border-radius:13px;min-height:139px;padding:23px;transition:border-color .15s}
+.apex-view .stat:hover{border-color:#665a40}
+.apex-view .stat span{color:#a4b8c4;font-size:11px;font-weight:650}
+.apex-view .stat b{font-size:23px;line-height:1.25;color:#f4f7f8;overflow-wrap:anywhere;margin:14px 0 10px}
+.apex-view .stat b.warn{color:#e6bf77}
+.apex-view .stat small{color:#8ea6b6;font-size:11px}
+.apex-action-bar{display:flex;gap:22px;align-items:center;justify-content:space-between;border:1px solid #725b368c;border-radius:13px;background:linear-gradient(90deg,#302b22,#172732);padding:20px 24px;margin-bottom:19px}
+.apex-action-bar strong{font-size:16px}
+.apex-action-bar p{font-size:12px;color:#abb9c4;margin:4px 0 0}
+.apex-action-buttons{display:flex;gap:10px;flex-wrap:wrap}
+.apex-action{border:1px solid #465c65;border-radius:8px;background:#1b323e;color:#e7f3f7;white-space:nowrap;font-size:12px;font-weight:750;padding:12px 16px}
+.apex-action:hover{background:#27414d}
+.apex-action.accent{background:linear-gradient(125deg,#e9c887,#caa160);border-color:#bd9658;color:#19212a}
+.apex-action.accent:hover{filter:brightness(1.08)}
+.apex-info-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.apex-info-card{border:1px solid #2b414e;border-radius:12px;background:#0f202b;min-height:145px;padding:21px}
+.apex-info-card p{font-size:12px;line-height:1.65;color:#a5b8c3;margin:13px 0 0}
+.apex-section-head{margin:4px 0 21px}
+.apex-section-head h2{font-size:25px;letter-spacing:-.025em;margin:0 0 7px}
+.apex-section-head p{color:#a1b6c0;font-size:13px;margin:0;max-width:850px;line-height:1.7}
+.apex-view .panel{box-shadow:none;border-color:#314757;background:linear-gradient(150deg,#142936,#0d1c29);border-radius:13px}
+.apex-view .panel h2{font-size:22px}
+.apex-view .panel p{line-height:1.65}
+.apex-view .split{grid-template-columns:minmax(0,1fr) minmax(0,.95fr);gap:18px;align-items:start;margin:0}
+.apex-view .trade-controls{margin:0}
+.apex-view .trade-control-row{background:#0e2430}
+.apex-broker-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:20px}
+.apex-broker-tile{display:flex;align-items:center;text-align:left;gap:13px;border:1px solid #385060;border-radius:11px;background:#142835;color:#eaf5f7;min-height:86px;padding:16px;transition:border-color .15s,transform .15s}
+.apex-broker-tile:hover{border-color:var(--apex-gold);transform:translateY(-1px)}
+.apex-broker-letter{width:39px;height:39px;flex:none;border-radius:10px;display:grid;place-items:center;font-size:14px;font-weight:850;color:#e5c68d;background:#302d2a;border:1px solid #765e39}
+.apex-broker-tile strong{font-size:13px;display:block}
+.apex-broker-tile small{display:block;color:#9bb4c0;font-size:11px;margin-top:5px}
+.apex-view .field-grid{gap:13px}
+.apex-view #licenseShop{max-width:1150px}
+.apex-view #licenseShop .field-grid{align-items:end}
+.apex-placeholder{max-width:1000px}
+.apex-placeholder>.eyebrow{display:block;margin-bottom:9px}
+.apex-placeholder h2{margin-bottom:18px}
+.apex-placeholder>p{font-size:13px;color:#aabcc7;max-width:790px}
+.apex-unavailable{border:1px dashed #4f6573;border-radius:10px;background:#0c202c;display:flex;flex-direction:column;gap:8px;padding:24px;margin:22px 0;color:#a3bac7;font-size:13px}
+.apex-unavailable strong{color:#e8f0f5;font-size:15px}
+.apex-detail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:22px 0}
+.apex-detail-grid>div{border:1px solid #36505e;background:#102531;border-radius:10px;padding:20px;min-width:0}
+.apex-detail-caption{display:block;font-size:11px;color:#a4bbc8;margin-bottom:9px}
+.apex-detail-grid strong{display:block;font-size:17px;overflow-wrap:anywhere}
+.apex-inline-action{display:inline-flex;margin-top:12px}
+.apex-workspace .button.primary{background:linear-gradient(120deg,#f1d191,#cfa15e);color:#15232a}
+.apex-workspace .button.primary:hover{filter:brightness(1.06)}
+.apex-workspace .eyebrow{color:#d6b87f}
+.apex-workspace .helper{border-color:#c7a56a}
+.apex-workspace input:focus,.apex-workspace select:focus{border-color:#d6b87f;box-shadow:0 0 0 3px #c4a26226}
+.apex-workspace button:focus-visible,.apex-workspace a:focus-visible{outline:2px solid #ecc77e;outline-offset:2px}
+body.apex-authenticated #message{position:fixed;right:23px;bottom:17px;z-index:80;max-width:min(520px,calc(100% - 46px));box-shadow:0 12px 45px #0008;margin:0}
+body.apex-authenticated footer{padding:18px 30px;background:#08121c}
+@media(max-width:1250px){.apex-workspace{grid-template-columns:215px minmax(0,1fr)}.apex-view .stats{grid-template-columns:repeat(2,minmax(0,1fr))}.apex-view .split{grid-template-columns:1fr}}
+@media(max-width:960px){.apex-workspace{display:block}.apex-workspace .apex-sidebar{position:fixed;top:0;left:0;width:min(285px,83vw);transform:translateX(-105%);transition:transform .2s;box-shadow:0 30px 70px #0008}.apex-workspace.menu-open .apex-sidebar{transform:translateX(0)}.apex-workspace.menu-open:before{content:"";position:fixed;inset:0;background:#020b12b9;z-index:24}.apex-menu-toggle{display:inline-flex}.apex-toolbar{min-height:92px;padding:17px 23px}.apex-content{padding:25px 22px 55px}.apex-info-grid{grid-template-columns:1fr 1fr}.apex-broker-tiles{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:650px){.apex-toolbar{gap:12px}.apex-toolbar-right{display:none}.apex-screen-title{font-size:24px}.apex-screen-subtitle{font-size:11px}.apex-content{padding:19px 14px 45px}.apex-view .account-top{flex-wrap:wrap;padding:19px;gap:12px}.apex-view .account-top>div{width:100%}.apex-view .account-top h2{font-size:23px}.apex-view .account-top #adminNavLink{margin-left:0}.apex-view .stats{grid-template-columns:1fr 1fr;gap:10px}.apex-view .stat{min-height:118px;padding:15px}.apex-view .stat b{font-size:19px}.apex-view .stat small{font-size:10px}.apex-action-bar{flex-direction:column;align-items:stretch;padding:18px}.apex-action-buttons{display:grid;grid-template-columns:1fr 1fr}.apex-action{white-space:normal;padding:10px}.apex-info-grid{grid-template-columns:1fr}.apex-broker-tiles{grid-template-columns:1fr}.apex-view .panel{padding:19px}.apex-detail-grid{grid-template-columns:1fr}.apex-view .trade-control-row{flex-wrap:wrap}.apex-view .trade-control-actions{margin-left:auto}.apex-view #licenseShop .field-grid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.apex-view{animation:none}.apex-workspace .apex-sidebar{transition:none}.apex-broker-tile{transition:none}}

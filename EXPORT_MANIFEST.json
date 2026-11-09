@@ -1,0 +1,1989 @@
+{
+  "created_utc": "2026-11-09T13:47:17.927959+00:00",
+  "database_encryption": "OpenPGP, recipient fingerprint AFBF993AC0333F9D208E31992A75B0617439DE26; private key NOT in GitHub",
+  "excluded": [
+    {
+      "reason": "credential-pattern match",
+      "source": "/opt/apex-client-portal/mailer.py"
+    },
+    {
+      "reason": "credential-pattern match",
+      "source": "/opt/apex-signup/account_flow.py"
+    },
+    {
+      "reason": "credential-pattern match",
+      "source": "/opt/apex-signup/resend_webhook.py"
+    }
+  ],
+  "files": [
+    {
+      "bytes": 3224,
+      "path": "portals/client/active-account-ui/abutron-refresh.css",
+      "sha256": "030cd16c1689057d80cfe0eb1934ea0ef4cb0e838fe8fd4e6687d7b4efc8dcde",
+      "source": "/var/www/apex-landing/account/client/abutron-refresh.css"
+    },
+    {
+      "bytes": 1111,
+      "path": "portals/client/active-account-ui/abutron-runtime-health.css",
+      "sha256": "ac6bbbdacb3ba327d990828bcaae98c4cb6fc8d4bd75a4a987aeff4fc8e7da8b",
+      "source": "/var/www/apex-landing/account/client/abutron-runtime-health.css"
+    },
+    {
+      "bytes": 6665,
+      "path": "portals/client/active-account-ui/abutron-runtime-health.js",
+      "sha256": "1ea47ce01ed7c23f25a5abb4a542021b65512a009c19f303fc172a8ccec14b70",
+      "source": "/var/www/apex-landing/account/client/abutron-runtime-health.js"
+    },
+    {
+      "bytes": 736,
+      "path": "portals/client/active-account-ui/apex-ai-stack-status.css",
+      "sha256": "3e652fac19a5c9afbd896a8e6fa61b6584162e91f06ef652d2223f7db2fdf5a7",
+      "source": "/var/www/apex-landing/account/client/apex-ai-stack-status.css"
+    },
+    {
+      "bytes": 2042,
+      "path": "portals/client/active-account-ui/apex-ai-stack-status.js",
+      "sha256": "6acd7fa2b092c4bd16505cef2ede6b1e5fd762bda874a538b09159f6d2ff7555",
+      "source": "/var/www/apex-landing/account/client/apex-ai-stack-status.js"
+    },
+    {
+      "bytes": 2274,
+      "path": "portals/client/active-account-ui/apex-fp-markets-ui.css",
+      "sha256": "74efba2f57e4d7509325c91bd2bcaf36edb14b410646eb60614189846130bae6",
+      "source": "/var/www/apex-landing/account/client/apex-fp-markets-ui.css"
+    },
+    {
+      "bytes": 9394,
+      "path": "portals/client/active-account-ui/apex-fp-markets-ui.js",
+      "sha256": "e1f5cfc8486d5600c33e5b2e5eacb2dadb69b8a4b0de1bcfed6e34048eb2f072",
+      "source": "/var/www/apex-landing/account/client/apex-fp-markets-ui.js"
+    },
+    {
+      "bytes": 6889,
+      "path": "portals/client/active-account-ui/apex-fp-native-history.js",
+      "sha256": "96d24074d55d761f8dd62fa234ac8ccb24120ab554de9f5b6cb1f36a94d487f3",
+      "source": "/var/www/apex-landing/account/client/apex-fp-native-history.js"
+    },
+    {
+      "bytes": 4845,
+      "path": "portals/client/active-account-ui/apex-mt5-accounts.css",
+      "sha256": "09b1d2437d5027ba7b5ee7ae06ca6d7b5891fcfc322d8816c67dba0139ef1997",
+      "source": "/var/www/apex-landing/account/client/apex-mt5-accounts.css"
+    },
+    {
+      "bytes": 14411,
+      "path": "portals/client/active-account-ui/apex-mt5-accounts.js",
+      "sha256": "073bd0d942c830c8a300116d66529752cfb12b5c8604eb7ff529bae2cfbcf6d3",
+      "source": "/var/www/apex-landing/account/client/apex-mt5-accounts.js"
+    },
+    {
+      "bytes": 10238,
+      "path": "portals/client/active-account-ui/apex-mt5-auth-ui.js",
+      "sha256": "4f82194cc5f332899c5e9cc553254bad7c10746de352e534b396b91c2e18c695",
+      "source": "/var/www/apex-landing/account/client/apex-mt5-auth-ui.js"
+    },
+    {
+      "bytes": 10763,
+      "path": "portals/client/active-account-ui/apex-shell.css",
+      "sha256": "3a822d477ab0c867fad2e86a5034abc59115dcfb0424884adc8de8b16766f6e6",
+      "source": "/var/www/apex-landing/account/client/apex-shell.css"
+    },
+    {
+      "bytes": 14264,
+      "path": "portals/client/active-account-ui/apex-shell.js",
+      "sha256": "de164b6f7b46f995febcdf315159c96189202692edd198449414c4ba8e2b3d04",
+      "source": "/var/www/apex-landing/account/client/apex-shell.js"
+    },
+    {
+      "bytes": 7181,
+      "path": "portals/client/active-account-ui/client.css",
+      "sha256": "ffd9028892a1e9dfce12c2057ee61657c98738bc7d8f68b7e0cd09d3c196dae5",
+      "source": "/var/www/apex-landing/account/client/client.css"
+    },
+    {
+      "bytes": 17724,
+      "path": "portals/client/active-account-ui/client.js",
+      "sha256": "f34bd9031e07018c0ddccc6f8767269374108341d2cfac96d66df161dca5aeea",
+      "source": "/var/www/apex-landing/account/client/client.js"
+    },
+    {
+      "bytes": 11321,
+      "path": "portals/client/active-account-ui/index.html",
+      "sha256": "83ae94d5687ee1c4d8477f4b9350961fbd1c44fae667d34f2b3a1f99d239775b",
+      "source": "/var/www/apex-landing/account/client/index.html"
+    },
+    {
+      "bytes": 1714,
+      "path": "portals/client/v7-built-ui/assets/abutron-mt5-setup-v1.css",
+      "sha256": "48c22dada7750186763f118513415513dc7b247551599dbe362e32f3ee88e5be",
+      "source": "/var/www/abutron-v7/client/assets/abutron-mt5-setup-v1.css"
+    },
+    {
+      "bytes": 6341,
+      "path": "portals/client/v7-built-ui/assets/abutron-mt5-setup-v1.js",
+      "sha256": "533021705f7c5639bc9a3d7a16dcb5750bcf986f0a1bb7256a601d0a6b3f6877",
+      "source": "/var/www/abutron-v7/client/assets/abutron-mt5-setup-v1.js"
+    },
+    {
+      "bytes": 7020,
+      "path": "portals/client/v7-built-ui/assets/abutron-mt5-setup-v2.js",
+      "sha256": "e510da746f29b6547c83d6c80721589d7c6d636d2d1617ddd1c484bf020951a1",
+      "source": "/var/www/abutron-v7/client/assets/abutron-mt5-setup-v2.js"
+    },
+    {
+      "bytes": 250148,
+      "path": "portals/client/v7-built-ui/assets/index-053d7d50c1e4.js",
+      "sha256": "053d7d50c1e4fed2ac598c14d285973c86c3e53ab816d365daf2d54f1734f29b",
+      "source": "/var/www/abutron-v7/client/assets/index-053d7d50c1e4.js"
+    },
+    {
+      "bytes": 252754,
+      "path": "portals/client/v7-built-ui/assets/index-0a8b11c7b7dc.js",
+      "sha256": "0a8b11c7b7dcc3be5c69ec7d7003cf1974d5958049421c73c5b3763fa0326548",
+      "source": "/var/www/abutron-v7/client/assets/index-0a8b11c7b7dc.js"
+    },
+    {
+      "bytes": 244926,
+      "path": "portals/client/v7-built-ui/assets/index-30b4149bdb2e.js",
+      "sha256": "30b4149bdb2e520c02382db293626c32b3a89cca687aa0d21396b629c3e5d9b3",
+      "source": "/var/www/abutron-v7/client/assets/index-30b4149bdb2e.js"
+    },
+    {
+      "bytes": 4572,
+      "path": "portals/client/v7-built-ui/assets/index-Bi3X6S-L.css",
+      "sha256": "178290cbd554676db77e40e2e16a8feafc053553366ff678e088e4f8798c1749",
+      "source": "/var/www/abutron-v7/client/assets/index-Bi3X6S-L.css"
+    },
+    {
+      "bytes": 236909,
+      "path": "portals/client/v7-built-ui/assets/index-BlCFg0Jd.js",
+      "sha256": "ead98f622d0e6fc7079241a5251bd19b45d8821ca134c483c9c094c86316813d",
+      "source": "/var/www/abutron-v7/client/assets/index-BlCFg0Jd.js"
+    },
+    {
+      "bytes": 239346,
+      "path": "portals/client/v7-built-ui/assets/index-Bq30zYZz.js",
+      "sha256": "172aff1ee5f4ad094ea53ba5dc6bfad6e7c623e6bfd413069f884339635d6baf",
+      "source": "/var/www/abutron-v7/client/assets/index-Bq30zYZz.js"
+    },
+    {
+      "bytes": 239803,
+      "path": "portals/client/v7-built-ui/assets/index-BveX-1xc.js",
+      "sha256": "e16e4360b1775290d6a81c546537c20d8e24bc00ab04dc4823a467303041bb6b",
+      "source": "/var/www/abutron-v7/client/assets/index-BveX-1xc.js"
+    },
+    {
+      "bytes": 239363,
+      "path": "portals/client/v7-built-ui/assets/index-CB4NY_k3.js",
+      "sha256": "471d2d7a25d7a74f5ca7bac13c9eef50f5fbbdcfa126a52ce9cb58131ac211ad",
+      "source": "/var/www/abutron-v7/client/assets/index-CB4NY_k3.js"
+    },
+    {
+      "bytes": 5554,
+      "path": "portals/client/v7-built-ui/assets/index-D3MSuHEQ.css",
+      "sha256": "6f922b973cf3272cdd09a901c4012f65b8bac91d788c47f2c95fc7480aeb7041",
+      "source": "/var/www/abutron-v7/client/assets/index-D3MSuHEQ.css"
+    },
+    {
+      "bytes": 4827,
+      "path": "portals/client/v7-built-ui/assets/index-DufEx6v2.css",
+      "sha256": "677a4ff31cf8e38f8b0a0feb0a2042381f7adf0d52eac6d4eefb606c24369a5b",
+      "source": "/var/www/abutron-v7/client/assets/index-DufEx6v2.css"
+    },
+    {
+      "bytes": 244775,
+      "path": "portals/client/v7-built-ui/assets/index-DyRrnYxS.js",
+      "sha256": "af31770d19b7872dd53f493b46f8bc2743fa61d82760862e876ecaf0f7548338",
+      "source": "/var/www/abutron-v7/client/assets/index-DyRrnYxS.js"
+    },
+    {
+      "bytes": 253076,
+      "path": "portals/client/v7-built-ui/assets/index-logout-20261027-87e92d45906de73d.js",
+      "sha256": "87e92d45906de73d29c74491cffb57759b527f5d135692dc35ba4b2366090683",
+      "source": "/var/www/abutron-v7/client/assets/index-logout-20261027-87e92d45906de73d.js"
+    },
+    {
+      "bytes": 233881,
+      "path": "portals/client/v7-built-ui/assets/index-mc9QIao7.js",
+      "sha256": "343a4e648de81973fd7c9436414d0e6aed54f17259ca05d56003251176b212b9",
+      "source": "/var/www/abutron-v7/client/assets/index-mc9QIao7.js"
+    },
+    {
+      "bytes": 6230,
+      "path": "portals/client/v7-built-ui/assets/index-mobile-nav-20261027-e5aca5143a0f06fb.css",
+      "sha256": "e5aca5143a0f06fbe0e5236b93dbfb448afeb7978250702370721c25f12e91d1",
+      "source": "/var/www/abutron-v7/client/assets/index-mobile-nav-20261027-e5aca5143a0f06fb.css"
+    },
+    {
+      "bytes": 259349,
+      "path": "portals/client/v7-built-ui/assets/index-v7-client-20261028-a7a54ac37a78caa2.js",
+      "sha256": "a7a54ac37a78caa2e739337d82820b750f8e1586fa893a692becadeeb6cf6c42",
+      "source": "/var/www/abutron-v7/client/assets/index-v7-client-20261028-a7a54ac37a78caa2.js"
+    },
+    {
+      "bytes": 263208,
+      "path": "portals/client/v7-built-ui/assets/index-v7-deriv-demo-status-20261028-3cdded8cc065554e.js",
+      "sha256": "3cdded8cc065554e3b22a70f462c54b57f3bbed46528f0bfec643c820c7ef85e",
+      "source": "/var/www/abutron-v7/client/assets/index-v7-deriv-demo-status-20261028-3cdded8cc065554e.js"
+    },
+    {
+      "bytes": 277426,
+      "path": "portals/client/v7-built-ui/assets/index-v7-gold-candles-20261028-5e04db79e9621e2b.js",
+      "sha256": "5e04db79e9621e2bd0974a5481d5008b57c30253a6e823d11c461f8ac5aa6ed2",
+      "source": "/var/www/abutron-v7/client/assets/index-v7-gold-candles-20261028-5e04db79e9621e2b.js"
+    },
+    {
+      "bytes": 277179,
+      "path": "portals/client/v7-built-ui/assets/index-v7-gold-client-20261028-e3de1a80bd03f6c5.js",
+      "sha256": "e3de1a80bd03f6c580c8b8a389186ed38812bb2276c64e6504ceca704fc0c646",
+      "source": "/var/www/abutron-v7/client/assets/index-v7-gold-client-20261028-e3de1a80bd03f6c5.js"
+    },
+    {
+      "bytes": 283237,
+      "path": "portals/client/v7-built-ui/assets/index-v7-gold-deriv-owner-claim-20261028-f82a6d687768306c.js",
+      "sha256": "f82a6d687768306cd9f52c64bf29801f12fd2f65918a67667541fecf743cf529",
+      "source": "/var/www/abutron-v7/client/assets/index-v7-gold-deriv-owner-claim-20261028-f82a6d687768306c.js"
+    },
+    {
+      "bytes": 283808,
+      "path": "portals/client/v7-built-ui/assets/index-v7-gold-existing-deriv-owner-claim-20261028-792e2c7ba33854ba.js",
+      "sha256": "792e2c7ba33854ba810a5ea0fee35864f6c465262e9f047ed4f790f717ed9fb0",
+      "source": "/var/www/abutron-v7/client/assets/index-v7-gold-existing-deriv-owner-claim-20261028-792e2c7ba33854ba.js"
+    },
+    {
+      "bytes": 277912,
+      "path": "portals/client/v7-built-ui/assets/index-v7-gold-mt5-local-entry-20261028-51e24dda6b938f5b.js",
+      "sha256": "51e24dda6b938f5b3b8a2409dc980bfa5d22c8a3c931c667d32e15485fd2d690",
+      "source": "/var/www/abutron-v7/client/assets/index-v7-gold-mt5-local-entry-20261028-51e24dda6b938f5b.js"
+    },
+    {
+      "bytes": 282796,
+      "path": "portals/client/v7-built-ui/assets/index-v7-gold-mt5-three-brokers-readonly-20261028-872831a22446dd34.js",
+      "sha256": "872831a22446dd3447c8e7a301ea23e3f11815c50f889254b36b3eab3f378b0a",
+      "source": "/var/www/abutron-v7/client/assets/index-v7-gold-mt5-three-brokers-readonly-20261028-872831a22446dd34.js"
+    },
+    {
+      "bytes": 288024,
+      "path": "portals/client/v7-built-ui/assets/index-v7-gold-owner-auto-poll-20261029-888e11645add816b.js",
+      "sha256": "888e11645add816b9c8b3b0522959b703be0cf4224fb3cd106ce8763cfd3f14c",
+      "source": "/var/www/abutron-v7/client/assets/index-v7-gold-owner-auto-poll-20261029-888e11645add816b.js"
+    },
+    {
+      "bytes": 287929,
+      "path": "portals/client/v7-built-ui/assets/index-v7-gold-owner-native-20261029-7ce5d3dc690e1691.js",
+      "sha256": "7ce5d3dc690e16918368427d3cc436dcb2e833ed742505e3697c303078aec9b4",
+      "source": "/var/www/abutron-v7/client/assets/index-v7-gold-owner-native-20261029-7ce5d3dc690e1691.js"
+    },
+    {
+      "bytes": 260021,
+      "path": "portals/client/v7-built-ui/assets/index-v7-mt5-form-locked-20261028-de5005454d8d9101.js",
+      "sha256": "de5005454d8d9101cec6adcd9ef65768553c8516bf0bf885d4203bede2cf201b",
+      "source": "/var/www/abutron-v7/client/assets/index-v7-mt5-form-locked-20261028-de5005454d8d9101.js"
+    },
+    {
+      "bytes": 259340,
+      "path": "portals/client/v7-built-ui/assets/index-v7-mt5-only-20261028-1b76e1975c8531df.js",
+      "sha256": "1b76e1975c8531df1ae80510b102137efaecec3487495deee768f6f661fb8e16",
+      "source": "/var/www/abutron-v7/client/assets/index-v7-mt5-only-20261028-1b76e1975c8531df.js"
+    },
+    {
+      "bytes": 291251,
+      "path": "portals/client/v7-built-ui/assets/index-v7-native-auto-trades-20261029-43bf6fcd609bf8d7.js",
+      "sha256": "43bf6fcd609bf8d7d32a52ec4de45e6bf6703a78d3ac11b19bd0bbf1973c015f",
+      "source": "/var/www/abutron-v7/client/assets/index-v7-native-auto-trades-20261029-43bf6fcd609bf8d7.js"
+    },
+    {
+      "bytes": 291427,
+      "path": "portals/client/v7-built-ui/assets/index-v7-public-candle-clarity-20261031-fecce51926348608.js",
+      "sha256": "fecce51926348608b98ebd317933d3b8097744e5d7a783444bfae392e74054d5",
+      "source": "/var/www/abutron-v7/client/assets/index-v7-public-candle-clarity-20261031-fecce51926348608.js"
+    },
+    {
+      "bytes": 256224,
+      "path": "portals/client/v7-built-ui/assets/index-v7-trades-20261028-5d3e51c122fdc530.js",
+      "sha256": "5d3e51c122fdc530a547b411db5a48ee9291c4b81689276a26a718ce086fa463",
+      "source": "/var/www/abutron-v7/client/assets/index-v7-trades-20261028-5d3e51c122fdc530.js"
+    },
+    {
+      "bytes": 259331,
+      "path": "portals/client/v7-built-ui/assets/index-v7-trading-20261028-3272b18f5a042b80.js",
+      "sha256": "3272b18f5a042b800021c92cc648b28b8e16e92ed29ed2f217a7816621ee9d83",
+      "source": "/var/www/abutron-v7/client/assets/index-v7-trading-20261028-3272b18f5a042b80.js"
+    },
+    {
+      "bytes": 2001,
+      "path": "portals/client/v7-built-ui/assets/v7-gold-client-20261028-ba436ee6737c8e13.css",
+      "sha256": "ba436ee6737c8e13b0e93cbe358bd2c8e5c0dfb67d0c6c4f3d2c8befd96935f0",
+      "source": "/var/www/abutron-v7/client/assets/v7-gold-client-20261028-ba436ee6737c8e13.css"
+    },
+    {
+      "bytes": 584,
+      "path": "portals/client/v7-built-ui/assets/v7-trades-controls-20261028-1b92621ce97cef66.css",
+      "sha256": "1b92621ce97cef66c13f5cf370df1afe51b00073cef283de905f63a0ff30e548",
+      "source": "/var/www/abutron-v7/client/assets/v7-trades-controls-20261028-1b92621ce97cef66.css"
+    },
+    {
+      "bytes": 698,
+      "path": "portals/client/v7-built-ui/assets/v7-trading-workspace-20261028-f77a494f15b9eb97.css",
+      "sha256": "f77a494f15b9eb970a0e5202c6450baba157547b020469936b5402d44a50a850",
+      "source": "/var/www/abutron-v7/client/assets/v7-trading-workspace-20261028-f77a494f15b9eb97.css"
+    },
+    {
+      "bytes": 805,
+      "path": "portals/client/v7-built-ui/index.html",
+      "sha256": "6bc8b46a25fde9e73f21ccf270599abd5a1481127a0aadb30e4c2140587378d9",
+      "source": "/var/www/abutron-v7/client/index.html"
+    },
+    {
+      "bytes": 3463,
+      "path": "portals/admin/active-crm-ui/admin-fp-markets-ui.js",
+      "sha256": "aea9e41ab68bf337cccb5b9c647fce12da61041bdd836dd30837789a2a0f77bc",
+      "source": "/var/www/apex-landing/account/admin/admin-fp-markets-ui.js"
+    },
+    {
+      "bytes": 2516,
+      "path": "portals/admin/active-crm-ui/admin-fp-native-history.js",
+      "sha256": "697bd1e8b045ed47c910bfd3ac476a78629e07fcb247b9b081ce66e86fabe542",
+      "source": "/var/www/apex-landing/account/admin/admin-fp-native-history.js"
+    },
+    {
+      "bytes": 11462,
+      "path": "portals/admin/active-crm-ui/admin.css",
+      "sha256": "ace2c9e7ef72fdff02cd34464e1e053e13d3a211c133ca6338ebaa049df7f994",
+      "source": "/var/www/apex-landing/account/admin/admin.css"
+    },
+    {
+      "bytes": 27345,
+      "path": "portals/admin/active-crm-ui/admin.js",
+      "sha256": "926788e4b6ffa31beb55abaef30258555a21eab39e494b6687efcefa74828c3d",
+      "source": "/var/www/apex-landing/account/admin/admin.js"
+    },
+    {
+      "bytes": 2274,
+      "path": "portals/admin/active-crm-ui/apex-fp-markets-ui.css",
+      "sha256": "74efba2f57e4d7509325c91bd2bcaf36edb14b410646eb60614189846130bae6",
+      "source": "/var/www/apex-landing/account/admin/apex-fp-markets-ui.css"
+    },
+    {
+      "bytes": 20410,
+      "path": "portals/admin/active-crm-ui/index.html",
+      "sha256": "446c657d3600e3cd76af9d9962b97e2214f3d22d9d211408fa4b08da514f1ff0",
+      "source": "/var/www/apex-landing/account/admin/index.html"
+    },
+    {
+      "bytes": 6241,
+      "path": "portals/admin/v7-built-ui/assets/index-4gOvb9GT.css",
+      "sha256": "e350b6d7bd390e9de1d55bf6232d4e716c431a1bb61d213b4b571c7febe62782",
+      "source": "/var/www/abutron-v7/admin/assets/index-4gOvb9GT.css"
+    },
+    {
+      "bytes": 234393,
+      "path": "portals/admin/v7-built-ui/assets/index-CcDR4lA0.js",
+      "sha256": "dcd92aba30b626cac7996d0b8d1280d0c84e884d12e7398ff009d2065da59102",
+      "source": "/var/www/abutron-v7/admin/assets/index-CcDR4lA0.js"
+    },
+    {
+      "bytes": 234331,
+      "path": "portals/admin/v7-built-ui/assets/index-DCLLophd.js",
+      "sha256": "09c6d97a2a7dbfbd7e07151f2eb88cad6f72d68efb3383566d35fa1cc8e334d8",
+      "source": "/var/www/abutron-v7/admin/assets/index-DCLLophd.js"
+    },
+    {
+      "bytes": 235634,
+      "path": "portals/admin/v7-built-ui/assets/index-OZ8C_16Z.js",
+      "sha256": "0146dfe3d819e2c66e5eb48394509fbdfdf9ee20aaaa5eadd11bdad79809121c",
+      "source": "/var/www/abutron-v7/admin/assets/index-OZ8C_16Z.js"
+    },
+    {
+      "bytes": 235815,
+      "path": "portals/admin/v7-built-ui/assets/index-logout-20261027-a419d62f4068c8a7.js",
+      "sha256": "a419d62f4068c8a796eda94e0e7390725f14e9a050f8c6aebeb2bc1c270c0feb",
+      "source": "/var/www/abutron-v7/admin/assets/index-logout-20261027-a419d62f4068c8a7.js"
+    },
+    {
+      "bytes": 484,
+      "path": "portals/admin/v7-built-ui/index.html",
+      "sha256": "4951296f8db69d6d0ac288da6699f224e7b524d6fa6e4d87bc61d394cf952153",
+      "source": "/var/www/abutron-v7/admin/index.html"
+    },
+    {
+      "bytes": 5118,
+      "path": "portals/shared/crm-api/abutron_fp_history_portal.py",
+      "sha256": "eac0956910d220c3d3a2074b4aa0590b1f7dbdc1097b0de02bba88fea4dbb340",
+      "source": "/opt/apex-client-portal/abutron_fp_history_portal.py"
+    },
+    {
+      "bytes": 8113,
+      "path": "portals/shared/crm-api/abutron_fp_market_portal.py",
+      "sha256": "11e7bff1e5ad12c8eb8f8fae2419e5043d61e4ea909391e93562c03a8505b5b5",
+      "source": "/opt/apex-client-portal/abutron_fp_market_portal.py"
+    },
+    {
+      "bytes": 4533,
+      "path": "portals/shared/crm-api/abutron_mt5_portal_adapter.py",
+      "sha256": "e618ac101b40e340309c3057d8ff85b3f62891384335c04dfb90366a0f9fa0fb",
+      "source": "/opt/apex-client-portal/abutron_mt5_portal_adapter.py"
+    },
+    {
+      "bytes": 13960,
+      "path": "portals/shared/crm-api/apex_admin.py",
+      "sha256": "a9bdaab61e7a942a6048cafbad9b05c366c252fb857e87af4347d40d46a6884e",
+      "source": "/opt/apex-client-portal/apex_admin.py"
+    },
+    {
+      "bytes": 29038,
+      "path": "portals/shared/crm-api/apex_crm.py",
+      "sha256": "feffe72a0b8788283b19d0357891bac62222d14e4b00c55cd0016977f0f73ab2",
+      "source": "/opt/apex-client-portal/apex_crm.py"
+    },
+    {
+      "bytes": 7518,
+      "path": "portals/shared/crm-api/apex_crm_account_licenses.py",
+      "sha256": "b5ede7079f99ff03d3aebfe2a770a163e05f2220528c7064159b92d00ca4aa91",
+      "source": "/opt/apex-client-portal/apex_crm_account_licenses.py"
+    },
+    {
+      "bytes": 8576,
+      "path": "portals/shared/crm-api/apex_crm_license_policy.py",
+      "sha256": "4ce1bc06b79396075db9ff6ddcdb295dae1fe8474d10c5785ad960a77ac0d6e2",
+      "source": "/opt/apex-client-portal/apex_crm_license_policy.py"
+    },
+    {
+      "bytes": 3873,
+      "path": "portals/shared/crm-api/apex_crm_subscriptions.py",
+      "sha256": "04322e3bff2029155d76c6620e08bdc9ae733ca306dc72f3ed6df4dbae4ab605",
+      "source": "/opt/apex-client-portal/apex_crm_subscriptions.py"
+    },
+    {
+      "bytes": 7533,
+      "path": "portals/shared/crm-api/apex_customer_worker_entitlement.py",
+      "sha256": "9cd1e3d0086a1c833f8d08a4ceaea22415e1a8fefbfa8112ac3cb1027ef264d9",
+      "source": "/opt/apex-client-portal/apex_customer_worker_entitlement.py"
+    },
+    {
+      "bytes": 6953,
+      "path": "portals/shared/crm-api/apex_mt5_direct_auth.py",
+      "sha256": "96d421eab23523c7a1d25c50cfc7f922712b472de44509e1d90df59848cec6e9",
+      "source": "/opt/apex-client-portal/apex_mt5_direct_auth.py"
+    },
+    {
+      "bytes": 9569,
+      "path": "portals/shared/crm-api/apex_mt5_linking.py",
+      "sha256": "52fb574c60a21aedede834e5d974252dc0ee71feefae668508d5e4c1c7a71ade",
+      "source": "/opt/apex-client-portal/apex_mt5_linking.py"
+    },
+    {
+      "bytes": 5501,
+      "path": "portals/shared/crm-api/apex_mt5_mfa.py",
+      "sha256": "f05ba520338c22a52e5ca0df51fbb25dfa82c8a8d6bb651a21e760deb4f7d986",
+      "source": "/opt/apex-client-portal/apex_mt5_mfa.py"
+    },
+    {
+      "bytes": 4314,
+      "path": "portals/shared/crm-api/apex_mt5_otp_mailer.py",
+      "sha256": "1a7c8551883712c2def133f1bec48bea5208b27da60eb4be522a30a37ecaa066",
+      "source": "/opt/apex-client-portal/apex_mt5_otp_mailer.py"
+    },
+    {
+      "bytes": 1273,
+      "path": "portals/shared/crm-api/apex_mt5_private_client.py",
+      "sha256": "beb16a2189d0789b2fca134f227069bfbfa7b9b72880d06aecaab6be35b44e99",
+      "source": "/opt/apex-client-portal/apex_mt5_private_client.py"
+    },
+    {
+      "bytes": 9324,
+      "path": "portals/shared/crm-api/apex_mt5_secure_auth.py",
+      "sha256": "2cd35e722d40e9d7150e2d0ca3bfae10e67a0a918fc38391ecb9da430967bf09",
+      "source": "/opt/apex-client-portal/apex_mt5_secure_auth.py"
+    },
+    {
+      "bytes": 14438,
+      "path": "portals/shared/crm-api/apex_trading_controls.py",
+      "sha256": "536788b7b1a0c1aa922507b2c7bec70248d69e1989f2152596c7852368a59638",
+      "source": "/opt/apex-client-portal/apex_trading_controls.py"
+    },
+    {
+      "bytes": 27223,
+      "path": "portals/shared/crm-api/server.py",
+      "sha256": "34f98a6ff7bab46a9bd5a7981e89bc1d89f55a13dca9d29d8718eb67c7e4b6a3",
+      "source": "/opt/apex-client-portal/server.py"
+    },
+    {
+      "bytes": 4303,
+      "path": "portals/shared/registration-api/DEPLOYMENT_EVIDENCE_20261101.md",
+      "sha256": "bd7254f40cec6f321e44258a46b54730e01539a6ebbbb615006ca3787c33c0ee",
+      "source": "/opt/apex-signup/DEPLOYMENT_EVIDENCE_20261101.md"
+    },
+    {
+      "bytes": 5584,
+      "path": "portals/shared/registration-api/account_flow_http.py",
+      "sha256": "c3a50a0b4ed26ca376a04fe647d381906a8b74dc400c7c6eeacb6ff4258408e6",
+      "source": "/opt/apex-signup/account_flow_http.py"
+    },
+    {
+      "bytes": 5540,
+      "path": "portals/shared/registration-api/account_mailer.py",
+      "sha256": "b1664aedd9a6af9de281abfb6690fc7e44f6bed4f8745eed8acd15b7aa5b6ddf",
+      "source": "/opt/apex-signup/account_mailer.py"
+    },
+    {
+      "bytes": 1117,
+      "path": "portals/shared/registration-api/apex_pricing.py",
+      "sha256": "3f29e3e1bbfca0ac15a614ac70ac794c202a019738b9702df7b80334fde50b6a",
+      "source": "/opt/apex-signup/apex_pricing.py"
+    },
+    {
+      "bytes": 17012,
+      "path": "portals/shared/registration-api/apex_trial.py",
+      "sha256": "91d676e8b0c3d67cf40a17a490d422e338b1b6b43715a464608cceb1045ab42f",
+      "source": "/opt/apex-signup/apex_trial.py"
+    },
+    {
+      "bytes": 1126,
+      "path": "portals/shared/registration-api/backup.py",
+      "sha256": "3f32a5c0bef84db6ab982da5a3879bc9159a5ac72390113a53a5683a1bf71d89",
+      "source": "/opt/apex-signup/backup.py"
+    },
+    {
+      "bytes": 12024,
+      "path": "portals/shared/registration-api/registration.py",
+      "sha256": "b0508a7f4bfc105cc5116f0f7f983fc7338b156c01f04248ada883c2cf0ee76a",
+      "source": "/opt/apex-signup/registration.py"
+    },
+    {
+      "bytes": 743,
+      "path": "portals/shared/v7-api/abutron_platform.egg-info/PKG-INFO",
+      "sha256": "2439cb78df0cade4ca07f2f322dba3770707ba9f205c36168593adea77cf1337",
+      "source": "/opt/abutron/v7/backend/abutron_platform.egg-info/PKG-INFO"
+    },
+    {
+      "bytes": 950,
+      "path": "portals/shared/v7-api/abutron_platform.egg-info/SOURCES.txt",
+      "sha256": "e35cf6a28126e644a2cbfd0221cbf302baad97cfd0d7a836c46859ad7708bb00",
+      "source": "/opt/abutron/v7/backend/abutron_platform.egg-info/SOURCES.txt"
+    },
+    {
+      "bytes": 1,
+      "path": "portals/shared/v7-api/abutron_platform.egg-info/dependency_links.txt",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "source": "/opt/abutron/v7/backend/abutron_platform.egg-info/dependency_links.txt"
+    },
+    {
+      "bytes": 309,
+      "path": "portals/shared/v7-api/abutron_platform.egg-info/requires.txt",
+      "sha256": "b42a8e38fac773c219ab0ecda1d681a577e91bd0b717413cc415a1e31b30e0c8",
+      "source": "/opt/abutron/v7/backend/abutron_platform.egg-info/requires.txt"
+    },
+    {
+      "bytes": 4,
+      "path": "portals/shared/v7-api/abutron_platform.egg-info/top_level.txt",
+      "sha256": "8a8f60ecb09b7e64c6d5214a8043865e608507db8c3f61f995eae6d078875901",
+      "source": "/opt/abutron/v7/backend/abutron_platform.egg-info/top_level.txt"
+    },
+    {
+      "bytes": 32,
+      "path": "portals/shared/v7-api/app/__init__.py",
+      "sha256": "272b5bead222989bf96edb8747b02ea65ac695dc4e57f2c06b090b45646f4e76",
+      "source": "/opt/abutron/v7/backend/app/__init__.py"
+    },
+    {
+      "bytes": 3938,
+      "path": "portals/shared/v7-api/app/admin_mfa.py",
+      "sha256": "bfba71b39a14587e72e69a28cb4726cf56426627d77883c7348f1a584158de11",
+      "source": "/opt/abutron/v7/backend/app/admin_mfa.py"
+    },
+    {
+      "bytes": 36180,
+      "path": "portals/shared/v7-api/app/api.py",
+      "sha256": "266ca962a4f4bc2950bda0029dd112e09521a974d061ccc3e05e1fd101609b2b",
+      "source": "/opt/abutron/v7/backend/app/api.py"
+    },
+    {
+      "bytes": 1663,
+      "path": "portals/shared/v7-api/app/bootstrap.py",
+      "sha256": "619225e1ee7f6cbbfb550d7c79c314605190d383976fea75d17a9b10b8087364",
+      "source": "/opt/abutron/v7/backend/app/bootstrap.py"
+    },
+    {
+      "bytes": 1673,
+      "path": "portals/shared/v7-api/app/bootstrap_catalog.py",
+      "sha256": "57b50fe7dcc40abdcc274cae8db69cfeaa01a320c09d83dd978f5fd8bed32022",
+      "source": "/opt/abutron/v7/backend/app/bootstrap_catalog.py"
+    },
+    {
+      "bytes": 621,
+      "path": "portals/shared/v7-api/app/broker_link_policy.py",
+      "sha256": "efee75001e2824914761f22325c2c2f4c1209859cfaf4483bac028e92c70c589",
+      "source": "/opt/abutron/v7/backend/app/broker_link_policy.py"
+    },
+    {
+      "bytes": 5762,
+      "path": "portals/shared/v7-api/app/config.py",
+      "sha256": "fff3a28188676a10a13ee989036314900fdae98692700eda8ca8421d17a6be62",
+      "source": "/opt/abutron/v7/backend/app/config.py"
+    },
+    {
+      "bytes": 651,
+      "path": "portals/shared/v7-api/app/customer_enrollment_policy.py",
+      "sha256": "3619ea1134ee1fcb3009af1aadaf89f67e0fa75f5b3f0c305a90ce52f0dad79e",
+      "source": "/opt/abutron/v7/backend/app/customer_enrollment_policy.py"
+    },
+    {
+      "bytes": 3541,
+      "path": "portals/shared/v7-api/app/customer_mt5_enrollment_prepare_v1.py",
+      "sha256": "55a1ffae54b3c497343989d40ba62ce7540bdcefa215ad3ba1f259695f8c162e",
+      "source": "/opt/abutron/v7/backend/app/customer_mt5_enrollment_prepare_v1.py"
+    },
+    {
+      "bytes": 7149,
+      "path": "portals/shared/v7-api/app/customer_mt5_proof_routes.py",
+      "sha256": "5df5aa5cd26f3f28382351672c20552ac7f3e4093babf33f916c4d44bb91a51a",
+      "source": "/opt/abutron/v7/backend/app/customer_mt5_proof_routes.py"
+    },
+    {
+      "bytes": 3941,
+      "path": "portals/shared/v7-api/app/customer_mt5_stepup_service.py",
+      "sha256": "df2594a0ab76e2be887d11f4753641a6dc8b2eda3899a14a8bdee996056bacc8",
+      "source": "/opt/abutron/v7/backend/app/customer_mt5_stepup_service.py"
+    },
+    {
+      "bytes": 1798,
+      "path": "portals/shared/v7-api/app/customer_stepup_core.py",
+      "sha256": "07a6ebc7a8964c4eb93bc065741f50981bd3b12481629bebfb4dc307de72109f",
+      "source": "/opt/abutron/v7/backend/app/customer_stepup_core.py"
+    },
+    {
+      "bytes": 540,
+      "path": "portals/shared/v7-api/app/db.py",
+      "sha256": "0125e33ca12f349693a2fcfec46986a2553f8a02db195ebebc28a0fb6807e433",
+      "source": "/opt/abutron/v7/backend/app/db.py"
+    },
+    {
+      "bytes": 5180,
+      "path": "portals/shared/v7-api/app/deriv_candle_research_v1.py",
+      "sha256": "26403866c2a73cc94e56b5fc665e644bed924eb6a44e316b1ed67a2c2cc4aa76",
+      "source": "/opt/abutron/v7/backend/app/deriv_candle_research_v1.py"
+    },
+    {
+      "bytes": 3229,
+      "path": "portals/shared/v7-api/app/deriv_demo_status_readonly.py",
+      "sha256": "bf3a5b733f5b46f25a123c06231367829b7426a2268ae2bfcde06ba08876d967",
+      "source": "/opt/abutron/v7/backend/app/deriv_demo_status_readonly.py"
+    },
+    {
+      "bytes": 5611,
+      "path": "portals/shared/v7-api/app/deriv_market_readonly.py",
+      "sha256": "475fbddeec342f387f0a42a8b440d64ffc4a1e69e4eaaaa09337a90fb8e2d13d",
+      "source": "/opt/abutron/v7/backend/app/deriv_market_readonly.py"
+    },
+    {
+      "bytes": 6802,
+      "path": "portals/shared/v7-api/app/deriv_options_multiplier_research.py",
+      "sha256": "ae0f8400331f801122f43f0653d409c85ee6d6fcba66e4e6a0500637b85e0da0",
+      "source": "/opt/abutron/v7/backend/app/deriv_options_multiplier_research.py"
+    },
+    {
+      "bytes": 3477,
+      "path": "portals/shared/v7-api/app/email_verification.py",
+      "sha256": "e0472708f24d2fb632b994f8553f06e9815f71be164b4ba783fdd63359af6232",
+      "source": "/opt/abutron/v7/backend/app/email_verification.py"
+    },
+    {
+      "bytes": 4513,
+      "path": "portals/shared/v7-api/app/kronos_research_readonly.py",
+      "sha256": "ab2f15053ebfb79ce2a9c15d781ab47ef62e01f6a78b59a69e8b653517038811",
+      "source": "/opt/abutron/v7/backend/app/kronos_research_readonly.py"
+    },
+    {
+      "bytes": 949,
+      "path": "portals/shared/v7-api/app/license_status_policy.py",
+      "sha256": "5f74433179ec6d54f8a268a6b20eb96c80d027179a0027bc8577e2c54ae697e4",
+      "source": "/opt/abutron/v7/backend/app/license_status_policy.py"
+    },
+    {
+      "bytes": 10253,
+      "path": "portals/shared/v7-api/app/main.py",
+      "sha256": "d1875a034c71f0278ef2053be5873361d9724cde44bf60c981919837d0472330",
+      "source": "/opt/abutron/v7/backend/app/main.py"
+    },
+    {
+      "bytes": 15274,
+      "path": "portals/shared/v7-api/app/models.py",
+      "sha256": "1e202bf257aed07374923127eae35a0b3202f87c6c81875ce5b55551ce45eca1",
+      "source": "/opt/abutron/v7/backend/app/models.py"
+    },
+    {
+      "bytes": 9756,
+      "path": "portals/shared/v7-api/app/mt5_customer_demo_routes.py",
+      "sha256": "fc7190d422a3fce70ff670029aeb0d1e49f20b701bd87651af71d7af3e03fe29",
+      "source": "/opt/abutron/v7/backend/app/mt5_customer_demo_routes.py"
+    },
+    {
+      "bytes": 6130,
+      "path": "portals/shared/v7-api/app/mt5_shared_enrollment_gate.py",
+      "sha256": "9e4a1ad0c79206c876bbf22bfbdf89682f4c038079223e032fbdb3f193988e79",
+      "source": "/opt/abutron/v7/backend/app/mt5_shared_enrollment_gate.py"
+    },
+    {
+      "bytes": 1834,
+      "path": "portals/shared/v7-api/app/observability.py",
+      "sha256": "4f696c9928ea9f1a3a0f67985a0a93f624bf8b4a408c1fa6d4198fd1d09d7be5",
+      "source": "/opt/abutron/v7/backend/app/observability.py"
+    },
+    {
+      "bytes": 10584,
+      "path": "portals/shared/v7-api/app/owner_deriv_claim_routes.py",
+      "sha256": "1785b0d6ace274c725c877cf6c49193d449d16de846d8904d3d73440c7d0780e",
+      "source": "/opt/abutron/v7/backend/app/owner_deriv_claim_routes.py"
+    },
+    {
+      "bytes": 6833,
+      "path": "portals/shared/v7-api/app/owner_deriv_snapshot_routes.py",
+      "sha256": "4c9f4a5f5ea1482518fd5dca1b06bd08250b81e191c0538dd8619e32ae5447a9",
+      "source": "/opt/abutron/v7/backend/app/owner_deriv_snapshot_routes.py"
+    },
+    {
+      "bytes": 4958,
+      "path": "portals/shared/v7-api/app/owner_native_closed_pairs_readonly.py",
+      "sha256": "05af09e5fd3e6337610f89b07de818e46acb754b10cbdfd953d0ac7e5435c7a0",
+      "source": "/opt/abutron/v7/backend/app/owner_native_closed_pairs_readonly.py"
+    },
+    {
+      "bytes": 3631,
+      "path": "portals/shared/v7-api/app/password_recovery.py",
+      "sha256": "d659373ba0aaccba3fe1bd42e90c6117166c476d1151a97cd1f840af9718e54b",
+      "source": "/opt/abutron/v7/backend/app/password_recovery.py"
+    },
+    {
+      "bytes": 2118,
+      "path": "portals/shared/v7-api/app/privacy_optout.py",
+      "sha256": "5e61bceca6ccf56cf792bf8c4273033f8e385b1ac23d3b15c3f6e3360cd5b956",
+      "source": "/opt/abutron/v7/backend/app/privacy_optout.py"
+    },
+    {
+      "bytes": 3933,
+      "path": "portals/shared/v7-api/app/profile_routes.py",
+      "sha256": "662698e6350a2d2a9f1eb3358620d4ef00b73d4611c176ca67b74b35148e0430",
+      "source": "/opt/abutron/v7/backend/app/profile_routes.py"
+    },
+    {
+      "bytes": 713,
+      "path": "portals/shared/v7-api/app/release_capabilities.py",
+      "sha256": "e5cc65f971e44e823e1514dbbdc3df02685cad2f61b38b5748dfc29250aa3fb9",
+      "source": "/opt/abutron/v7/backend/app/release_capabilities.py"
+    },
+    {
+      "bytes": 6539,
+      "path": "portals/shared/v7-api/app/schemas.py",
+      "sha256": "f51391329eba35d9e3be5183ead06d47b4f94d4660142d0a0931c870ae67c955",
+      "source": "/opt/abutron/v7/backend/app/schemas.py"
+    },
+    {
+      "bytes": 3847,
+      "path": "portals/shared/v7-api/app/security.py",
+      "sha256": "4d9c252b69c0173b24ddde3749d5c9556147a5b7213e478a653f8fa2ec8e07ee",
+      "source": "/opt/abutron/v7/backend/app/security.py"
+    },
+    {
+      "bytes": 28,
+      "path": "portals/shared/v7-api/app/services/__init__.py",
+      "sha256": "5ee368b8b403ddb926e38792d6c660d7a6ec88ea5bd628ded82a91e52931d2f1",
+      "source": "/opt/abutron/v7/backend/app/services/__init__.py"
+    },
+    {
+      "bytes": 4146,
+      "path": "portals/shared/v7-api/app/services/billing.py",
+      "sha256": "d76ae6b444957f6eaec8a4a4e6676d26ad1c1d0f0f427b6374537b37eeb9f204",
+      "source": "/opt/abutron/v7/backend/app/services/billing.py"
+    },
+    {
+      "bytes": 2933,
+      "path": "portals/shared/v7-api/app/services/bot_profiles.py",
+      "sha256": "f3d0f094c2dea7f62baac16121cc8a959b8d078c8c8d197e0fde4c93ded84b32",
+      "source": "/opt/abutron/v7/backend/app/services/bot_profiles.py"
+    },
+    {
+      "bytes": 206,
+      "path": "portals/shared/v7-api/app/services/brokers/__init__.py",
+      "sha256": "9aad80ac16e3829cbf1227f85d1c42b6ea7e559f35ac6d1842c9ce70c555bfdd",
+      "source": "/opt/abutron/v7/backend/app/services/brokers/__init__.py"
+    },
+    {
+      "bytes": 720,
+      "path": "portals/shared/v7-api/app/services/brokers/base.py",
+      "sha256": "01a0cb47e0bf5d459428be13bd4c07f36e77a9ed9051070b8c51a2d76a93ff56",
+      "source": "/opt/abutron/v7/backend/app/services/brokers/base.py"
+    },
+    {
+      "bytes": 729,
+      "path": "portals/shared/v7-api/app/services/brokers/registry.py",
+      "sha256": "4ad9e7b7c63cc69eb519c102f4c752ea35512b4b46549c9d944c38a1ad444049",
+      "source": "/opt/abutron/v7/backend/app/services/brokers/registry.py"
+    },
+    {
+      "bytes": 1976,
+      "path": "portals/shared/v7-api/app/services/entitlements.py",
+      "sha256": "c7b42a027b4682d251e31f74fac116e0cafbfd41514e4dc0c8e45604364700b8",
+      "source": "/opt/abutron/v7/backend/app/services/entitlements.py"
+    },
+    {
+      "bytes": 1781,
+      "path": "portals/shared/v7-api/app/services/equity_router.py",
+      "sha256": "a3514b054a652490db061f0a8ae7227cf988ab05fe09486c563e42baabce8fa9",
+      "source": "/opt/abutron/v7/backend/app/services/equity_router.py"
+    },
+    {
+      "bytes": 1701,
+      "path": "portals/shared/v7-api/app/services/kronos.py",
+      "sha256": "24c3698d8b5eb0fa7a551594990214e89d962a304469a2686261c148fb6d1ad9",
+      "source": "/opt/abutron/v7/backend/app/services/kronos.py"
+    },
+    {
+      "bytes": 1803,
+      "path": "portals/shared/v7-api/app/services/outbox.py",
+      "sha256": "d4263bf07c8541457b31c02c99054273987a0ffdbae114e1968d7612c0eaf251",
+      "source": "/opt/abutron/v7/backend/app/services/outbox.py"
+    },
+    {
+      "bytes": 331,
+      "path": "portals/shared/v7-api/app/services/pricing.py",
+      "sha256": "7016728e7ef63f0d09f86afc428e82b6ad0481f7ae6559d7e9088040f4959f69",
+      "source": "/opt/abutron/v7/backend/app/services/pricing.py"
+    },
+    {
+      "bytes": 1685,
+      "path": "portals/shared/v7-api/app/services/push.py",
+      "sha256": "b114117b658702633a3a05f294929ef88bd3343d45ede39b3a9d2ce97bb682d8",
+      "source": "/opt/abutron/v7/backend/app/services/push.py"
+    },
+    {
+      "bytes": 678,
+      "path": "portals/shared/v7-api/app/services/webhooks.py",
+      "sha256": "335a19f96b0d0e1d7c9197f5cdd495d5e50051e6c9d29520b6c6a1fecca8315d",
+      "source": "/opt/abutron/v7/backend/app/services/webhooks.py"
+    },
+    {
+      "bytes": 2581,
+      "path": "portals/shared/v7-api/app/session_revocation.py",
+      "sha256": "f2f9483a3353e743b047a0b6619c7497a249d0c88351f8df0a86742850aa15d2",
+      "source": "/opt/abutron/v7/backend/app/session_revocation.py"
+    },
+    {
+      "bytes": 4930,
+      "path": "portals/shared/v7-api/app/trades_prop_verified.py",
+      "sha256": "003cb3458a8a3ec98ddc58eae0979efac52ddbb3e40ca31d2402b4b501e5b9c9",
+      "source": "/opt/abutron/v7/backend/app/trades_prop_verified.py"
+    },
+    {
+      "bytes": 57,
+      "path": "portals/shared/v7-api/app/workers/__init__.py",
+      "sha256": "948a311dc2e7d67b0dd61704cc11c968900d6a7dffb07583e4faef7860b842b4",
+      "source": "/opt/abutron/v7/backend/app/workers/__init__.py"
+    },
+    {
+      "bytes": 2807,
+      "path": "portals/shared/v7-api/app/workers/notifications.py",
+      "sha256": "cf4f3074e9f810a07bffcc7c1e79e00d9e2ed270a798932fea7afec60ba483c6",
+      "source": "/opt/abutron/v7/backend/app/workers/notifications.py"
+    },
+    {
+      "bytes": 3424,
+      "path": "portals/shared/v7-api/app/workers/outbox.py",
+      "sha256": "c1d8e6258b075ccc5f6dd644adc0c8320f347adbaeb33140d84a718b8a482c5e",
+      "source": "/opt/abutron/v7/backend/app/workers/outbox.py"
+    },
+    {
+      "bytes": 32,
+      "path": "portals/shared/v7-api/build/lib/app/__init__.py",
+      "sha256": "272b5bead222989bf96edb8747b02ea65ac695dc4e57f2c06b090b45646f4e76",
+      "source": "/opt/abutron/v7/backend/build/lib/app/__init__.py"
+    },
+    {
+      "bytes": 31164,
+      "path": "portals/shared/v7-api/build/lib/app/api.py",
+      "sha256": "1b60ed4ba22be0527d999a79ca41d0db8c91abff7681698a7f634200e20fdd78",
+      "source": "/opt/abutron/v7/backend/build/lib/app/api.py"
+    },
+    {
+      "bytes": 1663,
+      "path": "portals/shared/v7-api/build/lib/app/bootstrap.py",
+      "sha256": "619225e1ee7f6cbbfb550d7c79c314605190d383976fea75d17a9b10b8087364",
+      "source": "/opt/abutron/v7/backend/build/lib/app/bootstrap.py"
+    },
+    {
+      "bytes": 1673,
+      "path": "portals/shared/v7-api/build/lib/app/bootstrap_catalog.py",
+      "sha256": "57b50fe7dcc40abdcc274cae8db69cfeaa01a320c09d83dd978f5fd8bed32022",
+      "source": "/opt/abutron/v7/backend/build/lib/app/bootstrap_catalog.py"
+    },
+    {
+      "bytes": 621,
+      "path": "portals/shared/v7-api/build/lib/app/broker_link_policy.py",
+      "sha256": "efee75001e2824914761f22325c2c2f4c1209859cfaf4483bac028e92c70c589",
+      "source": "/opt/abutron/v7/backend/build/lib/app/broker_link_policy.py"
+    },
+    {
+      "bytes": 5031,
+      "path": "portals/shared/v7-api/build/lib/app/config.py",
+      "sha256": "25e7bf0e3dcb5ec92dc51c2c7fa9fe539dd4dbfaf855e1dd0aa0cba8cbd5d5cb",
+      "source": "/opt/abutron/v7/backend/build/lib/app/config.py"
+    },
+    {
+      "bytes": 651,
+      "path": "portals/shared/v7-api/build/lib/app/customer_enrollment_policy.py",
+      "sha256": "3619ea1134ee1fcb3009af1aadaf89f67e0fa75f5b3f0c305a90ce52f0dad79e",
+      "source": "/opt/abutron/v7/backend/build/lib/app/customer_enrollment_policy.py"
+    },
+    {
+      "bytes": 540,
+      "path": "portals/shared/v7-api/build/lib/app/db.py",
+      "sha256": "0125e33ca12f349693a2fcfec46986a2553f8a02db195ebebc28a0fb6807e433",
+      "source": "/opt/abutron/v7/backend/build/lib/app/db.py"
+    },
+    {
+      "bytes": 3477,
+      "path": "portals/shared/v7-api/build/lib/app/email_verification.py",
+      "sha256": "e0472708f24d2fb632b994f8553f06e9815f71be164b4ba783fdd63359af6232",
+      "source": "/opt/abutron/v7/backend/build/lib/app/email_verification.py"
+    },
+    {
+      "bytes": 949,
+      "path": "portals/shared/v7-api/build/lib/app/license_status_policy.py",
+      "sha256": "5f74433179ec6d54f8a268a6b20eb96c80d027179a0027bc8577e2c54ae697e4",
+      "source": "/opt/abutron/v7/backend/build/lib/app/license_status_policy.py"
+    },
+    {
+      "bytes": 5734,
+      "path": "portals/shared/v7-api/build/lib/app/main.py",
+      "sha256": "dcfdebcbe8dadf06e8ac1ad2a6bab87bae10ed73de41197767c75dee9382895c",
+      "source": "/opt/abutron/v7/backend/build/lib/app/main.py"
+    },
+    {
+      "bytes": 15244,
+      "path": "portals/shared/v7-api/build/lib/app/models.py",
+      "sha256": "9cae7714573351ee7bcccc8fd3c842e94e4d64eadde14815466dd4baeb579e6c",
+      "source": "/opt/abutron/v7/backend/build/lib/app/models.py"
+    },
+    {
+      "bytes": 1834,
+      "path": "portals/shared/v7-api/build/lib/app/observability.py",
+      "sha256": "4f696c9928ea9f1a3a0f67985a0a93f624bf8b4a408c1fa6d4198fd1d09d7be5",
+      "source": "/opt/abutron/v7/backend/build/lib/app/observability.py"
+    },
+    {
+      "bytes": 713,
+      "path": "portals/shared/v7-api/build/lib/app/release_capabilities.py",
+      "sha256": "e5cc65f971e44e823e1514dbbdc3df02685cad2f61b38b5748dfc29250aa3fb9",
+      "source": "/opt/abutron/v7/backend/build/lib/app/release_capabilities.py"
+    },
+    {
+      "bytes": 6019,
+      "path": "portals/shared/v7-api/build/lib/app/schemas.py",
+      "sha256": "e1cd837202cfe133b5031453a837d46e324ee9131bd4ee7a20bd6922292ad1bd",
+      "source": "/opt/abutron/v7/backend/build/lib/app/schemas.py"
+    },
+    {
+      "bytes": 2749,
+      "path": "portals/shared/v7-api/build/lib/app/security.py",
+      "sha256": "8019b3cb25023740a5778b2577fdad476e879822a0807840fcea9d7bb9e0d754",
+      "source": "/opt/abutron/v7/backend/build/lib/app/security.py"
+    },
+    {
+      "bytes": 28,
+      "path": "portals/shared/v7-api/build/lib/app/services/__init__.py",
+      "sha256": "5ee368b8b403ddb926e38792d6c660d7a6ec88ea5bd628ded82a91e52931d2f1",
+      "source": "/opt/abutron/v7/backend/build/lib/app/services/__init__.py"
+    },
+    {
+      "bytes": 4146,
+      "path": "portals/shared/v7-api/build/lib/app/services/billing.py",
+      "sha256": "d76ae6b444957f6eaec8a4a4e6676d26ad1c1d0f0f427b6374537b37eeb9f204",
+      "source": "/opt/abutron/v7/backend/build/lib/app/services/billing.py"
+    },
+    {
+      "bytes": 2933,
+      "path": "portals/shared/v7-api/build/lib/app/services/bot_profiles.py",
+      "sha256": "f3d0f094c2dea7f62baac16121cc8a959b8d078c8c8d197e0fde4c93ded84b32",
+      "source": "/opt/abutron/v7/backend/build/lib/app/services/bot_profiles.py"
+    },
+    {
+      "bytes": 206,
+      "path": "portals/shared/v7-api/build/lib/app/services/brokers/__init__.py",
+      "sha256": "9aad80ac16e3829cbf1227f85d1c42b6ea7e559f35ac6d1842c9ce70c555bfdd",
+      "source": "/opt/abutron/v7/backend/build/lib/app/services/brokers/__init__.py"
+    },
+    {
+      "bytes": 720,
+      "path": "portals/shared/v7-api/build/lib/app/services/brokers/base.py",
+      "sha256": "01a0cb47e0bf5d459428be13bd4c07f36e77a9ed9051070b8c51a2d76a93ff56",
+      "source": "/opt/abutron/v7/backend/build/lib/app/services/brokers/base.py"
+    },
+    {
+      "bytes": 729,
+      "path": "portals/shared/v7-api/build/lib/app/services/brokers/registry.py",
+      "sha256": "4ad9e7b7c63cc69eb519c102f4c752ea35512b4b46549c9d944c38a1ad444049",
+      "source": "/opt/abutron/v7/backend/build/lib/app/services/brokers/registry.py"
+    },
+    {
+      "bytes": 1976,
+      "path": "portals/shared/v7-api/build/lib/app/services/entitlements.py",
+      "sha256": "c7b42a027b4682d251e31f74fac116e0cafbfd41514e4dc0c8e45604364700b8",
+      "source": "/opt/abutron/v7/backend/build/lib/app/services/entitlements.py"
+    },
+    {
+      "bytes": 1781,
+      "path": "portals/shared/v7-api/build/lib/app/services/equity_router.py",
+      "sha256": "a3514b054a652490db061f0a8ae7227cf988ab05fe09486c563e42baabce8fa9",
+      "source": "/opt/abutron/v7/backend/build/lib/app/services/equity_router.py"
+    },
+    {
+      "bytes": 1701,
+      "path": "portals/shared/v7-api/build/lib/app/services/kronos.py",
+      "sha256": "24c3698d8b5eb0fa7a551594990214e89d962a304469a2686261c148fb6d1ad9",
+      "source": "/opt/abutron/v7/backend/build/lib/app/services/kronos.py"
+    },
+    {
+      "bytes": 1803,
+      "path": "portals/shared/v7-api/build/lib/app/services/outbox.py",
+      "sha256": "d4263bf07c8541457b31c02c99054273987a0ffdbae114e1968d7612c0eaf251",
+      "source": "/opt/abutron/v7/backend/build/lib/app/services/outbox.py"
+    },
+    {
+      "bytes": 331,
+      "path": "portals/shared/v7-api/build/lib/app/services/pricing.py",
+      "sha256": "7016728e7ef63f0d09f86afc428e82b6ad0481f7ae6559d7e9088040f4959f69",
+      "source": "/opt/abutron/v7/backend/build/lib/app/services/pricing.py"
+    },
+    {
+      "bytes": 1685,
+      "path": "portals/shared/v7-api/build/lib/app/services/push.py",
+      "sha256": "b114117b658702633a3a05f294929ef88bd3343d45ede39b3a9d2ce97bb682d8",
+      "source": "/opt/abutron/v7/backend/build/lib/app/services/push.py"
+    },
+    {
+      "bytes": 678,
+      "path": "portals/shared/v7-api/build/lib/app/services/webhooks.py",
+      "sha256": "335a19f96b0d0e1d7c9197f5cdd495d5e50051e6c9d29520b6c6a1fecca8315d",
+      "source": "/opt/abutron/v7/backend/build/lib/app/services/webhooks.py"
+    },
+    {
+      "bytes": 57,
+      "path": "portals/shared/v7-api/build/lib/app/workers/__init__.py",
+      "sha256": "948a311dc2e7d67b0dd61704cc11c968900d6a7dffb07583e4faef7860b842b4",
+      "source": "/opt/abutron/v7/backend/build/lib/app/workers/__init__.py"
+    },
+    {
+      "bytes": 2807,
+      "path": "portals/shared/v7-api/build/lib/app/workers/notifications.py",
+      "sha256": "cf4f3074e9f810a07bffcc7c1e79e00d9e2ed270a798932fea7afec60ba483c6",
+      "source": "/opt/abutron/v7/backend/build/lib/app/workers/notifications.py"
+    },
+    {
+      "bytes": 3424,
+      "path": "portals/shared/v7-api/build/lib/app/workers/outbox.py",
+      "sha256": "c1d8e6258b075ccc5f6dd644adc0c8320f347adbaeb33140d84a718b8a482c5e",
+      "source": "/opt/abutron/v7/backend/build/lib/app/workers/outbox.py"
+    },
+    {
+      "bytes": 956,
+      "path": "portals/shared/v7-api/pyproject.toml",
+      "sha256": "52aef2973b28fccd4f387ec85b6f5b8d6a8e1796e79de0b7bbeffe5a2285d682",
+      "source": "/opt/abutron/v7/backend/pyproject.toml"
+    },
+    {
+      "bytes": 262,
+      "path": "portals/apex/active-operator-ui/agent_canary_checkpoint.json",
+      "sha256": "50d2ee559aa08ec7d485d6437169bb24b0bd1b9c991cac49c0be13998bc6931f",
+      "source": "/opt/apex/runtime/apex_ui/agent_canary_checkpoint.json"
+    },
+    {
+      "bytes": 5229,
+      "path": "portals/apex/active-operator-ui/agent_stack.py",
+      "sha256": "e6a6876cd88d6cfdd386eb42b1974d6ce4c24eb3612d0b13ddd87a197d22e2b2",
+      "source": "/opt/apex/runtime/apex_ui/agent_stack.py"
+    },
+    {
+      "bytes": 20541,
+      "path": "portals/apex/active-operator-ui/app.py",
+      "sha256": "24f0deb2906f0be6d5864187bf37c71583421387a8f8152d09300acd237b6dd8",
+      "source": "/opt/apex/runtime/apex_ui/app.py"
+    },
+    {
+      "bytes": 11046,
+      "path": "portals/apex/active-operator-ui/app.py.backup-20261031-before-broker-precheck-ui",
+      "sha256": "8d07a62f9a9359af686e959888ebb4fe7545251bca8619bc95cc2ec108f4067d",
+      "source": "/opt/apex/runtime/apex_ui/app.py.backup-20261031-before-broker-precheck-ui"
+    },
+    {
+      "bytes": 10380,
+      "path": "portals/apex/active-operator-ui/app.py.backup-20261031-pre-broker-account-integration",
+      "sha256": "74d12cff790bef3d2c129fceddcc0daa41931dec01aa46cce4d5e0ccaad1f284",
+      "source": "/opt/apex/runtime/apex_ui/app.py.backup-20261031-pre-broker-account-integration"
+    },
+    {
+      "bytes": 12027,
+      "path": "portals/apex/active-operator-ui/app.py.backup-before-demo-status-20261031T191709Z",
+      "sha256": "6a78af2e18b4660b20ec17d2943e4b395f1857587c27fd16f616a440c5a0add3",
+      "source": "/opt/apex/runtime/apex_ui/app.py.backup-before-demo-status-20261031T191709Z"
+    },
+    {
+      "bytes": 9675,
+      "path": "portals/apex/active-operator-ui/app.py.backup-before-legacy-rationale-sanitize",
+      "sha256": "1248875163c7ef781ea3fa0bf1869e2a931fdf5c115b388bde5ac4c519f066dd",
+      "source": "/opt/apex/runtime/apex_ui/app.py.backup-before-legacy-rationale-sanitize"
+    },
+    {
+      "bytes": 12387,
+      "path": "portals/apex/active-operator-ui/app.py.backup-before-multi-v3-ui-20261031",
+      "sha256": "39e560b12b8708210f312f4b3145ecb6e2c33e1a1e330f3e540650616166ac3c",
+      "source": "/opt/apex/runtime/apex_ui/app.py.backup-before-multi-v3-ui-20261031"
+    },
+    {
+      "bytes": 11466,
+      "path": "portals/apex/active-operator-ui/app.py.backup-eightframe-20261031T172315Z",
+      "sha256": "217d3408554f5994759fa0b7689223b6a855d496ff52e7240e3807e06d8cd889",
+      "source": "/opt/apex/runtime/apex_ui/app.py.backup-eightframe-20261031T172315Z"
+    },
+    {
+      "bytes": 11495,
+      "path": "portals/apex/active-operator-ui/app.py.backup-risk-settings-20261031T170548Z",
+      "sha256": "8196cc84e714796a0575635e934d6e4a5717590e826eec2f92ddaa92990ebaf6",
+      "source": "/opt/apex/runtime/apex_ui/app.py.backup-risk-settings-20261031T170548Z"
+    },
+    {
+      "bytes": 9614,
+      "path": "portals/apex/active-operator-ui/candle_compare.py",
+      "sha256": "7e28034fd4afd0d316df7bfcca2aa05f339060979ef4ebdaa2684cf6438142be",
+      "source": "/opt/apex/runtime/apex_ui/candle_compare.py"
+    },
+    {
+      "bytes": 4758,
+      "path": "portals/apex/active-operator-ui/candle_compare.py.backup-before-same-snapshot-EMA",
+      "sha256": "e73886e783acacb20bd1613cc3145589a13d5e4ab710cee577eb1ac2a50d99cd",
+      "source": "/opt/apex/runtime/apex_ui/candle_compare.py.backup-before-same-snapshot-EMA"
+    },
+    {
+      "bytes": 6822,
+      "path": "portals/apex/active-operator-ui/candle_compare.py.backup-before-sync-clarity-20261031",
+      "sha256": "659890f121549cbd9323895286a252696c147003140a211ac4e6f3ce1eda9bba",
+      "source": "/opt/apex/runtime/apex_ui/candle_compare.py.backup-before-sync-clarity-20261031"
+    },
+    {
+      "bytes": 4894,
+      "path": "portals/apex/active-operator-ui/candle_compare.py.backup-isolate-20261031T183915Z",
+      "sha256": "5c9474f2cb890553f7fa0c53246f2062954ae2a345e76dc11359b840fffb3214",
+      "source": "/opt/apex/runtime/apex_ui/candle_compare.py.backup-isolate-20261031T183915Z"
+    },
+    {
+      "bytes": 4784,
+      "path": "portals/apex/active-operator-ui/candle_compare.py.backup-scanner-comparison-20261031T205554Z",
+      "sha256": "d9f9bfbf8a5845a5afc440df01a12826bad58dfea238482a8e314969e33ddff6",
+      "source": "/opt/apex/runtime/apex_ui/candle_compare.py.backup-scanner-comparison-20261031T205554Z"
+    },
+    {
+      "bytes": 13180,
+      "path": "portals/apex/active-operator-ui/decision_intelligence.py",
+      "sha256": "dd9da27e8fe6a0b1773f202dea2f90b1b7ab477a381f29b49be7b39d0c44c4e3",
+      "source": "/opt/apex/runtime/apex_ui/decision_intelligence.py"
+    },
+    {
+      "bytes": 6586,
+      "path": "portals/apex/active-operator-ui/fp_market_operator.py",
+      "sha256": "02e0df6aaef91d7d2e9d54aa7cdeaddaa7ac7781d8482b60cf856244c687c5b4",
+      "source": "/opt/apex/runtime/apex_ui/fp_market_operator.py"
+    },
+    {
+      "bytes": 1871,
+      "path": "portals/apex/active-operator-ui/fp_native_history_operator.py",
+      "sha256": "ca0120da89d4bfe565e4ee30e2fdaa909d5afb02cfcc45bb76c26795c3fbb9b0",
+      "source": "/opt/apex/runtime/apex_ui/fp_native_history_operator.py"
+    },
+    {
+      "bytes": 9426,
+      "path": "portals/apex/active-operator-ui/fp_quality_diagnostics.py",
+      "sha256": "89e6a563afe0e87407be12f991016455918edca19e51b7757a28643c74cf1c26",
+      "source": "/opt/apex/runtime/apex_ui/fp_quality_diagnostics.py"
+    },
+    {
+      "bytes": 11312,
+      "path": "portals/apex/active-operator-ui/operator_native_snapshot.py",
+      "sha256": "335cb4a0cf722421115eb6f27c06552a0f5b5b1c5ddf327ac54b350ebfa637f6",
+      "source": "/opt/apex/runtime/apex_ui/operator_native_snapshot.py"
+    },
+    {
+      "bytes": 5489,
+      "path": "portals/apex/active-operator-ui/quant_first_status.py",
+      "sha256": "f1333b447fbf6dc8cb8061c5658731961d6131a5f8527df5210e82dfb0110715",
+      "source": "/opt/apex/runtime/apex_ui/quant_first_status.py"
+    },
+    {
+      "bytes": 1433,
+      "path": "portals/apex/active-operator-ui/static/agent-stack.css",
+      "sha256": "c4e264428704bbf7447696b7294ad72364b69ca7f4f48660cf7b401afc54917b",
+      "source": "/opt/apex/runtime/apex_ui/static/agent-stack.css"
+    },
+    {
+      "bytes": 5683,
+      "path": "portals/apex/active-operator-ui/static/agent-stack.js",
+      "sha256": "4fed19bd13358b9abffc673e5e8de4f027aac8d5063d1606500ca027ff81c6af",
+      "source": "/opt/apex/runtime/apex_ui/static/agent-stack.js"
+    },
+    {
+      "bytes": 42705,
+      "path": "portals/apex/active-operator-ui/static/app.js",
+      "sha256": "06d16805b1dc9da0c43f555f91baa8dae96e649551db9205877c7d6ecea2deb8",
+      "source": "/opt/apex/runtime/apex_ui/static/app.js"
+    },
+    {
+      "bytes": 12432,
+      "path": "portals/apex/active-operator-ui/static/app.js.backup-20261031T164410Z",
+      "sha256": "06d412b8a950f23e9ca00f4798479b152aa4fd713c654ffcaacef22a4006bc64",
+      "source": "/opt/apex/runtime/apex_ui/static/app.js.backup-20261031T164410Z"
+    },
+    {
+      "bytes": 16103,
+      "path": "portals/apex/active-operator-ui/static/app.js.backup-20261031T165219Z",
+      "sha256": "90fef2596e91790ab0e5d4233c333adfbccb5d857043e8b3c2888700a809d191",
+      "source": "/opt/apex/runtime/apex_ui/static/app.js.backup-20261031T165219Z"
+    },
+    {
+      "bytes": 17452,
+      "path": "portals/apex/active-operator-ui/static/app.js.backup-M5-20261031T170437Z",
+      "sha256": "a9b8ca66a3009a7dee63c007455a40f6875636b6586bedd9520e4ea40851d181",
+      "source": "/opt/apex/runtime/apex_ui/static/app.js.backup-M5-20261031T170437Z"
+    },
+    {
+      "bytes": 28276,
+      "path": "portals/apex/active-operator-ui/static/app.js.backup-before-140cap-and-lots-20261031T211001Z",
+      "sha256": "1d500d61650cf7ddfd0b15e74527de12158664b730db1a1fb35e6810902aa889",
+      "source": "/opt/apex/runtime/apex_ui/static/app.js.backup-before-140cap-and-lots-20261031T211001Z"
+    },
+    {
+      "bytes": 22617,
+      "path": "portals/apex/active-operator-ui/static/app.js.backup-before-demo-status-20261031T191709Z",
+      "sha256": "4dfbcd9333d6bce51a8d90d389623be7b00fde02782c18813fd6a0a0a1e5fd63",
+      "source": "/opt/apex/runtime/apex_ui/static/app.js.backup-before-demo-status-20261031T191709Z"
+    },
+    {
+      "bytes": 21021,
+      "path": "portals/apex/active-operator-ui/static/app.js.backup-before-market-date-20261031T185704Z",
+      "sha256": "ec8b695efa8992bda80e1699b74074d130ce2c7a5b4748010c7046889519d769",
+      "source": "/opt/apex/runtime/apex_ui/static/app.js.backup-before-market-date-20261031T185704Z"
+    },
+    {
+      "bytes": 28785,
+      "path": "portals/apex/active-operator-ui/static/app.js.backup-before-multi-v3-ui-20261031",
+      "sha256": "8f511523a50cd1a6e14852732e46c9f7c4d58f6faead77645b080e4504bc51e4",
+      "source": "/opt/apex/runtime/apex_ui/static/app.js.backup-before-multi-v3-ui-20261031"
+    },
+    {
+      "bytes": 27183,
+      "path": "portals/apex/active-operator-ui/static/app.js.backup-before-signal-clarity-20261031T210137Z",
+      "sha256": "bacc5e27d935954442a4b9caa832740cd13d1333463ae9cb30bd104783d3f290",
+      "source": "/opt/apex/runtime/apex_ui/static/app.js.backup-before-signal-clarity-20261031T210137Z"
+    },
+    {
+      "bytes": 21603,
+      "path": "portals/apex/active-operator-ui/static/app.js.backup-before-trade-timestamps-20261031T190237Z",
+      "sha256": "1c7e722e0db71702acc6f7555df80491e5c781de3d75208a0211f8cba8e0a97d",
+      "source": "/opt/apex/runtime/apex_ui/static/app.js.backup-before-trade-timestamps-20261031T190237Z"
+    },
+    {
+      "bytes": 25137,
+      "path": "portals/apex/active-operator-ui/static/app.js.backup-before-usd-profile-ui-20261031",
+      "sha256": "d95fcf4a8b68ff1be22094a8385c17fc9ace921ee2701da78cef0ab6929a0f86",
+      "source": "/opt/apex/runtime/apex_ui/static/app.js.backup-before-usd-profile-ui-20261031"
+    },
+    {
+      "bytes": 17699,
+      "path": "portals/apex/active-operator-ui/static/app.js.backup-candle-compare-20261031T172418Z",
+      "sha256": "c822d93c1c3ef21d718bca9bb962b71437a626de898d1449ca496c179731c51a",
+      "source": "/opt/apex/runtime/apex_ui/static/app.js.backup-candle-compare-20261031T172418Z"
+    },
+    {
+      "bytes": 20741,
+      "path": "portals/apex/active-operator-ui/static/app.js.backup-direct-compare-link-20261031",
+      "sha256": "305e89243ca8792bf3899666afb18e0ea4bf145e8d6d228feb796ed8e7cb9c63",
+      "source": "/opt/apex/runtime/apex_ui/static/app.js.backup-direct-compare-link-20261031"
+    },
+    {
+      "bytes": 21337,
+      "path": "portals/apex/active-operator-ui/static/app.js.backup-execution-utc-20261031T185925Z",
+      "sha256": "da7ab0260d1d29f9816d8b79d14867cea6ec90b2e832955e3586022f43db63f0",
+      "source": "/opt/apex/runtime/apex_ui/static/app.js.backup-execution-utc-20261031T185925Z"
+    },
+    {
+      "bytes": 24180,
+      "path": "portals/apex/active-operator-ui/static/app.js.backup-risk-display-20261031T194315Z",
+      "sha256": "b15757df74d99f14f69600ec3941f84f3a689b52d5194ec392e60bc70d9833c6",
+      "source": "/opt/apex/runtime/apex_ui/static/app.js.backup-risk-display-20261031T194315Z"
+    },
+    {
+      "bytes": 17647,
+      "path": "portals/apex/active-operator-ui/static/app.js.backup-risk-settings-20261031T170548Z",
+      "sha256": "38632db5b5fbf3b022f3a18e02a83d836bcce09a32bd7439e4e46d5cd0c5b685",
+      "source": "/opt/apex/runtime/apex_ui/static/app.js.backup-risk-settings-20261031T170548Z"
+    },
+    {
+      "bytes": 25948,
+      "path": "portals/apex/active-operator-ui/static/app.js.backup-scanner-comparison-20261031T205554Z",
+      "sha256": "c509fc9f69342562c9b59ee5b58ea082b9d45d034b4d8a1ae3a8820d1ab96a2d",
+      "source": "/opt/apex/runtime/apex_ui/static/app.js.backup-scanner-comparison-20261031T205554Z"
+    },
+    {
+      "bytes": 5864,
+      "path": "portals/apex/active-operator-ui/static/fp-native-history-operator.js",
+      "sha256": "052a446a034a44f41410772bb96349541daadd32543e1f3aeedf88aa034d3cfe",
+      "source": "/opt/apex/runtime/apex_ui/static/fp-native-history-operator.js"
+    },
+    {
+      "bytes": 5424,
+      "path": "portals/apex/active-operator-ui/static/fp-operator-ui.css",
+      "sha256": "2d002b4a6ef35f7d40747ecc73548402d388048e2428c9d1e50caec8b0738af2",
+      "source": "/opt/apex/runtime/apex_ui/static/fp-operator-ui.css"
+    },
+    {
+      "bytes": 31855,
+      "path": "portals/apex/active-operator-ui/static/fp-operator-ui.js",
+      "sha256": "5df51a3290aa710bebff7fe511180ad2bc59292ef52080bb5ff8498adec5b355",
+      "source": "/opt/apex/runtime/apex_ui/static/fp-operator-ui.js"
+    },
+    {
+      "bytes": 4009,
+      "path": "portals/apex/active-operator-ui/static/fp-quality-diagnostics.js",
+      "sha256": "9fdde1c3841240d85d11f30fdbc63d3f9ab9848b2d8de95fe8e212ca7198e60a",
+      "source": "/opt/apex/runtime/apex_ui/static/fp-quality-diagnostics.js"
+    },
+    {
+      "bytes": 31095,
+      "path": "portals/apex/active-operator-ui/static/index.html",
+      "sha256": "7b7c8a847d95a5a7879ae5c0fcec28b3602b1a9625bb354efae75fac4b318dea",
+      "source": "/opt/apex/runtime/apex_ui/static/index.html"
+    },
+    {
+      "bytes": 8680,
+      "path": "portals/apex/active-operator-ui/static/index.html.backup-20261031T164410Z",
+      "sha256": "963dd6ddbcb49935f538ad09b70f25925a207d6a1d9d458b7b0275a15da7bf60",
+      "source": "/opt/apex/runtime/apex_ui/static/index.html.backup-20261031T164410Z"
+    },
+    {
+      "bytes": 13646,
+      "path": "portals/apex/active-operator-ui/static/index.html.backup-20261031T165219Z",
+      "sha256": "594b74b70bd178f6a0788e9d1f70be6c21d7af2b99271e23130263a7ba604311",
+      "source": "/opt/apex/runtime/apex_ui/static/index.html.backup-20261031T165219Z"
+    },
+    {
+      "bytes": 16062,
+      "path": "portals/apex/active-operator-ui/static/index.html.backup-M5-20261031T170437Z",
+      "sha256": "0b7075f0264c226dca5a89be282c6d25fa7f847c2a75d678c1a934c6fba5461e",
+      "source": "/opt/apex/runtime/apex_ui/static/index.html.backup-M5-20261031T170437Z"
+    },
+    {
+      "bytes": 23204,
+      "path": "portals/apex/active-operator-ui/static/index.html.backup-before-140cap-and-lots-20261031T211001Z",
+      "sha256": "3b1e854368e9ae2d17b8fbaced4404964e3abc6402170cb037f214c44c31f706",
+      "source": "/opt/apex/runtime/apex_ui/static/index.html.backup-before-140cap-and-lots-20261031T211001Z"
+    },
+    {
+      "bytes": 20015,
+      "path": "portals/apex/active-operator-ui/static/index.html.backup-before-demo-status-20261031T191709Z",
+      "sha256": "1fa488a3199addc87baa080f0354b4765b74998608a71050182dbdf85e600aac",
+      "source": "/opt/apex/runtime/apex_ui/static/index.html.backup-before-demo-status-20261031T191709Z"
+    },
+    {
+      "bytes": 18923,
+      "path": "portals/apex/active-operator-ui/static/index.html.backup-before-market-date-20261031T185704Z",
+      "sha256": "39638dcd2cda867d4f4b1237ed826905ca73ce05a09fc94b2d7a03dbcbe73193",
+      "source": "/opt/apex/runtime/apex_ui/static/index.html.backup-before-market-date-20261031T185704Z"
+    },
+    {
+      "bytes": 23326,
+      "path": "portals/apex/active-operator-ui/static/index.html.backup-before-multi-v3-ui-20261031",
+      "sha256": "93bb7a500f5ff8a1a821995c83691957063c8c4c1695099d3e0491cc4de1a573",
+      "source": "/opt/apex/runtime/apex_ui/static/index.html.backup-before-multi-v3-ui-20261031"
+    },
+    {
+      "bytes": 22708,
+      "path": "portals/apex/active-operator-ui/static/index.html.backup-before-signal-clarity-20261031T210137Z",
+      "sha256": "c8546dc18d6e9e16d6f0eac61f1e1bbdc20960c90282d0bdc32a47ce82db4770",
+      "source": "/opt/apex/runtime/apex_ui/static/index.html.backup-before-signal-clarity-20261031T210137Z"
+    },
+    {
+      "bytes": 19809,
+      "path": "portals/apex/active-operator-ui/static/index.html.backup-before-trade-timestamps-20261031T190237Z",
+      "sha256": "c833d2df55271ce67d0543ae2cb33dd9d2f3b6413c40f67272acf8800edecacb",
+      "source": "/opt/apex/runtime/apex_ui/static/index.html.backup-before-trade-timestamps-20261031T190237Z"
+    },
+    {
+      "bytes": 21336,
+      "path": "portals/apex/active-operator-ui/static/index.html.backup-before-usd-profile-ui-20261031",
+      "sha256": "7a310165c7daaa30e424b0ab1d6271f71731e9b0a84fcef9061c6ebe46f39905",
+      "source": "/opt/apex/runtime/apex_ui/static/index.html.backup-before-usd-profile-ui-20261031"
+    },
+    {
+      "bytes": 16308,
+      "path": "portals/apex/active-operator-ui/static/index.html.backup-candle-compare-20261031T172418Z",
+      "sha256": "f17ca4f6ed27aa3eddbf58eaa3a1fce5a97edbe26031f4b07513c9bbfcb0bf20",
+      "source": "/opt/apex/runtime/apex_ui/static/index.html.backup-candle-compare-20261031T172418Z"
+    },
+    {
+      "bytes": 18855,
+      "path": "portals/apex/active-operator-ui/static/index.html.backup-clear-tf-labels-20261031",
+      "sha256": "bd6aeebfb441c430650f2050572356d65e71e79f93a03cc17cdb0a5b51fa856d",
+      "source": "/opt/apex/runtime/apex_ui/static/index.html.backup-clear-tf-labels-20261031"
+    },
+    {
+      "bytes": 19380,
+      "path": "portals/apex/active-operator-ui/static/index.html.backup-execution-utc-20261031T185925Z",
+      "sha256": "ad0aa8d467130d12d36b92ad76abd00c62a33f5e358163ad0fe348554e1c8738",
+      "source": "/opt/apex/runtime/apex_ui/static/index.html.backup-execution-utc-20261031T185925Z"
+    },
+    {
+      "bytes": 19025,
+      "path": "portals/apex/active-operator-ui/static/index.html.backup-isolate-20261031T183915Z",
+      "sha256": "737a92bd9a044af96b62c60702703debe62a4fc05a137df9396132df202d8ab2",
+      "source": "/opt/apex/runtime/apex_ui/static/index.html.backup-isolate-20261031T183915Z"
+    },
+    {
+      "bytes": 21113,
+      "path": "portals/apex/active-operator-ui/static/index.html.backup-risk-display-20261031T194315Z",
+      "sha256": "166021481b2d7ec4f8297e7e9f596407cee3fe9bb782da824b46fadf304fd6d3",
+      "source": "/opt/apex/runtime/apex_ui/static/index.html.backup-risk-display-20261031T194315Z"
+    },
+    {
+      "bytes": 16269,
+      "path": "portals/apex/active-operator-ui/static/index.html.backup-risk-settings-20261031T170548Z",
+      "sha256": "98c4aea59547fc58099c3785a6b18190c9ba473d12378369b0f39def772f3b75",
+      "source": "/opt/apex/runtime/apex_ui/static/index.html.backup-risk-settings-20261031T170548Z"
+    },
+    {
+      "bytes": 22346,
+      "path": "portals/apex/active-operator-ui/static/index.html.backup-scanner-comparison-20261031T205554Z",
+      "sha256": "0fb056a7196b99db8ced9240c98977c5df8bb1df6e7c1114d7c856dcfabfc5e4",
+      "source": "/opt/apex/runtime/apex_ui/static/index.html.backup-scanner-comparison-20261031T205554Z"
+    },
+    {
+      "bytes": 1111,
+      "path": "portals/apex/active-operator-ui/static/runtime-health.css",
+      "sha256": "ac6bbbdacb3ba327d990828bcaae98c4cb6fc8d4bd75a4a987aeff4fc8e7da8b",
+      "source": "/opt/apex/runtime/apex_ui/static/runtime-health.css"
+    },
+    {
+      "bytes": 6665,
+      "path": "portals/apex/active-operator-ui/static/runtime-health.js",
+      "sha256": "1ea47ce01ed7c23f25a5abb4a542021b65512a009c19f303fc172a8ccec14b70",
+      "source": "/opt/apex/runtime/apex_ui/static/runtime-health.js"
+    },
+    {
+      "bytes": 15873,
+      "path": "portals/apex/active-operator-ui/static/style.css",
+      "sha256": "a9bdadc6ce861dd1bc985243562c2202db421c49335b147aa200c554f6550e51",
+      "source": "/opt/apex/runtime/apex_ui/static/style.css"
+    },
+    {
+      "bytes": 10873,
+      "path": "portals/apex/active-operator-ui/static/style.css.backup-20261031T164410Z",
+      "sha256": "7fb2dd9146a4aa904120621b7164a5301d8417d5b866b0a16a62ce81a59f9a2e",
+      "source": "/opt/apex/runtime/apex_ui/static/style.css.backup-20261031T164410Z"
+    },
+    {
+      "bytes": 11683,
+      "path": "portals/apex/active-operator-ui/static/style.css.backup-before-market-date-20261031T185704Z",
+      "sha256": "4b5971e05de0b164b9d77755255ededffc3e5f7e368ed21ff8e72055869f7f8a",
+      "source": "/opt/apex/runtime/apex_ui/static/style.css.backup-before-market-date-20261031T185704Z"
+    },
+    {
+      "bytes": 13770,
+      "path": "portals/apex/active-operator-ui/static/style.css.backup-before-signal-clarity-20261031T210137Z",
+      "sha256": "ff74fb678ee7f6f063f139450948a9174c481e96e23ccce9d9e36fb83bc4dac1",
+      "source": "/opt/apex/runtime/apex_ui/static/style.css.backup-before-signal-clarity-20261031T210137Z"
+    },
+    {
+      "bytes": 13281,
+      "path": "portals/apex/active-operator-ui/static/style.css.backup-before-trade-timestamps-20261031T190237Z",
+      "sha256": "aa3217c882cbda7f5ff342e0295b975e9a452fb9beda946a272c5949ecfac225",
+      "source": "/opt/apex/runtime/apex_ui/static/style.css.backup-before-trade-timestamps-20261031T190237Z"
+    },
+    {
+      "bytes": 11356,
+      "path": "portals/apex/active-operator-ui/static/style.css.backup-candle-compare-20261031T172418Z",
+      "sha256": "656a6166c2228d65caa0b82ae7d4ff33dc776cb8649398a08312af6ae58f3c0b",
+      "source": "/opt/apex/runtime/apex_ui/static/style.css.backup-candle-compare-20261031T172418Z"
+    },
+    {
+      "bytes": 12474,
+      "path": "portals/apex/active-operator-ui/static/style.css.backup-execution-utc-20261031T185925Z",
+      "sha256": "1c5f28e69ed86a7efd8f419a65889bbb9f3838adca102ef2972b87f6994bb59f",
+      "source": "/opt/apex/runtime/apex_ui/static/style.css.backup-execution-utc-20261031T185925Z"
+    },
+    {
+      "bytes": 16553,
+      "path": "portals/apex/active-operator-ui/telemetry.py",
+      "sha256": "d1cdd5b9144bb3f38b875cff13b4ed9fd39e5b32b21df241d5baf666d8d619d4",
+      "source": "/opt/apex/runtime/apex_ui/telemetry.py"
+    },
+    {
+      "bytes": 8221,
+      "path": "portals/apex/active-operator-ui/telemetry.py.backup-M5-20261031T170437Z",
+      "sha256": "2fb5dfb0429740ef9837fd0afc62e1acf2dcca49176e6c7b5f3c6ac2796fc9bb",
+      "source": "/opt/apex/runtime/apex_ui/telemetry.py.backup-M5-20261031T170437Z"
+    },
+    {
+      "bytes": 12238,
+      "path": "portals/apex/active-operator-ui/telemetry.py.backup-before-140cap-and-lots-20261031T211001Z",
+      "sha256": "b77f5571e9248d8a8c1a2ba43de99de346a183228eba7408463f677a9cad23d0",
+      "source": "/opt/apex/runtime/apex_ui/telemetry.py.backup-before-140cap-and-lots-20261031T211001Z"
+    },
+    {
+      "bytes": 10108,
+      "path": "portals/apex/active-operator-ui/telemetry.py.backup-before-demo-status-20261031T191709Z",
+      "sha256": "d3966097899e9b2d980949e2e7821e564b2eef87456aee7fcac769e9a961a5b9",
+      "source": "/opt/apex/runtime/apex_ui/telemetry.py.backup-before-demo-status-20261031T191709Z"
+    },
+    {
+      "bytes": 9843,
+      "path": "portals/apex/active-operator-ui/telemetry.py.backup-before-m5-vintage-reconcile",
+      "sha256": "cd39777b4e5e0a9be881d20ee27f7be65d1810472f03232ce45dc81d577723e4",
+      "source": "/opt/apex/runtime/apex_ui/telemetry.py.backup-before-m5-vintage-reconcile"
+    },
+    {
+      "bytes": 12238,
+      "path": "portals/apex/active-operator-ui/telemetry.py.backup-before-multi-v3-ui-20261031",
+      "sha256": "5c0e1d25992dada979a6bd37590429c135b297c32ded34ce50dbe0548244a071",
+      "source": "/opt/apex/runtime/apex_ui/telemetry.py.backup-before-multi-v3-ui-20261031"
+    },
+    {
+      "bytes": 10005,
+      "path": "portals/apex/active-operator-ui/telemetry.py.backup-before-trade-timestamps-20261031T190237Z",
+      "sha256": "ec11bf90b7597eb1ba432caaee85db8ba3caf469d96bb317568ee25b30d33885",
+      "source": "/opt/apex/runtime/apex_ui/telemetry.py.backup-before-trade-timestamps-20261031T190237Z"
+    },
+    {
+      "bytes": 11334,
+      "path": "portals/apex/active-operator-ui/telemetry.py.backup-before-usd-profile-ui-20261031",
+      "sha256": "fa25338248d39b17b1943e77df15ecc4822c6d2f03c96e858b41fc21b00c8e85",
+      "source": "/opt/apex/runtime/apex_ui/telemetry.py.backup-before-usd-profile-ui-20261031"
+    },
+    {
+      "bytes": 8704,
+      "path": "portals/apex/active-operator-ui/telemetry.py.backup-eightframe-20261031T172315Z",
+      "sha256": "879b464414659fb403f8601ecc3795f9b2880e888acc088e37c3727ad8f4d3d9",
+      "source": "/opt/apex/runtime/apex_ui/telemetry.py.backup-eightframe-20261031T172315Z"
+    },
+    {
+      "bytes": 11254,
+      "path": "portals/apex/active-operator-ui/telemetry.py.backup-risk-display-20261031T194315Z",
+      "sha256": "1fa1530f409c8536acd07452da1b497662b585c17c91ae6e64642804d8c59c06",
+      "source": "/opt/apex/runtime/apex_ui/telemetry.py.backup-risk-display-20261031T194315Z"
+    },
+    {
+      "bytes": 8500,
+      "path": "portals/apex/active-operator-ui/telemetry.py.backup-risk-settings-20261031T170548Z",
+      "sha256": "c6b4e79b1c91c821ce6857dc8032011ff268f5e11ccce6fbc0de0d878fb9b5bc",
+      "source": "/opt/apex/runtime/apex_ui/telemetry.py.backup-risk-settings-20261031T170548Z"
+    },
+    {
+      "bytes": 3513,
+      "path": "portals/apex/active-operator-ui/test_quant_first_status.py",
+      "sha256": "d57029746693ae0e537952445cdfc9a00d3c6d3a7919bd95cc891952759c7091",
+      "source": "/opt/apex/runtime/apex_ui/test_quant_first_status.py"
+    },
+    {
+      "bytes": 1184,
+      "path": "portals/apex/active-operator-ui/trading_health.py",
+      "sha256": "fbccf19540da856f45c27b6a1401bc0bc1954974e1c523a6bdb1edbf2a20c5e5",
+      "source": "/opt/apex/runtime/apex_ui/trading_health.py"
+    },
+    {
+      "bytes": 3242,
+      "path": "portals/apex/active-operator-ui/upgrade_compare_api.py",
+      "sha256": "8226935be402e1ddbfe4b24cd5a5fdca014814c738407f80a8378ebd119550e2",
+      "source": "/opt/apex/runtime/apex_ui/upgrade_compare_api.py"
+    },
+    {
+      "bytes": 12268,
+      "path": "portals/apex/active-operator-ui/upgrade_dashboard_v2.py",
+      "sha256": "15bdbaf1f23d2a95118728ffd1283cdf917c56e6ee96b716491c62802120e0fb",
+      "source": "/opt/apex/runtime/apex_ui/upgrade_dashboard_v2.py"
+    },
+    {
+      "bytes": 5890,
+      "path": "portals/apex/active-operator-ui/upgrade_dashboard_v3.py",
+      "sha256": "79e5277a5a662fb37fc935b0551d5fe826a98487b997ce513b540f868dace7f3",
+      "source": "/opt/apex/runtime/apex_ui/upgrade_dashboard_v3.py"
+    },
+    {
+      "bytes": 10984,
+      "path": "portals/apex/active-operator-ui/upgrade_eightframe_ui.py",
+      "sha256": "336340c9732feda05837de434e3cadce28a97c04d90cdf529cffd16b2df43e26",
+      "source": "/opt/apex/runtime/apex_ui/upgrade_eightframe_ui.py"
+    },
+    {
+      "bytes": 11121,
+      "path": "portals/apex/active-operator-ui/upgrade_eightframe_ui.py.backup-isolate-20261031T183915Z",
+      "sha256": "bcf7f7def6786127e009ba70fe70549b3bff5ebf25c5b10277a7e43aecf3b4c4",
+      "source": "/opt/apex/runtime/apex_ui/upgrade_eightframe_ui.py.backup-isolate-20261031T183915Z"
+    },
+    {
+      "bytes": 9533,
+      "path": "portals/shared/account-entrypoints/index.html",
+      "sha256": "da8bcd9f7b5916b918ac1654c0f3b83f04a09f4f63fa262a67efe162f62e0614",
+      "source": "/var/www/apex-landing/account/index.html"
+    },
+    {
+      "bytes": 2051,
+      "path": "portals/shared/account-entrypoints/account-flow.js",
+      "sha256": "62536bd6d80496d5225752702d6cbcd4b69170daa9f19d044c69615661b94d3d",
+      "source": "/var/www/apex-landing/account/account-flow.js"
+    },
+    {
+      "bytes": 5846,
+      "path": "portals/shared/account-entrypoints/signup.js",
+      "sha256": "47401a00abd2321b1644d47380ef66abadb8f856b2cd91a357ba3589b4e255c2",
+      "source": "/var/www/apex-landing/account/signup.js"
+    },
+    {
+      "bytes": 4406,
+      "path": "portals/shared/account-entrypoints/signup.css",
+      "sha256": "e1900026df01270258401cd4da0f8faa6b60dd8f70adf2f1cf0c7f976c2f840e",
+      "source": "/var/www/apex-landing/account/signup.css"
+    },
+    {
+      "bytes": 2727,
+      "path": "portals/apex/runtime-modules/abutron_ai_history_snapshot.py",
+      "sha256": "a4264468d607aeb64b62daec3976aee317ea535ddaf0eb73f9faa5a26550cc45",
+      "source": "/opt/apex/runtime/abutron_ai_history_snapshot.py"
+    },
+    {
+      "bytes": 3793,
+      "path": "portals/apex/runtime-modules/abutron_precision_history.py",
+      "sha256": "31eb41caf44e136838040735625e9cdfb11f793c44c2d87524d9c32a22f389e2",
+      "source": "/opt/apex/runtime/abutron_precision_history.py"
+    },
+    {
+      "bytes": 9949,
+      "path": "portals/apex/runtime-modules/abutron_scanner_llm.py",
+      "sha256": "5e5a645038a22a5ec489e2a70bdbfba903a9e92f5b4aec308b59b137853c34a1",
+      "source": "/opt/apex/runtime/abutron_scanner_llm.py"
+    },
+    {
+      "bytes": 21997,
+      "path": "portals/apex/runtime-modules/apex_broker_agent.py",
+      "sha256": "2b20bda4b147bf2febe625ad8617d234504b26eb9af239499da3fefef363edb3",
+      "source": "/opt/apex/runtime/apex_broker_agent.py"
+    },
+    {
+      "bytes": 4573,
+      "path": "portals/apex/runtime-modules/apex_broker_warehouse.py",
+      "sha256": "5ee702226068491f7eb221fc14af204e9d4a030630a106b1fb81a06ddf69f3ec",
+      "source": "/opt/apex/runtime/apex_broker_warehouse.py"
+    },
+    {
+      "bytes": 1875,
+      "path": "portals/apex/runtime-modules/apex_broker_warehouse_test.py",
+      "sha256": "e1be8161d5aaf6ddc7bda27d80cd5d6253743764da2d232c1cdf7885c258e23f",
+      "source": "/opt/apex/runtime/apex_broker_warehouse_test.py"
+    },
+    {
+      "bytes": 5194,
+      "path": "portals/apex/runtime-modules/apex_customer_entitlement_guard.py",
+      "sha256": "6ad090153be9bce7e686a227a07d4b41b93c275b58ce4a7ab616c20b1f3cbcf0",
+      "source": "/opt/apex/runtime/apex_customer_entitlement_guard.py"
+    },
+    {
+      "bytes": 13477,
+      "path": "portals/apex/runtime-modules/apex_demo_auto_v2.py",
+      "sha256": "b05b714b2fd8ef6d831dcd22d5859fb365fea4eff1d4ade2ac4c71e020de1899",
+      "source": "/opt/apex/runtime/apex_demo_auto_v2.py"
+    },
+    {
+      "bytes": 11322,
+      "path": "portals/apex/runtime-modules/apex_demo_auto_v3.py",
+      "sha256": "b98e6494dddc6c1d74f0711ba3be0c8233a9c1641e44ecd93b95ce068dfdac8b",
+      "source": "/opt/apex/runtime/apex_demo_auto_v3.py"
+    },
+    {
+      "bytes": 4575,
+      "path": "portals/apex/runtime-modules/apex_demo_feed_stage.py",
+      "sha256": "110d77d52c8716dbff34d14d6977aeab8e2ae77ccce725b807beb28db6272bc6",
+      "source": "/opt/apex/runtime/apex_demo_feed_stage.py"
+    },
+    {
+      "bytes": 4807,
+      "path": "portals/apex/runtime-modules/apex_demo_gate_v2.py",
+      "sha256": "ae1d457f1cc79adb772e70b1ca0696dc36b3482bbc12b36f39f3b9e90a9fe46f",
+      "source": "/opt/apex/runtime/apex_demo_gate_v2.py"
+    },
+    {
+      "bytes": 15523,
+      "path": "portals/apex/runtime-modules/apex_demo_mt5_executor.py",
+      "sha256": "393656dcbf2fef02a411dda4603c5108597798d68a802d4f785ce78fc788c2eb",
+      "source": "/opt/apex/runtime/apex_demo_mt5_executor.py"
+    },
+    {
+      "bytes": 10268,
+      "path": "portals/apex/runtime-modules/apex_demo_risk_v2.py",
+      "sha256": "bee60671aeeabf77ca97e48ce82ae5eec240b7c273da4ac656df106506bddfec",
+      "source": "/opt/apex/runtime/apex_demo_risk_v2.py"
+    },
+    {
+      "bytes": 8779,
+      "path": "portals/apex/runtime-modules/apex_demo_usd_profile_v1.py",
+      "sha256": "fa724cb67e2c586089a99cde81d20791f5dec259df86873a7d41378edfa14cbd",
+      "source": "/opt/apex/runtime/apex_demo_usd_profile_v1.py"
+    },
+    {
+      "bytes": 1063,
+      "path": "portals/apex/runtime-modules/apex_demo_v75_readonly_probe.py",
+      "sha256": "26386f0b4e5ec86bc2123123404db00fdb2f0610c0e9dda7f8eef45a06dc8429",
+      "source": "/opt/apex/runtime/apex_demo_v75_readonly_probe.py"
+    },
+    {
+      "bytes": 5328,
+      "path": "portals/apex/runtime-modules/apex_deriv_contract_probe.py",
+      "sha256": "b6d0c5e1ac4e2c931fba2661113f4bf116d76c6994dbbe8c1050823b871c4880",
+      "source": "/opt/apex/runtime/apex_deriv_contract_probe.py"
+    },
+    {
+      "bytes": 1080,
+      "path": "portals/apex/runtime-modules/apex_dest_mt5_broker_preflight.py",
+      "sha256": "867dcf8c0e0494d3c0c354462410095b2b96db0d6d066a2cd0caec8adc3a3d40",
+      "source": "/opt/apex/runtime/apex_dest_mt5_broker_preflight.py"
+    },
+    {
+      "bytes": 2081,
+      "path": "portals/apex/runtime-modules/apex_destination_shadow.py",
+      "sha256": "79ce6ef3e95fa33158054b6209c8c7e5ec31d97aa949b412558091fdb7745b0c",
+      "source": "/opt/apex/runtime/apex_destination_shadow.py"
+    },
+    {
+      "bytes": 9143,
+      "path": "portals/apex/runtime-modules/apex_execution_preview.py",
+      "sha256": "5e9dccca061ce6d7a422520841b69bb5512ee3d119283682cc55df6539c56744",
+      "source": "/opt/apex/runtime/apex_execution_preview.py"
+    },
+    {
+      "bytes": 2935,
+      "path": "portals/apex/runtime-modules/apex_execution_preview_test.py",
+      "sha256": "5daf6da6cab8b0db7f7fca4436addd2eb38681ab5271d8c7f3fedf67f86652ba",
+      "source": "/opt/apex/runtime/apex_execution_preview_test.py"
+    },
+    {
+      "bytes": 10842,
+      "path": "portals/apex/runtime-modules/apex_fast_scanner.py",
+      "sha256": "deaa6582295a69fe5958790a2aa12a3ee7c07200a16399f28423aa82ffdea45c",
+      "source": "/opt/apex/runtime/apex_fast_scanner.py"
+    },
+    {
+      "bytes": 2373,
+      "path": "portals/apex/runtime-modules/apex_fast_scanner_test.py",
+      "sha256": "7b7bb90502f0ea737542654b328ed8cf45b646416303c2533eecac21f511ca48",
+      "source": "/opt/apex/runtime/apex_fast_scanner_test.py"
+    },
+    {
+      "bytes": 606,
+      "path": "portals/apex/runtime-modules/apex_gateway.py",
+      "sha256": "39d543d50bb8192146a0a531fdc5c35fc2ff1ab7b8db3f84be3e76cf96d9a2f3",
+      "source": "/opt/apex/runtime/apex_gateway.py"
+    },
+    {
+      "bytes": 6510,
+      "path": "portals/apex/runtime-modules/apex_mt5_account_export.py",
+      "sha256": "410ff349973392c2ec47a33a3b00cb91d17f709b346d2a61089d8f628de4e8bc",
+      "source": "/opt/apex/runtime/apex_mt5_account_export.py"
+    },
+    {
+      "bytes": 3927,
+      "path": "portals/apex/runtime-modules/apex_mt5_account_store.py",
+      "sha256": "a21140647e038d537f8e8a25fa7fe7e9fc5568b409b2a7434aa4c24042011bc4",
+      "source": "/opt/apex/runtime/apex_mt5_account_store.py"
+    },
+    {
+      "bytes": 1043,
+      "path": "portals/apex/runtime-modules/apex_mt5_connect_readonly_diag.py",
+      "sha256": "38974a0dcafd8c7d266e60b24f8477834cb44bdfbfae881f84c578ae74bbc7df",
+      "source": "/opt/apex/runtime/apex_mt5_connect_readonly_diag.py"
+    },
+    {
+      "bytes": 3687,
+      "path": "portals/apex/runtime-modules/apex_mt5_export.py",
+      "sha256": "041525a4fa2c5df5b5a5ce63a7e009475d08b54c733bdeddf46734e28129fbf7",
+      "source": "/opt/apex/runtime/apex_mt5_export.py"
+    },
+    {
+      "bytes": 3258,
+      "path": "portals/apex/runtime-modules/apex_mt5_extra_candle_store.py",
+      "sha256": "d02802ca041cc2048df254e4a01090a550eaabf720eb3b3e6a9b76f633ffb0ec",
+      "source": "/opt/apex/runtime/apex_mt5_extra_candle_store.py"
+    },
+    {
+      "bytes": 3018,
+      "path": "portals/apex/runtime-modules/apex_mt5_extra_candles.py",
+      "sha256": "d1f56be3843a772185cbd1107a8a6bb47d322b501831c46bbd21ac0a3c00d901",
+      "source": "/opt/apex/runtime/apex_mt5_extra_candles.py"
+    },
+    {
+      "bytes": 681,
+      "path": "portals/apex/runtime-modules/apex_mt5_init_variants.py",
+      "sha256": "751593901c2da56e834679adbb6f76e4c3802d0a44b2ae2bbd54ea2533a338b3",
+      "source": "/opt/apex/runtime/apex_mt5_init_variants.py"
+    },
+    {
+      "bytes": 8204,
+      "path": "portals/apex/runtime-modules/apex_mt5_order_precheck.py",
+      "sha256": "c17b27243d759c4e46e979350e2840dd8385d534581b98467bb2e023a00a61fb",
+      "source": "/opt/apex/runtime/apex_mt5_order_precheck.py"
+    },
+    {
+      "bytes": 3694,
+      "path": "portals/apex/runtime-modules/apex_mt5_store.py",
+      "sha256": "1f7f9b0675151e1418352e84ea5b7666f3e3a5c4d2dbb740e23588778deabfbb",
+      "source": "/opt/apex/runtime/apex_mt5_store.py"
+    },
+    {
+      "bytes": 5961,
+      "path": "portals/apex/runtime-modules/apex_multi_core_v3.py",
+      "sha256": "6ebfb10dc66224bcf31d1372132d065d516f12550e9a5d53bf4b33e76a9f8fe9",
+      "source": "/opt/apex/runtime/apex_multi_core_v3.py"
+    },
+    {
+      "bytes": 3963,
+      "path": "portals/apex/runtime-modules/apex_multi_gate_v3.py",
+      "sha256": "06d4ef14445d1c2965bd2b2abac8531195da80218e6834b75c4ca4de281baa3e",
+      "source": "/opt/apex/runtime/apex_multi_gate_v3.py"
+    },
+    {
+      "bytes": 8504,
+      "path": "portals/apex/runtime-modules/apex_multi_usd_planner_v3.py",
+      "sha256": "80059bac7cd958b62f352116d1e51f9527033af6fdfe1650959297d45c448918",
+      "source": "/opt/apex/runtime/apex_multi_usd_planner_v3.py"
+    },
+    {
+      "bytes": 5601,
+      "path": "portals/apex/runtime-modules/apex_multi_v3_dashboard_patch.py",
+      "sha256": "37ffef163753ec86a28225f979c836dbac4ce05c20dd32a1cad9c42cd985cf9f",
+      "source": "/opt/apex/runtime/apex_multi_v3_dashboard_patch.py"
+    },
+    {
+      "bytes": 6672,
+      "path": "portals/apex/runtime-modules/apex_per_trade_switch_20261101.py",
+      "sha256": "30bc542725ebd53612125cb2edf51756232eb55771487affc093d7ee5e1e9a30",
+      "source": "/opt/apex/runtime/apex_per_trade_switch_20261101.py"
+    },
+    {
+      "bytes": 3035,
+      "path": "portals/apex/runtime-modules/apex_profile_readonly_audit.py",
+      "sha256": "f312c613eaa4eeda829775dc42a83cd49bf3e903571643078f354be479ced1d5",
+      "source": "/opt/apex/runtime/apex_profile_readonly_audit.py"
+    },
+    {
+      "bytes": 810,
+      "path": "portals/apex/runtime-modules/apex_quote_diag.py",
+      "sha256": "7e6e0417024b4c003971c8101053a10c60b889531604a54bae8cd868fea54a4a",
+      "source": "/opt/apex/runtime/apex_quote_diag.py"
+    },
+    {
+      "bytes": 10399,
+      "path": "portals/apex/runtime-modules/apex_remove_legacy_budget.py",
+      "sha256": "ab6b64dd6a78a04bec0f6bce748ab97d134dd8dd125efb645b609c994e27475a",
+      "source": "/opt/apex/runtime/apex_remove_legacy_budget.py"
+    },
+    {
+      "bytes": 2783,
+      "path": "portals/apex/runtime-modules/apex_repair_agent_m5.py",
+      "sha256": "61eeac92bca153f0000aa4ededb1f9993a6c44c9d21d3bcd4a1171f92b252903",
+      "source": "/opt/apex/runtime/apex_repair_agent_m5.py"
+    },
+    {
+      "bytes": 3480,
+      "path": "portals/apex/runtime-modules/apex_repair_m5.py",
+      "sha256": "61d8f6f389d46252530000e70ea2fe374a7a3fbefa7643d6f5805623b43eb281",
+      "source": "/opt/apex/runtime/apex_repair_m5.py"
+    },
+    {
+      "bytes": 3060,
+      "path": "portals/apex/runtime-modules/apex_repair_m5_ui.py",
+      "sha256": "ee76353b9b19fa1339865b42dc5cd9b365522c6121f3af3aec0d989964eceaf0",
+      "source": "/opt/apex/runtime/apex_repair_m5_ui.py"
+    },
+    {
+      "bytes": 948,
+      "path": "portals/apex/runtime-modules/apex_requested_lots_readonly_20261031.py",
+      "sha256": "ddf9cd26605f8ac6528cf5df6f99f87b7245b7b1a2be7b03d0b7f85fd94323fe",
+      "source": "/opt/apex/runtime/apex_requested_lots_readonly_20261031.py"
+    },
+    {
+      "bytes": 9454,
+      "path": "portals/apex/runtime-modules/apex_risk_governor.py",
+      "sha256": "9dd0d0104e178dfeec7a4247aa04f293dd5949deb43b9ef93123a1a74665b892",
+      "source": "/opt/apex/runtime/apex_risk_governor.py"
+    },
+    {
+      "bytes": 3670,
+      "path": "portals/apex/runtime-modules/apex_risk_governor_test.py",
+      "sha256": "33b50e8b8814f067e60e6cdbbb35c7413eea4f71f40a93bc4bc44a9c96a0fa8a",
+      "source": "/opt/apex/runtime/apex_risk_governor_test.py"
+    },
+    {
+      "bytes": 7326,
+      "path": "portals/apex/runtime-modules/apex_signal_router.py",
+      "sha256": "912bbe1aea2d78e5ad2f4beb3ecb5cde911a8ae8c72d2269b9c472beacf28712",
+      "source": "/opt/apex/runtime/apex_signal_router.py"
+    },
+    {
+      "bytes": 1013,
+      "path": "portals/apex/runtime-modules/apex_update_usd_profile_20261101.py",
+      "sha256": "cd2034d6acca960f49252e521e3e182bbbec9bbd925b5d6b8cdec1c171937201",
+      "source": "/opt/apex/runtime/apex_update_usd_profile_20261101.py"
+    },
+    {
+      "bytes": 2636,
+      "path": "portals/apex/runtime-modules/apex_usd_profile_140cap_verify_20261031.py",
+      "sha256": "1cef1b66241abfab869ddac89579f7f605317a31a06297c50e7beea13bbf3dc1",
+      "source": "/opt/apex/runtime/apex_usd_profile_140cap_verify_20261031.py"
+    },
+    {
+      "bytes": 2636,
+      "path": "portals/apex/runtime-modules/apex_usd_profile_all_symbols_probe.py",
+      "sha256": "6f2dbd7dcfb99c7d057818b755d4a9953aaaba3ad08e9e6f280c5f3bc0d70a3e",
+      "source": "/opt/apex/runtime/apex_usd_profile_all_symbols_probe.py"
+    },
+    {
+      "bytes": 2636,
+      "path": "portals/apex/runtime-modules/apex_v3_broker_readonly_probe.py",
+      "sha256": "2f34b80f140be0db01a4c80af63b89e9c59650ec0ca092cb596bd6dbf9ba6018",
+      "source": "/opt/apex/runtime/apex_v3_broker_readonly_probe.py"
+    },
+    {
+      "bytes": 2403,
+      "path": "portals/apex/runtime-modules/apex_v3_checkpoint_and_policy.py",
+      "sha256": "dd2cdd47e7145b1c3ffb1e1f67530f7f2219f87d3298352101048a33f73a5912",
+      "source": "/opt/apex/runtime/apex_v3_checkpoint_and_policy.py"
+    },
+    {
+      "bytes": 454,
+      "path": "portals/apex/runtime-modules/apex_wine_path_probe.py",
+      "sha256": "b1dd19c86ebff52ff8218ba54a9ee856238a3e7bff3c59ce7a5516e74686ccf7",
+      "source": "/opt/apex/runtime/apex_wine_path_probe.py"
+    },
+    {
+      "bytes": 2167,
+      "path": "portals/apex/runtime-modules/build_apex_multi_planner_v3.py",
+      "sha256": "6974a47eabdd15ec1f7eb15f7c5e40339d4cce20f49b3bb6744ab8137bedbb9f",
+      "source": "/opt/apex/runtime/build_apex_multi_planner_v3.py"
+    },
+    {
+      "bytes": 1285,
+      "path": "portals/apex/runtime-modules/mt5_broker_capabilities.py",
+      "sha256": "15ccc433479f6c7198786acea89b21d114517642ad15487c3f21928d1f96dc91",
+      "source": "/opt/apex/runtime/mt5_broker_capabilities.py"
+    },
+    {
+      "bytes": 8075,
+      "path": "portals/apex/runtime-modules/test_apex_multi_v3.py",
+      "sha256": "767fbbe28273f115671b4c9a8478cc4d0ed3fd38430fb25446734a613b51b9c5",
+      "source": "/opt/apex/runtime/test_apex_multi_v3.py"
+    }
+  ],
+  "source": "abutronfx.online localhost"
+}

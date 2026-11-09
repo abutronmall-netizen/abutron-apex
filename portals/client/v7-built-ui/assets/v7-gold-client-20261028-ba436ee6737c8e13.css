@@ -1,0 +1,23 @@
+/* V7 Gold customer account UI. Scoped: no portal security or API change. */
+.v7-nav-label{display:inline-flex;align-items:center;gap:11px;vertical-align:middle}
+.v7-nav-label svg{width:18px;height:18px;flex:none;color:#dbb76b}
+.v7-section-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:12px}
+.v7-section-heading h2{margin:0}
+.v7-gold-action{display:inline-flex;align-items:center;justify-content:center;min-height:40px}
+.v7-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px;margin:18px 0}
+.v7-form-grid label{display:flex;flex-direction:column;gap:8px;min-width:0}
+.v7-form-grid label.v7-checkbox-line{display:flex;flex-direction:row;align-items:center;gap:10px}
+.v7-checkbox-line input[type=checkbox]{width:18px;height:18px;accent-color:#d6b66d}
+.v7-form-grid input,.v7-form-grid select,.v7-form-grid textarea{width:100%;min-width:0}
+.v7-mt5-enrollment{border:1px solid rgba(219,182,108,.3);padding:18px;border-radius:14px;margin-top:18px}
+.v7-mt5-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(195px,1fr));gap:12px;margin:14px 0}
+.v7-account-card{display:flex;flex-direction:column;gap:9px;border:1px solid rgba(219,182,108,.25);padding:18px;border-radius:12px}
+.v7-account-card strong{font-weight:650;color:#edcf8c}
+.v7-account-card small{color:#bdb9ae}
+.v7-research-broker-select{display:flex;flex-direction:column;gap:6px;max-width:270px;margin:12px 0}
+.v7-research-broker-select select{padding:10px}
+.v7-info-status{padding:12px 14px;border:1px solid rgba(219,182,108,.35);border-radius:9px;color:#e7cc88;margin-top:12px}
+.v7-pill{color:#dbb76b;border:1px solid #654f2b;border-radius:40px;padding:7px 11px;font-size:.82rem}
+.v7-signal-buy{color:#6fd0a8;font-weight:650}
+.v7-signal-sell{color:#eda8a8;font-weight:650}
+@media(max-width:750px){.v7-form-grid{grid-template-columns:1fr}.v7-section-heading{align-items:stretch}.v7-section-heading button{width:100%}.v7-pill{width:max-content}}
