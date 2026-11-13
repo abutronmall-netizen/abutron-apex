@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>APEX · Agentic Trading Desk</title>
+<style>
+  :root{
+    --bg:#07090d; --panel:#0d1117; --panel2:#111721; --line:#1c2430;
+    --txt:#e6edf4; --dim:#7d8b9c; --faint:#4a5568;
+    --up:#25d07a; --down:#ff4d6d; --accent:#38e1ff; --amber:#ffb020; --violet:#a78bfa;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font-family:var(--mono);font-size:12px;
+       -webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:radial-gradient(900px 500px at 12% -10%,rgba(56,225,255,.07),transparent 60%),
+               radial-gradient(700px 400px at 92% 0%,rgba(167,139,250,.06),transparent 60%)}
+  .wrap{position:relative;z-index:1;padding:14px 18px 40px;max-width:1680px;margin:0 auto}
+
+  /* ---------- header ---------- */
+  header{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:14px}
+  .logo{display:flex;align-items:baseline;gap:10px}
+  .logo b{font-size:22px;letter-spacing:.22em;font-weight:700;
+    background:linear-gradient(90deg,#fff,#38e1ff 60%,#a78bfa);
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .logo span{color:var(--faint);font-size:10px;letter-spacing:.18em;text-transform:uppercase}
+  .pill{border:1px solid var(--line);background:var(--panel);border-radius:999px;
+    padding:4px 10px;color:var(--dim);font-size:10px;letter-spacing:.1em;text-transform:uppercase}
+  .pill.on{color:var(--up);border-color:rgba(37,208,122,.4);background:rgba(37,208,122,.08)}
+  .pill.warn{color:var(--amber);border-color:rgba(255,176,32,.4);background:rgba(255,176,32,.08)}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--up);display:inline-block;margin-right:6px;
+    box-shadow:0 0 8px var(--up);animation:pulse 1.6s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+  .spacer{flex:1}
+  button{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    background:var(--panel2);color:var(--dim);border:1px solid var(--line);border-radius:6px;
+    padding:7px 12px;cursor:pointer;transition:.15s}
+  button:hover{color:var(--txt);border-color:#2c3a4d;background:#16202c}
+  button.danger:hover{color:var(--down);border-color:rgba(255,77,109,.5);background:rgba(255,77,109,.08)}
+  button.good:hover{color:var(--up);border-color:rgba(37,208,122,.5);background:rgba(37,208,122,.08)}
+
+  /* ---------- kpi strip ---------- */
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:10px;margin-bottom:12px}
+  .kpi{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);
+    border-radius:10px;padding:10px 12px;position:relative;overflow:hidden}
+  .kpi:after{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--accent);opacity:.5}
+  .kpi .l{color:var(--faint);font-size:9px;letter-spacing:.14em;text-transform:uppercase}
+  .kpi .v{font-size:19px;margin-top:5px;letter-spacing:-.5px}
+  .kpi .s{color:var(--dim);font-size:10px;margin-top:3px}
+  .up{color:var(--up)} .down{color:var(--down)} .amber{color:var(--amber)} .acc{color:var(--accent)}
+
+  /* ---------- grid ---------- */
+  .grid{display:grid;grid-template-columns:1.55fr 1fr;gap:12px}
+  @media(max-width:1180px){.grid{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .card h2{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);
+    font-weight:600;padding:10px 13px;border-bottom:1px solid var(--line);display:flex;
+    align-items:center;gap:8px;background:rgba(255,255,255,.012)}
+  .card h2 .tag{margin-left:auto;color:var(--faint);font-size:9px;letter-spacing:.1em;text-transform:none}
+  .card .body{padding:11px 13px}
+  .stack{display:flex;flex-direction:column;gap:12px}
+
+  canvas{display:block;width:100%}
+  table{width:100%;border-collapse:collapse}
+  th{color:var(--faint);font-size:9px;letter-spacing:.12em;text-transform:uppercase;
+    text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);font-weight:600;white-space:nowrap}
+  td{padding:6px 8px;border-bottom:1px solid rgba(28,36,48,.55);font-size:11px;white-space:nowrap}
+  tr:last-child td{border-bottom:none}
+  tbody tr:hover{background:rgba(56,225,255,.035)}
+  .num{text-align:right;font-variant-numeric:tabular-nums}
+  .sym{color:var(--txt);font-weight:600;letter-spacing:.03em}
+  .muted{color:var(--faint)}
+  .tagreg{font-size:9px;padding:2px 6px;border-radius:4px;letter-spacing:.08em;text-transform:uppercase}
+  .trend_up{background:rgba(37,208,122,.13);color:var(--up)}
+  .trend_down{background:rgba(255,77,109,.13);color:var(--down)}
+  .range{background:rgba(56,225,255,.12);color:var(--accent)}
+  .high_vol{background:rgba(255,176,32,.13);color:var(--amber)}
+  .unknown{background:rgba(122,139,156,.12);color:var(--dim)}
+
+  .bar{height:5px;border-radius:3px;background:#182230;overflow:hidden;position:relative}
+  .bar i{position:absolute;top:0;bottom:0;display:block;border-radius:3px}
+  .agent{display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px solid rgba(28,36,48,.6)}
+  .agent:last-child{border-bottom:none}
+  .agent .nm{width:74px;color:var(--txt)}
+  .agent .role{color:var(--faint);font-size:9px;letter-spacing:.1em;text-transform:uppercase;width:64px}
+  .agent .meter{flex:1;height:6px;background:#151d28;border-radius:3px;overflow:hidden;position:relative}
+  .agent .meter i{position:absolute;top:0;bottom:0;left:50%;background:var(--accent);border-radius:2px}
+  .agent .score{width:52px;text-align:right;font-variant-numeric:tabular-nums;color:var(--dim)}
+
+  .feed{max-height:230px;overflow-y:auto}
+  .feed::-webkit-scrollbar{width:5px}
+  .feed::-webkit-scrollbar-thumb{background:#22303f;border-radius:3px}
+  .row{display:flex;gap:8px;padding:5px 0;border-bottom:1px solid rgba(28,36,48,.5);align-items:baseline}
+  .row .t{color:var(--faint);font-size:9px;width:46px;flex:none}
+  .row .m{flex:1;color:var(--dim);font-size:11px;overflow:hidden;text-overflow:ellipsis}
+  .breach{color:var(--amber);font-size:10px;padding:3px 0}
+  .mem{width:100%;border-collapse:separate;border-spacing:3px;font-size:10px}
+  .mem th{font-size:8px;letter-spacing:.08em;padding:2px 3px;text-align:center;border:none;color:var(--faint)}
+  .mem th.l{text-align:left}
+  .mem td{border:none;padding:0}
+  .mem .cell{display:block;text-align:center;padding:4px 2px;border-radius:4px;
+    background:#121a24;color:var(--faint);line-height:1.15}
+  .mem .cell b{display:block;font-weight:600;font-size:10px}
+  .mem .cell i{display:block;font-style:normal;font-size:8px;opacity:.65}
+  .lsn{color:var(--dim);font-size:10px;padding:3px 0;border-bottom:1px solid rgba(28,36,48,.5);
+    line-height:1.35}
+  .lsn:last-child{border-bottom:none}
+  .lsn b{color:var(--txt);font-weight:600}
+  .ok{color:var(--up)}
+  .halted{border-color:rgba(255,77,109,.45)!important;box-shadow:0 0 0 1px rgba(255,77,109,.15) inset}
+  .foot{margin-top:14px;color:var(--faint);font-size:10px;display:flex;gap:18px;flex-wrap:wrap}
+  .wrow{display:flex;align-items:center;gap:8px;padding:3px 0}
+  .wrow .s{width:72px;color:var(--dim)}
+  .wrow .track{flex:1;height:9px;background:#131b25;border-radius:3px;position:relative}
+  .wrow .track b{position:absolute;top:0;bottom:0;left:50%;border-radius:2px}
+  .wrow .v{width:52px;text-align:right;font-variant-numeric:tabular-nums;color:var(--dim)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo"><b>APEX</b><span>agentic portfolio execution</span></div>
+    <span class="pill on" id="modePill"><i class="dot"></i>paper</span>
+    <span class="pill" id="cyclePill">cycle 0</span>
+    <span class="pill" id="clockPill">--</span>
+    <span class="pill" id="advisorPill">advisor: heuristic</span>
+    <span class="spacer"></span>
+    <button id="btnPause">Pause</button>
+    <button id="btnRisk" class="good">Reset risk</button>
+    <button id="btnFlatten" class="danger">Flatten book</button>
+  </header>
+
+  <section class="kpis">
+    <div class="kpi"><div class="l">Equity</div><div class="v" id="kEq">--</div><div class="s" id="kEqSub">--</div></div>
+    <div class="kpi"><div class="l">Session P&amp;L</div><div class="v" id="kPnl">--</div><div class="s" id="kPnlSub">--</div></div>
+    <div class="kpi"><div class="l">Drawdown</div><div class="v down" id="kDd">--</div><div class="s" id="kDdSub">--</div></div>
+    <div class="kpi"><div class="l">VaR 95% (1d)</div><div class="v amber" id="kVar">--</div><div class="s">parametric</div></div>
+    <div class="kpi"><div class="l">Gross exposure</div><div class="v acc" id="kGross">--</div><div class="s" id="kNet">--</div></div>
+    <div class="kpi"><div class="l">Positions</div><div class="v" id="kPos">--</div><div class="s" id="kTrd">--</div></div>
+  </section>
+
+  <div class="grid">
+    <div class="stack">
+      <div class="card">
+        <h2>Equity curve <span class="tag" id="eqTag">live paper</span></h2>
+        <div class="body"><canvas id="eqChart" height="220"></canvas></div>
+      </div>
+
+      <div class="card">
+        <h2>Regime map <span class="tag">RegimeAgent · ADX / slope / vol percentile</span></h2>
+        <div class="body" style="padding:0">
+          <table><thead><tr>
+            <th>Symbol</th><th>Class</th><th>Regime</th><th class="num">ADX</th>
+            <th class="num">Slope</th><th class="num">Vol%ile</th><th class="num">Real.vol</th><th>Target w</th>
+          </tr></thead><tbody id="regimeBody"></tbody></table>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Book <span class="tag" id="bookTag"></span></h2>
+        <div class="body" style="padding:0">
+          <table><thead><tr>
+            <th>Symbol</th><th class="num">Qty</th><th class="num">Avg</th><th class="num">Last</th>
+            <th class="num">Notional</th><th class="num">Unrealised</th><th class="num">Weight</th>
+          </tr></thead><tbody id="posBody"></tbody></table>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card" id="riskCard">
+        <h2>Risk governor <span class="tag" id="riskTag">armed</span></h2>
+        <div class="body">
+          <div class="wrow"><div class="s">Gross</div><div class="track"><b id="rgGross"></b></div><div class="v" id="rnGross">--</div></div>
+          <div class="wrow"><div class="s">Net</div><div class="track"><b id="rgNet"></b></div><div class="v" id="rnNet">--</div></div>
+          <div class="wrow"><div class="s">VaR 95</div><div class="track"><b id="rgVar"></b></div><div class="v" id="rnVar">--</div></div>
+          <div style="margin-top:8px" id="breachList"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Agent roster <span class="tag">online reputation (live IC)</span></h2>
+        <div class="body" id="agentBody"></div>
+      </div>
+
+      <div class="card">
+        <h2>Reflection memory <span class="tag" id="memTag">settling…</span></h2>
+        <div class="body" style="padding:8px 10px">
+          <table class="mem" id="memTable"></table>
+          <div id="memLessons" style="margin-top:8px"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Target weights <span class="tag" id="wTag">post-risk</span></h2>
+        <div class="body" id="weightBody"></div>
+      </div>
+
+      <div class="card">
+        <h2>Trade tape <span class="tag" id="tapeTag">--</span></h2>
+        <div class="body feed" id="tape"></div>
+      </div>
+
+      <div class="card">
+        <h2>Decision log <span class="tag">supervisor notes</span></h2>
+        <div class="body feed" id="notes"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span id="footerLeft">APEX · multi-agent · paper execution</span>
+    <span id="footerRight"></span>
+  </div>
+</div>
+
+<script>
+"use strict";
+const $ = (id) => document.getElementById(id);
+const fmt = (n, d = 2) => (n === undefined || n === null || isNaN(n)) ? "--" :
+  Number(n).toLocaleString("en-US", {minimumFractionDigits: d, maximumFractionDigits: d});
+const pct = (n, d = 2) => (n === undefined || n === null || isNaN(n)) ? "--" : (n * 100).toFixed(d) + "%";
+const signed = (n, d = 2) => (n === undefined || n === null || isNaN(n)) ? "--" : (n >= 0 ? "+" : "") + fmt(n, d);
+const cls = (n) => n > 0 ? "up" : n < 0 ? "down" : "";
+const tstr = (ts) => new Date(ts * 1000).toISOString().slice(5, 16).replace("T", " ");
+
+/* ------------------------------------------------------------------ chart */
+function drawChart(canvas, data, opts = {}) {
+  const dpr = window.devicePixelRatio || 1;
+  const w = canvas.clientWidth, h = parseInt(canvas.getAttribute("height"), 10) || 220;
+  canvas.width = w * dpr; canvas.height = h * dpr;
+  const ctx = canvas.getContext("2d");
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.clearRect(0, 0, w, h);
+  if (!data || data.length < 2) {
+    ctx.fillStyle = "#4a5568"; ctx.font = "11px monospace";
+    ctx.fillText("awaiting data…", 12, h / 2); return;
+  }
+  const pad = {l: 52, r: 8, t: 12, b: 18};
+  const xs = data.map(d => d[0]), ys = data.map(d => d[1]);
+  let lo = Math.min(...ys), hi = Math.max(...ys);
+  const padv = (hi - lo) * 0.15 || Math.max(1, hi * 0.001);
+  lo -= padv; hi += padv;
+  const X = t => pad.l + (w - pad.l - pad.r) * ((t - xs[0]) / ((xs[xs.length - 1] - xs[0]) || 1));
+  const Y = v => pad.t + (h - pad.t - pad.b) * (1 - (v - lo) / ((hi - lo) || 1));
+
+  // grid
+  ctx.strokeStyle = "#151d27"; ctx.lineWidth = 1; ctx.font = "9px monospace";
+  for (let i = 0; i <= 4; i++) {
+    const y = pad.t + (h - pad.t - pad.b) * i / 4;
+    ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(w - pad.r, y); ctx.stroke();
+    ctx.fillStyle = "#4a5568";
+    const v = hi - (hi - lo) * i / 4;
+    ctx.fillText(fmt(v, 0), 4, y + 3);
+  }
+  const up = ys[ys.length - 1] >= ys[0];
+  const col = up ? "#25d07a" : "#ff4d6d";
+  // area
+  const grad = ctx.createLinearGradient(0, pad.t, 0, h);
+  grad.addColorStop(0, up ? "rgba(37,208,122,.22)" : "rgba(255,77,109,.22)");
+  grad.addColorStop(1, "rgba(0,0,0,0)");
+  ctx.beginPath(); ctx.moveTo(X(xs[0]), Y(ys[0]));
+  for (let i = 1; i < data.length; i++) ctx.lineTo(X(xs[i]), Y(ys[i]));
+  ctx.lineTo(X(xs[xs.length - 1]), h - pad.b); ctx.lineTo(X(xs[0]), h - pad.b); ctx.closePath();
+  ctx.fillStyle = grad; ctx.fill();
+  // line
+  ctx.beginPath(); ctx.moveTo(X(xs[0]), Y(ys[0]));
+  for (let i = 1; i < data.length; i++) ctx.lineTo(X(xs[i]), Y(ys[i]));
+  ctx.strokeStyle = col; ctx.lineWidth = 1.6; ctx.stroke();
+  // live dot
+  const lx = X(xs[xs.length - 1]), ly = Y(ys[ys.length - 1]);
+  ctx.beginPath(); ctx.arc(lx, ly, 3, 0, 7); ctx.fillStyle = col; ctx.fill();
+  ctx.beginPath(); ctx.arc(lx, ly, 6.5, 0, 7); ctx.strokeStyle = col; ctx.globalAlpha = .3; ctx.stroke(); ctx.globalAlpha = 1;
+  // x labels
+  ctx.fillStyle = "#4a5568";
+  ctx.fillText(tstr(xs[0]), pad.l, h - 5);
+  const lab = tstr(xs[xs.length - 1]); ctx.fillText(lab, w - pad.r - ctx.measureText(lab).width, h - 5);
+}
+
+/* ------------------------------------------------------------------ render */
+let lastState = null, paused = false;
+
+function render(s) {
+  lastState = s;
+  const acc = s.account, risk = s.risk || {}, sys = s.system || {}, live = sys.live || {};
+  const startEq = acc.starting_equity || 100000;
+  const pnl = acc.equity - startEq;
+
+  $("modePill").innerHTML = '<i class="dot"></i>' + (sys.mode || "paper");
+  $("cyclePill").textContent = "cycle " + (sys.index || 0) + " · " + (live.bars_streamed || 0) + " bars";
+  $("clockPill").textContent = sys.ts ? tstr(sys.ts) + " UTC" : "--";
+  const ad = sys.advisor || {};
+  $("advisorPill").textContent = "advisor: " + (ad.mode || "off") + (ad.calls ? " · " + ad.calls + " calls" : "");
+  paused = !!sys.paused;
+  $("btnPause").textContent = paused ? "Resume" : "Pause";
+
+  $("kEq").textContent = fmt(acc.equity, 0);
+  $("kEqSub").textContent = "cash " + fmt(acc.cash, 0) + " · lev " + fmt(acc.leverage, 2) + "x";
+  $("kPnl").textContent = signed(pnl, 0);
+  $("kPnl").className = "v " + cls(pnl);
+  $("kPnlSub").textContent = pct(pnl / startEq, 2) + " since inception";
+  $("kDd").textContent = "-" + pct(risk.drawdown || 0, 2);
+  $("kDdSub").textContent = "peak " + fmt(risk.peak_equity || startEq, 0);
+  $("kVar").textContent = pct(risk.var_95 || 0, 2);
+  $("kGross").textContent = fmt(acc.leverage, 2) + "x";
+  $("kNet").textContent = "net " + fmt((acc.net_exposure || 0) / (acc.equity || 1), 2);
+  const pos = Object.keys(acc.positions || {}).length;
+  $("kPos").textContent = pos;
+  $("kTrd").textContent = (acc.n_trades || 0) + " fills · fees " + fmt(acc.total_commission || 0, 0);
+
+  drawChart($("eqChart"), (s.equity_curve || []).slice(-460));
+
+  // ---- regime table
+  const rb = $("regimeBody"), regimes = s.regimes || {}, tws = s.target_weights || {};
+  const rows = Object.keys(regimes).map(sym => {
+    const r = regimes[sym], w = tws[sym] || 0;
+    const bw = Math.min(100, Math.abs(w) * 400);
+    return `<tr>
+      <td class="sym">${sym}</td>
+      <td class="muted">${(s.system.universe || []).includes(sym) ? "" : ""}${classOf(sym)}</td>
+      <td><span class="tagreg ${r.regime}">${r.regime.replace("_", " ")}</span></td>
+      <td class="num">${fmt(r.adx, 1)}</td>
+      <td class="num ${cls(r.slope)}">${signed(r.slope, 2)}</td>
+      <td class="num">${fmt(r.vol_pct * 100, 0)}</td>
+      <td class="num">${pct(r.realised_vol, 1)}</td>
+      <td><div class="bar" style="width:88px"><i style="left:${w >= 0 ? 50 : 50 - bw}%;width:${bw}%;
+        background:${w >= 0 ? "var(--up)" : "var(--down)"}"></i></div></td>
+    </tr>`;
+  });
+  rb.innerHTML = rows.join("") || `<tr><td colspan="8" class="muted">warming up…</td></tr>`;
+
+  // ---- positions
+  const pb = $("posBody"), p = acc.positions || {};
+  const eq = acc.equity || 1;
+  pb.innerHTML = Object.keys(p).map(sym => {
+    const x = p[sym], u = x.unrealised;
+    return `<tr><td class="sym">${sym}</td>
+      <td class="num">${fmt(x.qty, 3)}</td>
+      <td class="num muted">${fmt(x.avg_price, x.avg_price > 100 ? 1 : 4)}</td>
+      <td class="num">${fmt(x.last_price, x.last_price > 100 ? 1 : 4)}</td>
+      <td class="num">${fmt(x.notional, 0)}</td>
+      <td class="num ${cls(u)}">${signed(u, 0)}</td>
+      <td class="num ${cls(x.notional)}">${pct(x.notional / eq, 1)}</td></tr>`;
+  }).join("") || `<tr><td colspan="7" class="muted">flat — no open positions</td></tr>`;
+  $("bookTag").textContent = Object.keys(p).length + " open · " + (acc.n_trades || 0) + " fills";
+
+  // ---- risk governor
+  const rc = $("riskCard");
+  rc.classList.toggle("halted", !!risk.halted);
+  $("riskTag").textContent = risk.halted ? "HALTED" : "armed";
+  $("riskTag").className = "tag " + (risk.halted ? "down" : "");
+  const setBar = (el, v, maxv, col) => {
+    const w = Math.max(0, Math.min(49, Math.abs(v) / (maxv || 1) * 49));
+    el.style.background = col;
+    el.style.width = w + "%";
+    el.style.left = (v >= 0 ? 50 : 50 - w) + "%";
+  };
+  setBar($("rgGross"), risk.gross || 0, 2.5, "var(--accent)");
+  setBar($("rgNet"), risk.net || 0, 1.5, "var(--violet)");
+  setBar($("rgVar"), risk.var_95 || 0, 0.035, "var(--amber)");
+  $("rnGross").textContent = fmt(risk.gross || 0, 2) + "x";
+  $("rnNet").textContent = signed(risk.net || 0, 2);
+  $("rnVar").textContent = pct(risk.var_95 || 0, 2);
+  const br = (risk.breaches || []).concat(risk.halt_reason ? ["KILL: " + risk.halt_reason] : []);
+  $("breachList").innerHTML = br.length
+    ? br.map(b => `<div class="breach">▲ ${b}</div>`).join("")
+    : `<div class="ok" style="font-size:10px">✓ all limits inside tolerance</div>`;
+
+  // ---- agents
+  const rep = s.reputation || {};
+  const agentNames = (s.agents || []).map(a => a.name);
+  $("agentBody").innerHTML = (s.agents || []).map(a => {
+    const r = rep[a.name + ":*"];
+    const v = (r === undefined || a.role !== "signal") ? null : r;
+    const score = v === null ? (a.runs ? a.runs + "x" : "—") : (v >= 0 ? "+" : "") + (v * 100).toFixed(1);
+    const w = v === null ? 0 : Math.min(50, Math.abs(v) * 160);
+    return `<div class="agent">
+      <div class="nm">${a.name}</div>
+      <div class="role">${a.role}</div>
+      <div class="meter"><i style="left:${v >= 0 ? 50 : 50 - w}%;width:${w}%;
+        background:${v >= 0 ? "var(--up)" : "var(--down)"}"></i></div>
+      <div class="score ${v > 0 ? "up" : v < 0 ? "down" : ""}">${score}</div>
+    </div>`;
+  }).join("");
+
+  // ---- reflection memory
+  const mem = s.memory || {};
+  const memAgents = Object.keys(mem.agents || {});
+  const REGS = [["trend_up","TREND UP"],["trend_down","TREND DN"],["range","RANGE"],["high_vol","HI VOL"]];
+  $("memTag").textContent = (mem.settled || 0) + " settled · H=" + (mem.horizon || 0) +
+    " · " + (mem.pending || 0) + " pending";
+  if (memAgents.length) {
+    const shade = (e) => {
+      if (!e) return "background:#121a24;color:#4a5568";
+      const a = Math.min(0.55, Math.abs(e) / 400);
+      return e >= 0 ? `background:rgba(37,208,122,${a});color:#d9f7e6`
+                    : `background:rgba(255,77,109,${a});color:#ffdbe2`;
+    };
+    let html = "<thead><tr><th class='l'>agent</th>" +
+      REGS.map(r => `<th>${r[1]}</th>`).join("") + "</tr></thead><tbody>";
+    for (const ag of memAgents) {
+      html += `<tr><th class="l" style="color:var(--dim);font-size:9px">${ag}</th>`;
+      for (const [k] of REGS) {
+        const c = (mem.agents[ag] || {})[k];
+        if (!c || !c.n || !c.n_long || !c.n_short) { html += "<td><span class='cell'>·</span></td>"; continue; }
+        const e = Math.round(c.edge_bps);
+        html += `<td><span class="cell" style="${shade(e)}" title="hit ${(c.hit_rate*100).toFixed(0)}% · t=${c.tstat} · n=${c.n}">
+          <b>${e > 0 ? "+" : ""}${e}</b><i>${c.n}</i></span></td>`;
+      }
+      html += "</tr>";
+    }
+    $("memTable").innerHTML = html + "</tbody>";
+  } else {
+    $("memTable").innerHTML = "<tbody><tr><td style='color:#4a5568;font-size:10px'>" +
+      "waiting for the first decisions to settle…</td></tr></tbody>";
+  }
+  const narr = mem.narratives || [];
+  $("memLessons").innerHTML = narr.length
+    ? narr.slice(0, 4).map(t => {
+        const [who, rest] = t.split(/ (pays|hurts) /);
+        return `<div class="lsn"><b>${who}</b> ${rest ? t.slice(who.length) : t}</div>`;
+      }).join("")
+    : `<div class="lsn" style="color:var(--faint)">no statistically meaningful cells yet — ` +
+      `memory needs ≥${40} settled votes per (agent, regime)</div>`;
+
+  // ---- target weights
+  const wb = $("weightBody");
+  const keys = Object.keys(tws).sort((a, b) => Math.abs(tws[b]) - Math.abs(tws[a]));
+  $("wTag").textContent = keys.length + " targets · pre-risk " + keys.length;
+  wb.innerHTML = keys.map(k => {
+    const w = tws[k], bw = Math.min(50, Math.abs(w) * 200);
+    return `<div class="wrow"><div class="s">${k}</div>
+      <div class="track"><b style="background:${w >= 0 ? "var(--up)" : "var(--down)"};
+        left:${w >= 0 ? 50 : 50 - bw}%;width:${bw}%"></b></div>
+      <div class="v ${cls(w)}">${pct(w, 2)}</div></div>`;
+  }).join("") || `<div class="muted" style="font-size:10px">no active targets</div>`;
+
+  // ---- trade tape
+  const tape = groupSlices(s.trades || []);
+  $("tapeTag").textContent = (s.trades || []).length + " fills";
+  $("tape").innerHTML = tape.slice(0, 24).map(t => `
+    <div class="row"><div class="t">${tstr(t.ts).slice(6)}</div>
+      <div class="m"><span class="sym">${t.symbol}</span>
+        <span class="${t.side === "buy" ? "up" : "down"}">${t.side.toUpperCase()}</span>
+        ${fmt(t.qty, 3)} @ ${fmt(t.price, t.price > 100 ? 1 : 4)}</div>
+      <div class="num ${cls(t.pnl)}">${t.n > 1 ? "×" + t.n + " " : ""}${t.pnl ? signed(t.pnl, 0) : ""}</div></div>`).join("")
+    || `<div class="muted">no fills yet</div>`;
+
+  // ---- notes
+  const notes = s.notes || [];
+  $("notes").innerHTML = notes.slice(0, 18).map(n =>
+    `<div class="row"><div class="t">·</div><div class="m">${escapeHtml(n)}</div></div>`).join("")
+    || `<div class="muted">supervisor idle</div>`;
+
+  $("footerLeft").textContent =
+    `APEX v1.0 · ${(sys.universe || []).length} instruments · ${(s.agents || []).length} agents · ` +
+    `bar ${sys.ts ? tstr(sys.ts) : "--"}`;
+  $("footerRight").textContent = `mode ${sys.mode} · advisor ${ad.mode} · uptime ${live.uptime_s || 0}s`;
+}
+
+function groupSlices(trades) {
+  // consecutive child slices of one parent order are one economic event
+  const out = [];
+  for (const t of trades) {
+    const prev = out[out.length - 1];
+    if (prev && prev.symbol === t.symbol && prev.side === t.side &&
+        Math.abs(prev.ts - t.ts) < 3 && Math.abs(prev.price - t.price) / (t.price || 1) < 1e-4) {
+      prev.n += 1; prev.qty += t.qty; prev.notional += t.notional; prev.pnl += t.pnl;
+    } else {
+      out.push({...t, n: 1});
+    }
+  }
+  return out;
+}
+
+function classOf(sym) {
+  if (/^(BTC|ETH)/.test(sym)) return "crypto";
+  if (/^(SPY|QQQ|NVDA)/.test(sym)) return "equity";
+  if (/^(EURUSD|US500|GER40)/.test(sym)) return "fx/idx";
+  return "synthetic";
+}
+const escapeHtml = (s) => String(s).replace(/[&<>]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;"}[c]));
+
+/* ------------------------------------------------------------------ transport */
+async function poll() {
+  try {
+    const r = await fetch("api/state", {cache: "no-store"});
+    render(await r.json());
+  } catch (e) { /* server starting */ }
+}
+function connect() {
+  try {
+    const es = new EventSource("api/stream?hz=2");
+    es.onmessage = (ev) => { try { render(JSON.parse(ev.data)); } catch (e) {} };
+    es.onerror = () => { es.close(); setTimeout(connect, 2500); };
+  } catch (e) { setInterval(poll, 1000); }
+}
+
+/* ------------------------------------------------------------------ controls */
+async function control(action) {
+  try {
+    const tok = localStorage.getItem("apex_api_token") || "";
+    const opts = {method: "POST", headers: tok ? {"Authorization": "Bearer " + tok} : {}};
+    let r = await fetch("api/control/" + action, opts);
+    if (r.status === 401) {
+      const entered = prompt("API token required for control actions:");
+      if (entered) {
+        localStorage.setItem("apex_api_token", entered.trim());
+        r = await fetch("api/control/" + action,
+          {method: "POST", headers: {"Authorization": "Bearer " + entered.trim()}});
+      }
+    }
+    if (r.status === 403) {
+      console.warn("control disabled: set APEX_API_TOKEN on the server");
+      return;
+    }
+    const j = await r.json();
+    if (j.paused !== undefined) {
+      $("btnPause").textContent = j.paused ? "Resume" : "Pause";
+    }
+    poll();
+  } catch (e) { console.warn(e); }
+}
+$("btnPause").onclick = () => control(paused ? "resume" : "pause");
+$("btnFlatten").onclick = () => control("flatten");
+$("btnRisk").onclick = () => control("reset-risk");
+window.addEventListener("resize", () => { if (lastState) drawChart($("eqChart"), (lastState.equity_curve || []).slice(-460)); });
+
+connect();
+poll();
+setInterval(poll, 4000);
+</script>
+</body>
+</html>

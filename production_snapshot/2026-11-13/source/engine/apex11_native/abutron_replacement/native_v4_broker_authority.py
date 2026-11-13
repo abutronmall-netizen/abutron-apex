@@ -1,0 +1,227 @@
+"""Bind native OFF lease to the EXISTING independently trusted broker supervisor.
+
+Do not instantiate with mock facts in production. The supplied supervisor must
+authenticate Deriv MT5 broker session, live CRM owner/entitlements, native
+EA identity/nonce/lock, customer-wide durable equity/exposure and risk status.
+This adapter does not dial broker APIs itself; it **cannot** be used without
+a real trusted supervisor and protected credentials. LIVE unsupported.
+"""
+from __future__ import annotations
+
+from datetime import datetime, timezone
+from dataclasses import dataclass
+import re
+from decimal import Decimal
+import hmac
+
+from .exclusive_native_writer import VerifiedNativeSupervisor, _evidence
+from .native_v4_off_fence import NativeOrderIdentity, _dec
+from .native_receipt_guard import verify_demo_broker_position
+from .production_contracts import FeedRefused
+from .transactional_activation import ActivationStore
+from risk_guard.reservation_store import ReservationStore
+
+
+@dataclass(frozen=True)
+class NativeV4AttachmentEvidence:
+    """Read-only EA/CRM/broker bootstrap: NEVER authorizes CLAIM or SEND.
+
+    Only an independently authenticated production supervisor may create
+    this evidence. A QA fixture is not a release certificate.
+    """
+    customer_id: str
+    account_id: str
+    mt5_login: str
+    worker_nonce: str
+    broker: str
+    environment: str
+    server: str
+    activation_revision: int
+    verified_at: datetime
+    crm_owner_mfa_verified: bool
+    apex_v7_owner_verified: bool
+    broker_session_authenticated: bool
+    native_worker_verified: bool
+    exact_v4_binary_attached: bool
+    production_v4_release_certified: bool
+    shared_writer_fenced: bool
+    live_execution_disabled: bool
+
+
+
+class Verified6207NativeAuthority:
+    """Strict bridge: attestation + original risk ledger + broker native proof."""
+
+    def __init__(self, *, supervisor: VerifiedNativeSupervisor,
+                 activation: ActivationStore, reservations: ReservationStore):
+        if (supervisor is None or
+                not callable(getattr(supervisor, "attest", None)) or
+                not callable(getattr(supervisor, "verify_unchanged", None)) or
+                not callable(getattr(supervisor, "authenticated_receipt_and_position", None))):
+            raise TypeError("REAL_NATIVE_SUPERVISOR_ADAPTER_REQUIRED")
+        self.supervisor=supervisor
+        self.activation=activation
+        self.reservations=reservations
+
+    def attest_session(self, *, customer_id: str, account_id: str,
+                       worker_nonce: str, mt5_login: str,
+                       now: datetime) -> int:
+        """GET /v4/status: identify the attached EA without granting orders.
+
+        Startup cannot require effective ON, because the broker/CRM supervisor
+        needs a V4 attachment proof *before* it can issue the effective-ON ACK.
+        A separate, independently trusted attachment attestor is mandatory
+        for that bootstrap branch. CLAIM and SEND remain strictly gated.
+        """
+        a=self.activation.snapshot(account_id=account_id,
+                                   customer_id=customer_id,now=now)
+        if (a.broker!="deriv" or a.environment!="DEMO" or
+                not a.desired_on or not a.entitlement_ok or not a.connected):
+            raise FeedRefused("NATIVE_SESSION_ACCOUNT_NOT_EFFECTIVE")
+        if a.effective_on:
+            # Existing fully-authorized branch retains all order/risk proofs.
+            if a.kill_switch:
+                raise FeedRefused("NATIVE_SESSION_KILL_SWITCH")
+            e=self.supervisor.attest(customer_id=customer_id,
+                        account_id=account_id,observed_at=now)
+            _evidence(e,customer_id=customer_id,account_id=account_id,
+                      now=now,revision=a.revision)
+            if (e.mt5_login!=mt5_login or e.worker_nonce!=worker_nonce or
+                    not self.supervisor.verify_unchanged(
+                        evidence=e,observed_at=now)):
+                raise FeedRefused("NATIVE_SESSION_WORKER_MISMATCH")
+            return a.revision
+
+        # The bootstrap branch is READ ONLY and unavailable by default.
+        # It must never infer broker trust from an MT5 heartbeat/JSON alone.
+        trusted=getattr(self.supervisor,"attest_attachment",None)
+        if not callable(trusted):
+            raise FeedRefused("NATIVE_V4_BOOTSTRAP_SUPERVISOR_UNAVAILABLE")
+        proof=trusted(customer_id=customer_id,account_id=account_id,
+                      observed_at=now)
+        if not isinstance(proof,NativeV4AttachmentEvidence):
+            raise FeedRefused("NATIVE_V4_BOOTSTRAP_EVIDENCE_INVALID")
+        if (now.tzinfo is None or now.utcoffset() is None or
+                not isinstance(proof.verified_at,datetime) or
+                proof.verified_at.tzinfo is None or
+                proof.verified_at.utcoffset() is None or
+                not -1 <= (now-proof.verified_at).total_seconds() <= 10):
+            raise FeedRefused("NATIVE_V4_BOOTSTRAP_EVIDENCE_STALE")
+        if (proof.customer_id!=customer_id or proof.account_id!=account_id or
+                proof.mt5_login!=mt5_login or proof.worker_nonce!=worker_nonce or
+                proof.broker!="deriv" or proof.environment!="DEMO" or
+                proof.server!="Deriv-Demo" or
+                type(proof.activation_revision) is not int or
+                proof.activation_revision!=a.revision or
+                not re.fullmatch(r"[a-f0-9]{32}",worker_nonce or "") or
+                type(mt5_login) is not str or not mt5_login.isascii() or
+                not mt5_login.isdecimal() or not mt5_login.endswith("6207")):
+            raise FeedRefused("NATIVE_V4_BOOTSTRAP_IDENTITY_OR_REVISION_MISMATCH")
+        assertions=(proof.crm_owner_mfa_verified,proof.apex_v7_owner_verified,
+                    proof.broker_session_authenticated,proof.native_worker_verified,
+                    proof.exact_v4_binary_attached,proof.production_v4_release_certified,
+                    proof.shared_writer_fenced,proof.live_execution_disabled)
+        if any(x is not True for x in assertions):
+            raise FeedRefused("NATIVE_V4_BOOTSTRAP_PROOFS_INCOMPLETE")
+        # Status/heartbeat is expressly not CLAIM/SEND order authority.
+        return a.revision
+
+    def assert_eligible(self, *, identity: NativeOrderIdentity,
+                        phase: str, now: datetime) -> None:
+        if phase not in ("CLAIM","SEND"):
+            raise FeedRefused("NATIVE_AUTHORITY_UNSUPPORTED_PHASE")
+        identity.validate(now)
+        a=self.activation.snapshot(account_id=identity.account_id,
+                                   customer_id=identity.customer_id,now=now)
+        if (not a.desired_on or not a.effective_on or a.kill_switch or
+                a.revision!=identity.revision):
+            raise FeedRefused("NATIVE_AUTHORITY_CLIENT_OFF_OR_REVISED")
+        e=self.supervisor.attest(customer_id=identity.customer_id,
+                    account_id=identity.account_id,observed_at=now)
+        _evidence(e,customer_id=identity.customer_id,
+                  account_id=identity.account_id,now=now,
+                  revision=identity.revision)
+        if (e.mt5_login!=identity.login or e.worker_nonce!=identity.worker_nonce
+                or e.proposal.signal_id!=identity.signal_id or
+                e.proposal.symbol!=identity.symbol or
+                e.proposal.order_side!=identity.side or
+                e.native.stop_price is None or e.native.take_price is None):
+            raise FeedRefused("NATIVE_AUTHORITY_BROKER_ORDER_IDENTITY_MISMATCH")
+        if (_dec(str(e.native.stop_price))!=_dec(identity.sl) or
+                _dec(str(e.native.take_price))!=_dec(identity.tp)):
+            raise FeedRefused("NATIVE_AUTHORITY_STOP_GEOMETRY_CHANGED")
+        volume=self.reservations.require_pending_volume(
+            customer_id=identity.customer_id,account_id=identity.account_id,
+            signal_id=identity.signal_id)
+        if volume!=_dec(identity.volume):
+            raise FeedRefused("NATIVE_AUTHORITY_RESERVED_VOLUME_CHANGED")
+        if not self.supervisor.verify_unchanged(evidence=e,observed_at=now):
+            raise FeedRefused("NATIVE_AUTHORITY_BROKER_OR_CRM_REVISED")
+
+    def assert_broker_result(self, *, identity: NativeOrderIdentity,
+                             outcome: str, proof_ref: str, now: datetime) -> None:
+        # An absent/rejected order requires an *independent authenticated
+        # complete broker-history search*; existing supervisor interface
+        # does not provide it. Leave claim unresolved until it does.
+        if outcome!="PROTECTED_POSITION":
+            raise FeedRefused("NATIVE_AUTHORITY_NO_ORDER_NOT_YET_CERTIFIED")
+        receipt,position,included=self.supervisor.authenticated_receipt_and_position(
+            account_id=identity.account_id,
+            signal_id=identity.signal_id,observed_at=now)
+        if (included is not True or receipt.broker!="deriv" or
+            receipt.environment!="DEMO" or receipt.server!="Deriv-Demo" or
+            receipt.account_id!=identity.account_id or
+            position.account_id!=identity.account_id or
+            receipt.signal_id!=identity.signal_id or
+            receipt.symbol!=identity.symbol or receipt.side!=identity.side):
+            raise FeedRefused("NATIVE_AUTHORITY_BROKER_RECEIPT_IDENTITY_MISMATCH")
+        if (position.broker_snapshot_time.tzinfo is None or
+                position.broker_snapshot_time.utcoffset() is None or
+                not -2 <= (now-position.broker_snapshot_time).total_seconds() <= 20):
+            raise FeedRefused("NATIVE_AUTHORITY_BROKER_SNAPSHOT_NOT_FRESH")
+        # Preserve the public fail-closed broker-proof error contract even
+        # when a malformed caller proof cannot be looked up in the ledger.
+        if (type(proof_ref) is not str or len(proof_ref) != 64 or
+                any(ch not in "0123456789abcdef" for ch in proof_ref)):
+            raise FeedRefused("NATIVE_AUTHORITY_BROKER_PROOF_MISMATCH")
+        reserved, already_finalized = (
+            self.reservations.require_held_or_matching_reconciled_volume(
+                customer_id=identity.customer_id,
+                account_id=identity.account_id,
+                signal_id=identity.signal_id,
+                broker_proof_ref=proof_ref))
+        native_proof=verify_demo_broker_position(
+            receipt=receipt,position=position,
+            expected_account_id=identity.account_id,
+            expected_signal_id=identity.signal_id,
+            expected_symbol=identity.symbol,expected_side=identity.side,
+            reserved_lots=reserved,trusted_native_worker_verified=True)
+        if not hmac.compare_digest(native_proof,proof_ref):
+            raise FeedRefused("NATIVE_AUTHORITY_BROKER_PROOF_MISMATCH")
+        # The exact protected native broker snapshot has already been
+        # included in customer risk inventory; ONLY THEN finalize.
+        if already_finalized:
+            # A prior authenticated broker proof finalized the risk ledger,
+            # but the separate activation lease transaction may have failed.
+            # It is safe to retry ONLY after reattesting the SAME protected
+            # broker snapshot and matching its immutable 64-byte proof.
+            self.reservations.require_finalized_broker_proof(
+                customer_id=identity.customer_id,
+                account_id=identity.account_id,
+                signal_id=identity.signal_id,
+                outcome="PROTECTED_POSITION",proof_ref=native_proof)
+        else:
+            try:
+                self.reservations.complete(
+                    identity.account_id,identity.signal_id,
+                    outcome="RECONCILED",broker_proof=native_proof,
+                    now=position.broker_snapshot_time,
+                    reconciled_snapshot_includes_position=True)
+            except ValueError:
+                # Reconciliation raced with another finalizer: accept only
+                # the independently proven identical broker outcome.
+                self.reservations.require_finalized_broker_proof(
+                    customer_id=identity.customer_id,
+                    account_id=identity.account_id,
+                    signal_id=identity.signal_id,
+                    outcome="PROTECTED_POSITION",proof_ref=native_proof)
