@@ -44,7 +44,7 @@ bool VerifiedLiveAccount()
  return TerminalInfoInteger(TERMINAL_CONNECTED)!=0 &&
    AccountInfoInteger(ACCOUNT_TRADE_MODE)==ACCOUNT_TRADE_MODE_REAL &&
    (StringFind(firm,"fp markets")>=0 || StringFind(firm,"fpmarkets")>=0 || firm=="first prudential markets limited") &&
-   AccountInfoString(ACCOUNT_CURRENCY)=="USD" &&
+   AccountInfoString(ACCOUNT_CURRENCY)=="ZAR" &&
    IntegerToString((long)AccountInfoInteger(ACCOUNT_LOGIN))==gLogin &&
    AccountInfoInteger(ACCOUNT_LOGIN)==86073492 &&
    AccountInfoString(ACCOUNT_SERVER)==gServer && gServer=="FPMarketsSC-Live";
@@ -123,16 +123,7 @@ void WriteReadiness()
     IntegerToString((long)EnableNativeLiveOrders)+"\r\n");
   FileFlush(mh);FileClose(mh);
  }
- // Exact new policy marker; only the $50/$100 build emits this proof.
- // Used by the Python new-order gate; old V2 does not write this file.
- string usdproof="ABUTRON_FP_LIVE_BRIDGE_USD_50_100_"+gNonce+".txt";
- int ph=FileOpen(usdproof,FILE_WRITE|FILE_TXT|FILE_ANSI,0,CP_UTF8);
- if(ph!=INVALID_HANDLE)
- {
-  FileWriteString(ph,"FP_NATIVE_BRIDGE_USD_50_100_V1\r\n"+base+
-    IntegerToString((long)EnableNativeLiveOrders)+"\r\n");
-  FileFlush(ph);FileClose(ph);
- }
+ // This broker-native account is ZAR-denominated; never publish a false USD50/100 capability marker.
  // FP-only diagnostic compatibility proof.
  string legacy="ABUTRON_FP_LIVE_BRIDGE_READY_V1_"+gNonce+".txt";
  h=FileOpen(legacy,FILE_WRITE|FILE_TXT|FILE_ANSI,0,CP_UTF8);
@@ -319,8 +310,7 @@ bool PortfolioCanAdd(string next_symbol)
       !((buy&&sl<entry&&entry<tp)||(!buy&&tp<entry&&entry<sl)) ||
       !OrderCalcProfit(buy?ORDER_TYPE_BUY:ORDER_TYPE_SELL,sym,vol,entry,sl,loss) ||
       !OrderCalcProfit(buy?ORDER_TYPE_BUY:ORDER_TYPE_SELL,sym,vol,entry,tp,gain) ||
-      !((MathAbs(-loss-50.0)<=2.0 && MathAbs(gain-100.0)<=2.0)||
-         OptionCAnyVerifiedPosition(sym,buy?"BUY":"SELL",vol,entry,sl,tp)))
+      !OptionCAnyVerifiedPosition(sym,buy?"BUY":"SELL",vol,entry,sl,tp))
       return false;
  }
  return true;
@@ -342,6 +332,9 @@ void HandleRequest()
  if(!IsHex64(key))return;
  if(FileIsExist(DIR_RECEIPTS+key+".txt"))return;
  bool adaptive=(ver=="APEX_FP_LIVE_NATIVE_ADAPTIVE_ORDER_V2");
+ // ZAR account: fixed-USD cash requests must not be interpreted as native ZAR.
+ // Require the native equity-relative adaptive path for every submitted request.
+ if(!adaptive){Receipt(key,"BLOCKED","FP3492_ZAR_ACCOUNT_ADAPTIVE_ONLY");return;}
  if(((ver!="APEX_FP_LIVE_NATIVE_ORDER_V1")&&!adaptive)||(nonce!=gNonce)||(login!=gLogin)||(server!=gServer)||
     ((side!="BUY")&&(side!="SELL"))||(mode!="SEND_LIVE_ONLY")||(!ApprovedSymbol(sym))||(!VerifiedLiveAccount()))
  {Receipt(key,"BLOCKED","IDENTITY_OR_BROKER_DENIED");return;}
