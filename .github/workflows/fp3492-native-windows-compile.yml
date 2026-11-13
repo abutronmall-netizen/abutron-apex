@@ -1,0 +1,79 @@
+name: FP3492 LIVE bridge - Windows native compile (NO ORDERS)
+on:
+  push:
+    branches:
+      - build/fp3492-native-metaeditor-20261113
+    paths:
+      - 'build/fp3492-native/**'
+      - '.github/workflows/fp3492-native-windows-compile.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  compile-only:
+    runs-on: windows-2022
+    timeout-minutes: 18
+    steps:
+      - name: Checkout private source
+        uses: actions/checkout@v4
+
+      - name: Verify source and compile using official Windows MetaEditor
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $srcDir = Join-Path $env:GITHUB_WORKSPACE 'build\fp3492-native'
+          $source = Join-Path $srcDir 'AbutronFPLiveOrderBridge3492.mq5'
+          $include = Join-Path $srcDir 'AdaptiveRiskProofV2.mqh'
+          if ((Get-FileHash $source -Algorithm SHA256).Hash.ToLower() -ne 'e662f5c8ff4fed4a97aba45a754272baa45c420dc42c34ef1ba14c314bd73a07') { throw 'SOURCE_SHA_MISMATCH' }
+          if ((Get-FileHash $include -Algorithm SHA256).Hash.ToLower() -ne 'e2e4e01ef5e96f888f687a45e21de83cfc78b419787a0c3667d96914d1cc3c44') { throw 'INCLUDE_SHA_MISMATCH' }
+          $body = Get-Content $source -Raw
+          if ($body -notmatch 'input bool EnableNativeLiveOrders = false;' -or $body -notmatch 'ACCOUNT_TRADE_MODE_REAL' -or $body -notmatch 'AccountInfoInteger\(ACCOUNT_LOGIN\)==86073492') { throw 'LIVE_SOURCE_CONTRACT_MISMATCH' }
+          $mt5Root = Join-Path $env:RUNNER_TEMP 'ABUTRON-MT5-NATIVE-COMPILER'
+          New-Item -ItemType Directory -Force -Path $mt5Root | Out-Null
+          $installer = Join-Path $env:RUNNER_TEMP 'mt5setup.exe'
+          Invoke-WebRequest -Uri 'https://download.terminal.free/cdn/web/metaquotes.software.corp/mt5/mt5setup.exe' -OutFile $installer
+          if ((Get-Item $installer).Length -lt 1000000) { throw 'MT5_INSTALLER_TOO_SMALL' }
+          $sig = Get-AuthenticodeSignature $installer
+          Write-Host "INSTALLER_SIGNATURE_STATUS=$($sig.Status)"
+          Write-Host "INSTALLER_SIGNER=$($sig.SignerCertificate.Subject)"
+          if ($sig.Status -ne 'Valid' -or $sig.SignerCertificate.Subject -notmatch 'MetaQuotes') { throw 'MT5_INSTALLER_SIGNATURE_NOT_TRUSTED' }
+          $setupArgs = '/auto /path:"' + $mt5Root + '"'
+          $setup = Start-Process -FilePath $installer -ArgumentList $setupArgs -PassThru
+          $editor = Join-Path $mt5Root 'MetaEditor64.exe'
+          $deadline = (Get-Date).AddMinutes(5)
+          while (!(Test-Path $editor) -and (Get-Date) -lt $deadline) { Start-Sleep -Seconds 4 }
+          if (!(Test-Path $editor)) { throw 'MT5_INSTALLER_METAEDITOR_NOT_FOUND' }
+          Start-Sleep -Seconds 12
+          Write-Host 'OFFICIAL_METAEDITOR_INSTALLED'
+          $targetDir = Join-Path $mt5Root 'MQL5\Experts\ABUTRON'
+          New-Item -ItemType Directory -Force -Path $targetDir | Out-Null
+          $target = Join-Path $targetDir 'AbutronFPLiveOrderBridge3492.mq5'
+          Copy-Item $source $target
+          Copy-Item $include (Join-Path $targetDir 'AdaptiveRiskProofV2.mqh')
+          $log = [System.IO.Path]::ChangeExtension($target, '.log')
+          $ex5 = [System.IO.Path]::ChangeExtension($target, '.ex5')
+          Remove-Item $log,$ex5 -Force -ErrorAction SilentlyContinue
+          $compileArgs = '/compile:"' + $target + '" /log /portable'
+          $proc = Start-Process -FilePath $editor -ArgumentList $compileArgs -PassThru
+          if (!$proc.WaitForExit(150000)) { $proc.Kill(); throw 'METAEDITOR_WINDOWS_TIMEOUT' }
+          Write-Host "METAEDITOR_PROCESS_EXIT=$($proc.ExitCode)"
+          if (!(Test-Path $log)) { throw 'METAEDITOR_NO_COMPILE_LOG' }
+          $result = (Get-Content $log -Encoding Unicode | Where-Object { $_ -match '^Result:' } | Select-Object -Last 1)
+          Write-Host "METAEDITOR_RESULT=$result"
+          if ($result -notmatch '^Result: 0 errors') { throw 'METAEDITOR_SOURCE_ERRORS' }
+          if (!(Test-Path $ex5) -or (Get-Item $ex5).Length -lt 10000) { throw 'LIVE_BINARY_NOT_PRODUCED' }
+          $out = Join-Path $env:GITHUB_WORKSPACE 'build-output'
+          New-Item -ItemType Directory -Force -Path $out | Out-Null
+          Copy-Item $ex5 (Join-Path $out 'AbutronFPLiveOrderBridge3492.ex5')
+          Copy-Item $log (Join-Path $out 'AbutronFPLiveOrderBridge3492.log')
+          Write-Host "FP3492_LIVE_EX5_SHA256=$((Get-FileHash $ex5 -Algorithm SHA256).Hash.ToLower())"
+          Write-Host 'SOURCE_COMPILED_ON_WINDOWS_NOT_DEPLOYED_NOT_AUTHORIZED'
+
+      - name: Upload compiler-only artifact
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fp3492-live-native-candidate
+          path: build-output/*
+          retention-days: 7
