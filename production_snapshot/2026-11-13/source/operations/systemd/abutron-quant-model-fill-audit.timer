@@ -1,0 +1,9 @@
+[Unit]
+Description=ABUTRON verified model-to-native-receipt evidence capture every two minutes
+[Timer]
+OnCalendar=*-*-* *:0/2:50 UTC
+AccuracySec=5s
+Persistent=false
+Unit=abutron-quant-model-fill-audit.service
+[Install]
+WantedBy=timers.target

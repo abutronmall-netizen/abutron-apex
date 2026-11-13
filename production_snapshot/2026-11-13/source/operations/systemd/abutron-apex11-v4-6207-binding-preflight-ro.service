@@ -1,0 +1,26 @@
+[Unit]
+Description=ABUTRON APEX11 6207 V4-only production binding admission probe (READ ONLY; NO ORDERS)
+After=abutron-apex11-6207-account-publisher-ro.service
+Wants=abutron-apex11-6207-account-publisher-ro.timer
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/opt/abutron-apex11-staging/native-v4-guarded-20261108/qa-venv/bin/python -B /usr/local/sbin/abutron-apex11-v4-6207-binding-preflight-ro
+UMask=0077
+NoNewPrivileges=yes
+PrivateNetwork=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectSystem=strict
+ProtectHome=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+LockPersonality=yes
+RestrictAddressFamilies=AF_UNIX
+ReadWritePaths=/var/lib/abutron-apex11-6207
+TimeoutStartSec=35
+MemoryMax=450M
+TasksMax=40

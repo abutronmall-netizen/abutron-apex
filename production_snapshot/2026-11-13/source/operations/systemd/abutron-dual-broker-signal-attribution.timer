@@ -1,0 +1,12 @@
+[Unit]
+Description=Read-only ABUTRON Deriv and FP Markets signal-to-order attribution
+
+[Timer]
+OnBootSec=120s
+OnUnitInactiveSec=65s
+AccuracySec=12s
+Unit=abutron-dual-broker-signal-attribution.service
+Persistent=false
+
+[Install]
+WantedBy=timers.target

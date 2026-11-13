@@ -1,0 +1,9 @@
+[Unit]
+Description=ABUTRON Qwen composed-factor bounded discovery every six hours
+[Timer]
+OnCalendar=*-*-* 01,07,13,19:15:00 UTC
+AccuracySec=2min
+Persistent=false
+Unit=abutron-bounded-expression-discovery.service
+[Install]
+WantedBy=timers.target

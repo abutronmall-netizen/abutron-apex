@@ -1,0 +1,28 @@
+[Unit]
+Description=ABUTRON V25/V50/V75 prospective net-edge and protected execution evidence READONLY
+After=local-fs.target
+ConditionPathExists=/opt/apex-client-mt5/quant-first/abutron_prospective_v25_v50_v75_v1.py
+ConditionPathExists=/var/lib/abutron-quant-first/entry-model-causal-v2.sqlite3
+ConditionPathExists=/var/lib/abutron-quant-first/broker-native-cost-evidence-latest.json
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /opt/apex-client-mt5/quant-first/abutron_prospective_v25_v50_v75_v1.py
+ExecStartPost=/usr/bin/python3 -B /opt/apex-client-mt5/quant-first/abutron_prospective_execution_audit_v2.py
+TimeoutStartSec=45
+UMask=0027
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+PrivateNetwork=yes
+ProtectSystem=strict
+ReadWritePaths=/var/lib/abutron-quant-first
+ProtectHome=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_UNIX
+MemoryMax=160M
+CPUQuota=20%

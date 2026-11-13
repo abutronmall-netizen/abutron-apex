@@ -1,0 +1,26 @@
+[Unit]
+Description=ABUTRON Deriv DEMO broker order receipt and position lifecycle reconciliation ONLY (no dispatch)
+After=local-fs.target abutron-client-native-feed.service
+Wants=abutron-client-native-feed.timer
+ConditionPathExists=/opt/apex-client-mt5/apex_native_order_runtime.py
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /opt/apex-client-mt5/apex_native_order_runtime.py --reconcile
+TimeoutStartSec=30
+UMask=0077
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+PrivateNetwork=yes
+ProtectSystem=strict
+ReadWritePaths=/var/lib/apex-client-feed
+ProtectHome=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_UNIX
+MemoryMax=256M
+CPUQuota=40%

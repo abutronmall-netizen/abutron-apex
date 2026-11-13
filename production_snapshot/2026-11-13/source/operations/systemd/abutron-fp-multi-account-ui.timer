@@ -1,0 +1,13 @@
+[Unit]
+Description=ABUTRON FP Markets secondary-account broker-native UI refresh
+
+[Timer]
+OnBootSec=55s
+OnUnitInactiveSec=60s
+AccuracySec=6s
+RandomizedDelaySec=3s
+Unit=abutron-fp-multi-account-ui.service
+Persistent=false
+
+[Install]
+WantedBy=timers.target

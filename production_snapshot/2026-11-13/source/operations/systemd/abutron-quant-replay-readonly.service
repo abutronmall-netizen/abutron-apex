@@ -1,0 +1,25 @@
+[Unit]
+Description=ABUTRON APEX quant-first closed-candle replay (research only, no orders)
+After=local-fs.target
+ConditionPathExists=/opt/apex-client-mt5/quant-first/abutron_quant_replay_v1.py
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /opt/apex-client-mt5/quant-first/abutron_quant_replay_v1.py
+TimeoutStartSec=150
+UMask=0027
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+PrivateNetwork=yes
+ProtectSystem=strict
+ReadWritePaths=/var/lib/abutron-quant-first
+ProtectHome=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_UNIX
+CPUQuota=50%
+MemoryMax=512M

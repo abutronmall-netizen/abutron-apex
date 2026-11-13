@@ -1,0 +1,32 @@
+[Unit]
+Description=ABUTRONFX private per-client MT5 terminal manager (no broker orders)
+After=local-fs.target
+Wants=local-fs.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /opt/apex-client-mt5/manager.py
+WorkingDirectory=/opt/apex-client-mt5
+StateDirectory=abutron-client-mt5-manager
+StateDirectoryMode=0700
+RuntimeDirectory=abutron-client-mt5-manager
+RuntimeDirectoryMode=0755
+UMask=0077
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectSystem=strict
+ProtectHome=yes
+ReadWritePaths=/run/abutron-client-mt5-manager /var/lib/apex-signup /var/lib/abutron-client-mt5-manager
+RestrictAddressFamilies=AF_UNIX
+MemoryMax=256M
+TasksMax=70
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

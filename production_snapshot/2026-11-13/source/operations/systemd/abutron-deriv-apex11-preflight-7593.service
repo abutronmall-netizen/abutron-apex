@@ -1,0 +1,24 @@
+[Unit]
+Description=ABUTRON Deriv DEMO 7593 account-bound broker costs and APEX exact draft (NO SEND)
+After=local-fs.target abutron-apex11-7593-account-publisher-ro.service
+ConditionPathExists=/opt/apex-client-mt5/deriv-execution/deriv_v4_exact_draft_7593.py
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+UMask=0077
+ExecStartPre=/usr/bin/python3 -B /opt/apex-client-mt5/deriv-execution/deriv_v4_native_cost_7593.py
+ExecStart=/usr/bin/python3 -B /opt/apex-client-mt5/deriv-execution/deriv_v4_exact_draft_7593.py
+ExecStartPost=/usr/bin/python3 -B /opt/apex-client-mt5/deriv-execution/deriv_v4_apex_writer.py --account 7593
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateDevices=yes
+PrivateTmp=yes
+RestrictAddressFamilies=AF_UNIX
+IPAddressDeny=any
+ReadWritePaths=/var/lib/abutron-apex11-7593 /var/lib/abutron-deriv-v4-7593 /var/lib/apex-signup /var/lib/private/abutron-client-mt5-9568525eee306da891258ad98c654919/terminal/MQL5/Files/ABUTRON
+MemoryMax=225M
+TasksMax=16
+TimeoutStartSec=25

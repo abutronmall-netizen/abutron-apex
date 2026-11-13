@@ -1,0 +1,31 @@
+[Unit]
+Description=ABUTRON V7 MT5 DEMO native identity private Unix gateway V6 (no trading)
+Requires=abutron-mt5-private-gateway-v6.socket
+After=abutron-mt5-private-gateway-v6.socket
+ConditionPathExists=/var/lib/abutron-mt5-verify/native-v6/native_isolated_demo_login_v6.py
+[Service]
+Type=exec
+User=abutron_mt5_verify
+Group=abutron_mt5_verify
+UMask=0077
+WorkingDirectory=/var/lib/abutron-mt5-verify
+ExecStart=/usr/bin/python3 /var/lib/abutron-mt5-verify/native-v6/mt5_private_gateway_v6.py
+Restart=on-failure
+RestartSec=6
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+NoNewPrivileges=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+ReadWritePaths=/var/lib/abutron-mt5-verify
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+LimitNOFILE=4096
+TimeoutStopSec=8
+StandardOutput=null
+StandardError=journal
+[Install]
+WantedBy=multi-user.target

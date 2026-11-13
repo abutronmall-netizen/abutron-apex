@@ -1,0 +1,11 @@
+[Unit]
+Description=ABUTRON 6207 dedicated native DEMO activation acknowledgement every 5 seconds
+
+[Timer]
+OnCalendar=*-*-* *:*:02/5
+AccuracySec=1s
+Persistent=false
+Unit=abutron-6207-native-activation-ack.service
+
+[Install]
+WantedBy=timers.target

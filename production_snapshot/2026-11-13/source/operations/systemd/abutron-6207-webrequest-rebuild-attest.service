@@ -1,0 +1,20 @@
+[Unit]
+Description=ABUTRON 6207 native WebRequest same-release profile rebuild attestation (READ ONLY)
+After=local-fs.target
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /usr/local/sbin/abutron-mt5-webrequest-rebuild-attest-6207
+NoNewPrivileges=yes
+UMask=0077
+ProtectSystem=strict
+ReadWritePaths=/var/lib/abutron-v4-broker-crm-supervisor-6207
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+RestrictAddressFamilies=AF_UNIX
+MemoryMax=65M
+TasksMax=10
+[Install]
+WantedBy=multi-user.target

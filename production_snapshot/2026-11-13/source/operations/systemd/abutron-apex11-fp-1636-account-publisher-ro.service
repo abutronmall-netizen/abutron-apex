@@ -1,0 +1,27 @@
+[Unit]
+Description=ABUTRON APEX 1.1 FP Markets 1636 account-bound M5 journal (READ ONLY)
+After=abutron-client-mt5-manager.service
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/opt/abutron-apex11-staging/native-v4-guarded-20261108/qa-venv/bin/python -B /usr/local/sbin/abutron-apex11-fp-account-publisher-ro 1636
+Environment=APEX_DATA_DIR=/var/lib/abutron-apex11-fp-1636
+WorkingDirectory=/var/lib/abutron-apex11-fp-1636
+UMask=0077
+NoNewPrivileges=yes
+PrivateNetwork=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectHome=yes
+ProtectSystem=strict
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_UNIX
+CapabilityBoundingSet=CAP_DAC_READ_SEARCH
+ReadWritePaths=/var/lib/abutron-apex11-fp-1636 /var/lib/apex/operator-live
+TimeoutStartSec=50
+MemoryMax=650M
+TasksMax=50

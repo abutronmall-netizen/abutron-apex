@@ -1,0 +1,11 @@
+[Unit]
+Description=ABUTRONFX per-customer native DEMO broker feed audit every 30 seconds
+
+[Timer]
+OnBootSec=40s
+OnUnitInactiveSec=30s
+AccuracySec=5s
+Unit=abutron-client-native-feed.service
+
+[Install]
+WantedBy=timers.target

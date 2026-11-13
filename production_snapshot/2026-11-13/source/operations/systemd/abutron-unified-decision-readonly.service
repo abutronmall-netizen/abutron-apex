@@ -1,0 +1,26 @@
+[Unit]
+Description=ABUTRON APEX selective TradingAgents and broker-native decision monitor (read-only)
+After=local-fs.target
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+WorkingDirectory=/opt/apex-client-mt5/unified-decision
+ExecStart=/usr/bin/python3 -B /opt/apex-client-mt5/unified-decision/abutron_unified_readonly.py
+UMask=0027
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_UNIX
+IPAddressDeny=any
+ReadWritePaths=/var/lib/abutron-unified-decision
+CPUQuota=35%
+MemoryMax=192M
+TasksMax=8
+TimeoutStartSec=20

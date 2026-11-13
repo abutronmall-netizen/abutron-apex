@@ -1,0 +1,12 @@
+[Unit]
+Description=ABUTRON Deriv 6207 RO V4 chart proof every 30 seconds (NO ORDERS)
+
+[Timer]
+OnBootSec=45s
+OnUnitActiveSec=30s
+AccuracySec=5s
+Persistent=false
+Unit=abutron-v4-readonly-chart-attest-6207.service
+
+[Install]
+WantedBy=timers.target

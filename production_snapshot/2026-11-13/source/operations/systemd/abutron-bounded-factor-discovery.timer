@@ -1,0 +1,10 @@
+[Unit]
+Description=ABUTRON bounded research factor discovery every six hours
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=6h
+AccuracySec=2min
+Persistent=false
+Unit=abutron-bounded-factor-discovery.service
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,9 @@
+[Unit]
+Description=FP2582 native V101 history refresh (no orders)
+[Timer]
+OnBootSec=30s
+OnUnitInactiveSec=20s
+AccuracySec=4s
+Unit=abutron-fp2582-native-history-ro.service
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,11 @@
+[Unit]
+Description=ABUTRON Deriv DEMO 6207 prospectively validated quant-model execution ticks
+[Timer]
+OnCalendar=*-*-* *:*:02 UTC
+OnCalendar=*-*-* *:*:05 UTC
+OnCalendar=*-*-* *:*:09 UTC
+AccuracySec=1s
+Persistent=false
+Unit=abutron-quant-deriv-demo-dispatch.service
+[Install]
+WantedBy=timers.target

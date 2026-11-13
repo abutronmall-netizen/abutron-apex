@@ -1,0 +1,21 @@
+[Unit]
+Description=ABUTRON FP DEMO 0512+1636 independent native broker receipt reconciliation (READ-ONLY)
+After=local-fs.target abutron-fp-second-native-history.service
+Wants=abutron-fp-second-native-history.service
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /usr/local/sbin/abutron-fp-dual-native-reconcile-ro
+UMask=0077
+ProtectSystem=strict
+ReadWritePaths=/var/lib/abutron-fp-execution/dual-account-reconciliation
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectHome=yes
+NoNewPrivileges=yes
+IPAddressDeny=any
+MemoryMax=180M
+TasksMax=24
+TimeoutStartSec=35

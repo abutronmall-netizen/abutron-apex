@@ -1,0 +1,13 @@
+[Unit]
+Description=ABUTRON APEX quant-first read-only adaptive research cycle
+
+[Timer]
+OnBootSec=120s
+OnUnitActiveSec=90s
+AccuracySec=10s
+RandomizedDelaySec=5s
+Unit=abutron-quant-first-shadow.service
+Persistent=false
+
+[Install]
+WantedBy=timers.target

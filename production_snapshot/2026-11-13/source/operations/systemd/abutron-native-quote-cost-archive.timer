@@ -1,0 +1,11 @@
+[Unit]
+Description=Archive existing Deriv DEMO 6207 MT5 native bid/ask snapshots and broker fill proofs every 2 minutes
+
+[Timer]
+OnCalendar=*-*-* *:0/2:45 UTC
+AccuracySec=5s
+Persistent=false
+Unit=abutron-native-quote-cost-archive.service
+
+[Install]
+WantedBy=timers.target

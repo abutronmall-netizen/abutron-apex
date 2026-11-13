@@ -1,0 +1,32 @@
+[Unit]
+Description=ABUTRON Deriv DEMO 9244 isolated CRM/broker-fenced APEX V4 native guard
+After=local-fs.target
+ConditionPathExists=/opt/apex-client-mt5/deriv-execution/deriv_v4_guard.py
+
+[Service]
+Type=simple
+User=root
+Group=root
+UMask=0077
+ExecStart=/usr/bin/python3 -B /opt/apex-client-mt5/deriv-execution/deriv_v4_guard.py --account 9244
+Restart=on-failure
+RestartSec=4
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectSystem=strict
+ProtectHome=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+LockPersonality=yes
+RestrictAddressFamilies=AF_INET AF_UNIX
+IPAddressDeny=any
+IPAddressAllow=localhost
+ReadWritePaths=/var/lib/apex-signup
+MemoryMax=180M
+TasksMax=18
+TimeoutStartSec=15
+
+[Install]
+WantedBy=multi-user.target

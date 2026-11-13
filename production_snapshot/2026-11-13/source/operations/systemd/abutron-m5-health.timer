@@ -1,0 +1,11 @@
+[Unit]
+Description=Periodic read-only Deriv and FP M5 freshness monitor
+[Timer]
+OnBootSec=60s
+OnUnitInactiveSec=30s
+AccuracySec=3s
+RandomizedDelaySec=0s
+Persistent=false
+Unit=abutron-m5-health.service
+[Install]
+WantedBy=timers.target

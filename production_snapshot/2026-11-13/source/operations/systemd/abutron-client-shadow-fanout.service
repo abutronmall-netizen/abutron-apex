@@ -1,0 +1,20 @@
+[Unit]
+Description=ABUTRONFX APEX per-customer shadow signal fanout (no broker orders)
+After=abutron-client-native-feed.service
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /opt/apex-client-mt5/shadow_signal_fanout.py
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectSystem=strict
+ProtectHome=yes
+ReadWritePaths=/var/lib/apex-client-feed
+RestrictAddressFamilies=AF_UNIX
+MemoryMax=160M
+TasksMax=40
+TimeoutStartSec=22
+UMask=0077

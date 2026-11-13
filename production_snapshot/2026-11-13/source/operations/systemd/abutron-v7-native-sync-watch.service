@@ -1,0 +1,25 @@
+[Unit]
+Description=Abutron V7 read-only native Deriv account observation publisher
+After=abutron-mt5-demo.service abutron-v7-api.service
+Wants=abutron-mt5-demo.service
+ConditionPathExists=/usr/local/libexec/abutron-v7-publish-owner-snapshot
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 /usr/local/libexec/abutron-v7-native-sync-watch
+Environment=PYTHONDONTWRITEBYTECODE=1
+TimeoutStartSec=30s
+UMask=0077
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/abutron-v7-deriv-owner-snapshot
+ProtectHome=read-only
+PrivateTmp=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true

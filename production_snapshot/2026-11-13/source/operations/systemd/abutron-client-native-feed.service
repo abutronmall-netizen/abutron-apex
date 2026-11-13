@@ -1,0 +1,21 @@
+[Unit]
+Description=ABUTRONFX read-only per-customer broker native feed and APEX research audit
+After=abutron-client-mt5-manager.service
+Wants=abutron-client-mt5-manager.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 -B /opt/apex-client-mt5/native_apex_feed.py
+User=root
+Group=root
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectSystem=strict
+ProtectHome=yes
+ReadWritePaths=/var/lib/apex-client-feed
+RestrictAddressFamilies=AF_UNIX
+MemoryMax=450M
+TasksMax=50
+UMask=0077
+TimeoutStartSec=35

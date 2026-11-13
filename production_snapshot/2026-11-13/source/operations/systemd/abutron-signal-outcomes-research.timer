@@ -1,0 +1,12 @@
+[Unit]
+Description=Accumulate broker-native post-signal M5 outcomes without placing trades
+
+[Timer]
+OnBootSec=150s
+OnUnitInactiveSec=150s
+AccuracySec=15s
+Persistent=false
+Unit=abutron-signal-outcomes-research.service
+
+[Install]
+WantedBy=timers.target

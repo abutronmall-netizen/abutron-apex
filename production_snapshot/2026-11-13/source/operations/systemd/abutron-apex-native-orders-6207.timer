@@ -1,0 +1,10 @@
+[Unit]
+Description=ABUTRON qualified APEX Deriv DEMO 6207-only native dispatcher
+[Timer]
+OnBootSec=120s
+OnUnitInactiveSec=15s
+AccuracySec=2s
+Persistent=false
+Unit=abutron-apex-native-orders-6207.service
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,12 @@
+[Unit]
+Description=Refresh verified FP Markets DEMO 1622 broker-native history every 20 seconds
+
+[Timer]
+OnBootSec=70s
+OnUnitInactiveSec=20s
+AccuracySec=8s
+Unit=abutron-fp1622-native-history-ro.service
+Persistent=false
+
+[Install]
+WantedBy=timers.target

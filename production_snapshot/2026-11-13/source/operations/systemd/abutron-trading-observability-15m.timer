@@ -1,0 +1,11 @@
+[Unit]
+Description=15-minute read-only Kronos/MT5 DEMO observability (single instance)
+Documentation=man:systemd.timer(5)
+[Timer]
+OnCalendar=*-*-* *:04,19,34,49:00 UTC
+Persistent=false
+AccuracySec=20s
+RandomizedDelaySec=0
+Unit=abutron-trading-observability-15m.service
+[Install]
+WantedBy=timers.target

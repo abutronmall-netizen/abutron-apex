@@ -1,0 +1,26 @@
+[Unit]
+Description=ABUTRON read-only FP/Deriv native inventory gate audit (NO ORDERS)
+After=local-fs.target
+ConditionPathExists=/opt/abutron-v4-readonly-status-6207/fp_deriv_native_inventory_gate_20261108.py
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /opt/abutron-v4-readonly-status-6207/fp_deriv_native_inventory_gate_20261108.py
+UMask=0077
+NoNewPrivileges=yes
+CapabilityBoundingSet=CAP_DAC_READ_SEARCH
+PrivateDevices=yes
+PrivateTmp=yes
+PrivateNetwork=yes
+ProtectSystem=strict
+ProtectHome=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_UNIX
+ReadWritePaths=/var/lib/abutron-v4-broker-crm-supervisor-6207
+MemoryMax=160M
+TasksMax=20
+TimeoutStartSec=20

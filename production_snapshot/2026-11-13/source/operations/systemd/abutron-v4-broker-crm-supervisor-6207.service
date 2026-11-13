@@ -1,0 +1,29 @@
+[Unit]
+Description=ABUTRON 6207 independent Deriv broker/CRM admission evidence (READ ONLY; NO ORDERS)
+After=postgresql.service abutron-native-readonly-mt5-6207.service
+Wants=postgresql.service
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /usr/local/sbin/abutron-v4-broker-crm-supervisor-6207
+StateDirectory=abutron-v4-broker-crm-supervisor-6207
+StateDirectoryMode=0700
+UMask=0077
+NoNewPrivileges=no
+CapabilityBoundingSet=CAP_SETUID CAP_SETGID CAP_DAC_READ_SEARCH
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateNetwork=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+LockPersonality=yes
+RestrictAddressFamilies=AF_UNIX
+ReadWritePaths=/var/lib/abutron-v4-broker-crm-supervisor-6207 /var/lib/abutron-deriv-multi-native-reconciliation /var/lib/abutron-fp-execution/dual-account-reconciliation
+TasksMax=30
+MemoryMax=180M
+TimeoutStartSec=25

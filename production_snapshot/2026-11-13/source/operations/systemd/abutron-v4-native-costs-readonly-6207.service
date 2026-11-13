@@ -1,0 +1,25 @@
+[Unit]
+Description=ABUTRON Deriv DEMO 6207 native executable-cost evidence (READ ONLY)
+After=abutron-client-mt5-d6fc2524ec373b8d1bc278a8be3ec635.service
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /usr/local/sbin/abutron-v4-native-costs-readonly-6207
+UMask=0077
+NoNewPrivileges=yes
+PrivateNetwork=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectHome=yes
+ProtectSystem=strict
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+LockPersonality=yes
+RestrictAddressFamilies=AF_UNIX
+ReadWritePaths=/var/lib/abutron-v4-broker-crm-supervisor-6207
+MemoryMax=180M
+TasksMax=25
+TimeoutStartSec=20

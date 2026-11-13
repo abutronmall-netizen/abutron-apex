@@ -1,0 +1,26 @@
+[Unit]
+Description=ABUTRON APEX AI + SMC/ICT independent evidence-only journal
+After=local-fs.target
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+WorkingDirectory=/opt/apex-smc-shadow-v1
+ExecStart=/usr/bin/python3 -B /opt/apex-smc-shadow-v1/ai_smc_evidence_journal.py
+UMask=0077
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+LockPersonality=yes
+RestrictAddressFamilies=AF_UNIX
+IPAddressDeny=any
+ReadWritePaths=/var/lib/apex-ai-smc-evidence
+MemoryMax=180M
+TasksMax=24
+TimeoutStartSec=35

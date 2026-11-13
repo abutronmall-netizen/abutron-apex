@@ -1,0 +1,30 @@
+[Unit]
+Description=ABUTRON Deriv DEMO 6207 evidence-qualified quantitative native order dispatcher V3
+After=abutron-client-mt5-d6fc2524ec373b8d1bc278a8be3ec635.service abutron-bounded-promotion-gate.service
+ConditionPathExists=/opt/abutron-research/quant-entry/abutron_quant_demo_dispatch_v3.py
+ConditionPathExists=/etc/abutron/6207-quant-demo-v3-approval.json
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /opt/abutron-research/quant-entry/abutron_quant_demo_dispatch_v3.py --dispatch
+TimeoutStartSec=22
+UMask=0077
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+PrivateNetwork=yes
+ProtectSystem=strict
+ProtectHome=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+LockPersonality=yes
+RestrictAddressFamilies=AF_UNIX
+CPUQuota=50%
+MemoryMax=180M
+TasksMax=24
+ReadWritePaths=/var/lib/apex-client-feed
+ReadWritePaths=/var/lib/abutron-quant-first/rdagent-qwen-discovery
+ReadWritePaths=/var/lib/private/abutron-client-mt5-d6fc2524ec373b8d1bc278a8be3ec635/terminal/MQL5/Files

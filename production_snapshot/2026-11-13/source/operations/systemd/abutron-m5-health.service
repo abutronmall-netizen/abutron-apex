@@ -1,0 +1,23 @@
+[Unit]
+Description=ABUTRON APEX Deriv/FP M5 read-only freshness and blocker monitor
+After=local-fs.target
+ConditionPathExists=/opt/apex/apps/abutron-m5-health/health.py
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /opt/apex/apps/abutron-m5-health/health.py
+Nice=19
+CPUQuota=15%
+MemoryMax=80M
+TimeoutStartSec=10
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateNetwork=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_UNIX
+ReadWritePaths=/var/lib/abutron-m5-health
+UMask=0077

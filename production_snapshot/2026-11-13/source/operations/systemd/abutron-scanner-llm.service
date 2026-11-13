@@ -1,0 +1,27 @@
+[Unit]
+Description=ABUTRON original TradingAgents Qwen review of production Strategy Scanner (advisory only)
+After=ollama-apex.service abutron-client-native-feed.service
+Wants=ollama-apex.service
+ConditionPathExists=/var/lib/apex/operator-live/native-scanner.json
+ConditionPathExists=/var/lib/apex/operator-live/native-market.json
+
+[Service]
+Type=oneshot
+User=apexagent
+Group=apexagent
+WorkingDirectory=/opt/apex/apps/tradingagents
+Environment=PYTHONPATH=/opt/apex/runtime
+ExecStart=/opt/apex/apps/tradingagents/.venv/bin/python /opt/apex/runtime/abutron_scanner_llm.py
+TimeoutStartSec=420
+CPUQuota=100%
+Nice=12
+MemoryMax=3G
+TasksMax=60
+UMask=0027
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=no
+PrivateTmp=yes
+PrivateDevices=yes
+ReadWritePaths=/var/lib/abutron-scanner-llm
+RestrictAddressFamilies=AF_INET AF_UNIX

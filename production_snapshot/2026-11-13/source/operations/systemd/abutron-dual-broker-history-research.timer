@@ -1,0 +1,12 @@
+[Unit]
+Description=Accumulate authenticated Deriv and FP Markets broker candles for shadow quantitative research
+
+[Timer]
+OnBootSec=110s
+OnUnitInactiveSec=120s
+AccuracySec=10s
+Unit=abutron-dual-broker-history-research.service
+Persistent=false
+
+[Install]
+WantedBy=timers.target

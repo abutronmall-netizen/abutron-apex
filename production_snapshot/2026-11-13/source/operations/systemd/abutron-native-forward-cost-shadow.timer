@@ -1,0 +1,12 @@
+[Unit]
+Description=ABUTRON native bid/ask forward-cost shadow research every one minute
+
+[Timer]
+OnBootSec=3min
+OnUnitActiveSec=1min
+AccuracySec=5s
+Persistent=true
+Unit=abutron-native-forward-cost-shadow.service
+
+[Install]
+WantedBy=timers.target

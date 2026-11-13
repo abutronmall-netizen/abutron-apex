@@ -1,0 +1,18 @@
+[Unit]
+Description=ABUTRON Deriv DEMO 6207 independent native full-range trade and funding cashflow audit (READ ONLY)
+After=local-fs.target
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /usr/local/sbin/abutron-deriv6207-native-alltime-verify-ro
+ProtectSystem=strict
+ReadWritePaths=/var/lib/abutron-v4-broker-crm-supervisor-6207
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectHome=yes
+UMask=0077
+MemoryMax=125M
+TasksMax=12
+RestrictAddressFamilies=AF_UNIX

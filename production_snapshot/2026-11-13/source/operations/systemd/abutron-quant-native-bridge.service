@@ -1,0 +1,28 @@
+[Unit]
+Description=ABUTRON quant model-to-native immutable pre-order identity bridge (read-only)
+After=local-fs.target abutron-bounded-promotion-gate.service
+ConditionPathExists=/opt/abutron-research/quant-entry/abutron_quant_native_bridge_v1.py
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /opt/abutron-research/quant-entry/abutron_quant_native_bridge_v1.py
+TimeoutStartSec=28
+MemoryMax=140M
+CPUQuota=18%
+TasksMax=18
+Nice=14
+UMask=0027
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+PrivateNetwork=yes
+ProtectSystem=strict
+ProtectHome=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+LockPersonality=yes
+RestrictAddressFamilies=AF_UNIX
+ReadWritePaths=/var/lib/abutron-quant-first/rdagent-qwen-discovery

@@ -1,0 +1,12 @@
+[Unit]
+Description=Daily isolated RD-Agent(Q) Qlib broker-data refresh and provider test
+
+[Timer]
+OnCalendar=*-*-* 01:15:00 UTC
+AccuracySec=5min
+RandomizedDelaySec=90
+Persistent=false
+Unit=abutron-rdagent-qlib-isolated-research.service
+
+[Install]
+WantedBy=timers.target

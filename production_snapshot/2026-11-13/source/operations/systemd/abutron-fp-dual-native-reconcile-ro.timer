@@ -1,0 +1,12 @@
+[Unit]
+Description=ABUTRON FP DEMO account-bound receipt reconciliation, every minute (NO ORDERS)
+
+[Timer]
+OnBootSec=90s
+OnUnitActiveSec=60s
+AccuracySec=15s
+Unit=abutron-fp-dual-native-reconcile-ro.service
+Persistent=true
+
+[Install]
+WantedBy=timers.target

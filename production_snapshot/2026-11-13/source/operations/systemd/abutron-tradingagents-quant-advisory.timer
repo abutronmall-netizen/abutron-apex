@@ -1,0 +1,11 @@
+[Unit]
+Description=ABUTRON TradingAgents Qwen pre-entry analysis of frozen quant signals
+[Timer]
+OnBootSec=60s
+OnUnitInactiveSec=25s
+AccuracySec=3s
+RandomizedDelaySec=0
+Persistent=false
+Unit=abutron-tradingagents-quant-advisory.service
+[Install]
+WantedBy=timers.target

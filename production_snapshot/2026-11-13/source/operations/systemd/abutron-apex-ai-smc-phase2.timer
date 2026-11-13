@@ -1,0 +1,12 @@
+[Unit]
+Description=Run ABUTRON APEX Phase 2 broker P/L and AI+SMC research comparison (read-only)
+
+[Timer]
+OnBootSec=240s
+OnUnitInactiveSec=300s
+AccuracySec=15s
+Persistent=false
+Unit=abutron-apex-ai-smc-phase2.service
+
+[Install]
+WantedBy=timers.target

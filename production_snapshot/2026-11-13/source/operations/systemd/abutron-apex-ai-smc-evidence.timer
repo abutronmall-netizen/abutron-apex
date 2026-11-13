@@ -1,0 +1,10 @@
+[Unit]
+Description=Run ABUTRON APEX independent AI + SMC evidence journal (no trading)
+[Timer]
+OnBootSec=180s
+OnUnitInactiveSec=45s
+AccuracySec=5s
+Persistent=false
+Unit=abutron-apex-ai-smc-evidence.service
+[Install]
+WantedBy=timers.target

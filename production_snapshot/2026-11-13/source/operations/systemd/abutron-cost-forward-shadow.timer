@@ -1,0 +1,12 @@
+[Unit]
+Description=ABUTRON forward cost/stop-loss quality research every five minutes (NO ORDERS)
+
+[Timer]
+OnCalendar=*-*-* *:00/5:40
+AccuracySec=10s
+RandomizedDelaySec=0
+Unit=abutron-cost-forward-shadow.service
+Persistent=false
+
+[Install]
+WantedBy=timers.target

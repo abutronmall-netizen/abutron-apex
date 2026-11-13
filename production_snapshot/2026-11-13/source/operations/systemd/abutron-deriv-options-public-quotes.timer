@@ -1,0 +1,11 @@
+[Unit]
+Description=Hourly public Deriv Options Multipliers research price audit (no trades)
+
+[Timer]
+OnCalendar=*-*-* *:40:00
+Persistent=true
+AccuracySec=1min
+Unit=abutron-deriv-options-public-quotes.service
+
+[Install]
+WantedBy=timers.target

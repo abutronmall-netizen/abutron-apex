@@ -1,0 +1,25 @@
+[Unit]
+Description=ABUTRON 6207 dedicated DEMO cutover broker proof (READ ONLY)
+After=abutron-client-mt5-d6fc2524ec373b8d1bc278a8be3ec635.service
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+UMask=0077
+ExecStart=/usr/bin/python3 -B /opt/apex-client-mt5/execution-fix/abutron_6207_cutover_v1.py --inspect
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+PrivateNetwork=yes
+ProtectSystem=strict
+ReadWritePaths=/var/lib/abutron-6207-pilot
+ProtectHome=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+LockPersonality=yes
+RestrictAddressFamilies=AF_UNIX
+CapabilityBoundingSet=CAP_DAC_READ_SEARCH
+MemoryMax=200M
+TimeoutStartSec=20

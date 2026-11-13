@@ -1,0 +1,27 @@
+[Unit]
+Description=ABUTRON Qlib five-index quantitative entry shadow (research only; no orders)
+After=local-fs.target abutron-rdagent-qlib-isolated-research.service
+ConditionPathExists=/opt/abutron-research/quant-entry/live_quant_shadow_v1.py
+ConditionPathExists=/var/lib/abutron-quant-first/quant-entry-qlib/historical-quant-model-v1.json
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /opt/abutron-research/quant-entry/live_quant_shadow_v1.py
+TimeoutStartSec=30
+UMask=0027
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+PrivateNetwork=yes
+ProtectSystem=strict
+ProtectHome=yes
+ReadWritePaths=/var/lib/abutron-quant-first/quant-entry-qlib
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_UNIX
+MemoryMax=128M
+CPUQuota=15%
+Nice=12

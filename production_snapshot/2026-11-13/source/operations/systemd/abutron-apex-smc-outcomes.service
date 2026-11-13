@@ -1,0 +1,25 @@
+[Unit]
+Description=ABUTRON APEX completed M5 directional outcomes (shadow research only)
+After=local-fs.target
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+WorkingDirectory=/opt/apex-smc-shadow-v1
+ExecStart=/usr/bin/python3 -B /opt/apex-smc-shadow-v1/forward_outcomes.py
+TimeoutStartSec=30s
+UMask=0077
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/apex-smc-shadow
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_UNIX
+CapabilityBoundingSet=CAP_DAC_READ_SEARCH
+MemoryMax=280M
+TasksMax=22

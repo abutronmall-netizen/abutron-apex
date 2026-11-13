@@ -1,0 +1,9 @@
+[Unit]
+Description=ABUTRON mandatory factor promotion evidence audit every five minutes
+[Timer]
+OnCalendar=*-*-* *:0/5:45 UTC
+AccuracySec=6s
+Persistent=false
+Unit=abutron-bounded-promotion-gate.service
+[Install]
+WantedBy=timers.target

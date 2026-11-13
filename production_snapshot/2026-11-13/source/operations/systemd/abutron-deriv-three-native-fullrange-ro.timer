@@ -1,0 +1,9 @@
+[Unit]
+Description=Continuously reconcile three Deriv DEMO full-range native transaction histories
+[Timer]
+OnBootSec=3min
+OnUnitActiveSec=2min
+AccuracySec=10s
+Unit=abutron-deriv-three-native-fullrange-ro.service
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,23 @@
+[Unit]
+Description=ABUTRON FP Markets MT5 DEMO/LIVE broker-native data intake (read-only)
+After=abutron-client-mt5-manager.service
+ConditionPathExists=/opt/apex-client-mt5/fpmarkets-feed/fp_feed_collect.py
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+Environment=ABUTRON_FP_FEED_OUTPUT=/var/lib/abutron-fpmarkets-feed
+ExecStart=/usr/bin/python3 -B /opt/apex-client-mt5/fpmarkets-feed/fp_feed_collect.py
+StateDirectory=abutron-fpmarkets-feed
+StateDirectoryMode=0700
+UMask=0077
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+PrivateNetwork=true
+PrivateDevices=true
+NoNewPrivileges=true
+ReadWritePaths=/var/lib/abutron-fpmarkets-feed
+MemoryMax=256M
+TasksMax=16

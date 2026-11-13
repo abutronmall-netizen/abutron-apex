@@ -1,0 +1,11 @@
+[Unit]
+Description=ABUTRON 6207 DEMO hard-stop at 2026-11-07 16:00 SAST (14:00 UTC)
+
+[Timer]
+OnCalendar=2026-11-07 14:00:00 UTC
+AccuracySec=1s
+Persistent=true
+Unit=abutron-6207-multi-trial-stop.service
+
+[Install]
+WantedBy=timers.target

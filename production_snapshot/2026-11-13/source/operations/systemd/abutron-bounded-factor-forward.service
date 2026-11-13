@@ -1,0 +1,28 @@
+[Unit]
+Description=ABUTRON Qwen factor causal forward market-outcome journal (no broker orders)
+After=local-fs.target abutron-client-native-feed.service
+ConditionPathExists=/opt/abutron-research/quant-entry/bounded_qwen_factor_forward_v1.py
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /opt/abutron-research/quant-entry/bounded_qwen_factor_forward_v1.py
+TimeoutStartSec=28
+Nice=14
+CPUQuota=25%
+MemoryMax=280M
+TasksMax=24
+UMask=0027
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+PrivateNetwork=yes
+ProtectSystem=strict
+ProtectHome=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+LockPersonality=yes
+RestrictAddressFamilies=AF_UNIX
+ReadWritePaths=/var/lib/abutron-quant-first/rdagent-qwen-discovery

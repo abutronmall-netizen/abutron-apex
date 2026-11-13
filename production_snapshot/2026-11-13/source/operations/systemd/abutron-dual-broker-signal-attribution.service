@@ -1,0 +1,27 @@
+[Unit]
+Description=ABUTRON dual-broker signal attribution and blocked-entry audit (read only)
+After=abutron-fpmarkets-native-feed.service abutron-apex-native-orders.service
+ConditionPathExists=/opt/abutron-research/signal-attribution/abutron_signal_attribution_v1.py
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /opt/abutron-research/signal-attribution/abutron_signal_attribution_v1.py --out /var/lib/abutron-quant-first/signal-attribution
+TimeoutStartSec=18
+CPUQuota=20%
+MemoryMax=128M
+TasksMax=12
+UMask=0077
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+LockPersonality=yes
+RestrictAddressFamilies=AF_UNIX
+IPAddressDeny=any
+ReadWritePaths=/var/lib/abutron-quant-first/signal-attribution

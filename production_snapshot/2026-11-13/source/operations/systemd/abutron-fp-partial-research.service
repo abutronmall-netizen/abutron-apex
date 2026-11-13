@@ -1,0 +1,26 @@
+[Unit]
+Description=ABUTRON FP Markets broker-native partial research recovery - no execution
+After=abutron-fpmarkets-native-feed.service
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+WorkingDirectory=/opt/apex-client-mt5/fpmarkets-research-partial
+ExecStart=/usr/bin/python3 -B /opt/apex-client-mt5/fpmarkets-research-partial/fp_partial_recovery_run.py
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_UNIX
+IPAddressDeny=any
+ReadWritePaths=/var/lib/abutron-fp-scanner /var/lib/apex/operator-live /var/lib/apex-signup/fp-market-ui
+MemoryMax=300M
+TasksMax=20
+CPUQuota=70%
+UMask=0027
+TimeoutStartSec=35

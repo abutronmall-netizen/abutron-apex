@@ -1,0 +1,21 @@
+[Unit]
+Description=ABUTRON APEX broker-native V2 DEMO per-account execution activation acknowledgement
+After=abutron-client-mt5-manager.service
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+WorkingDirectory=/opt/apex-client-mt5/execution-fix
+ExecStart=/usr/bin/python3 -B /opt/apex-client-mt5/execution-fix/activation_ack.py
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ReadWritePaths=/var/lib/apex-client-feed /var/lib/apex-signup
+RestrictAddressFamilies=AF_UNIX
+UMask=0077
+TasksMax=45
+MemoryMax=200M
+TimeoutStartSec=20

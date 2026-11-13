@@ -1,0 +1,12 @@
+[Unit]
+Description=Hourly genuine Deriv M5/M15/H1 pre-event research, with shared broker singleton
+
+[Timer]
+OnCalendar=*-*-* *:00:00 UTC
+Persistent=false
+AccuracySec=20s
+RandomizedDelaySec=0
+Unit=abutron-deriv-kronos-prospective-capture.service
+
+[Install]
+WantedBy=timers.target

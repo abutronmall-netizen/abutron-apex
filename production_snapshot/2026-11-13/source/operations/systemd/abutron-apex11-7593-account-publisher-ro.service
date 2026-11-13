@@ -1,0 +1,25 @@
+[Unit]
+Description=ABUTRON APEX11 Deriv DEMO 7593 account-bound M5 publisher (READ ONLY)
+After=abutron-client-mt5-9568525eee306da891258ad98c654919.service
+Wants=abutron-client-mt5-9568525eee306da891258ad98c654919.service
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/opt/abutron-apex11-staging/native-v4-guarded-20261108/qa-venv/bin/python -B /usr/local/sbin/abutron-apex11-7593-account-publisher-ro
+Environment=APEX_DATA_DIR=/var/lib/abutron-apex11-7593
+WorkingDirectory=/var/lib/abutron-apex11-7593
+UMask=0077
+NoNewPrivileges=yes
+PrivateNetwork=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectHome=yes
+ProtectSystem=strict
+RestrictAddressFamilies=AF_UNIX
+CapabilityBoundingSet=CAP_DAC_READ_SEARCH
+ReadWritePaths=/var/lib/abutron-apex11-7593
+TimeoutStartSec=45
+MemoryMax=450M
+TasksMax=40

@@ -1,0 +1,26 @@
+[Unit]
+Description=ABUTRON customer-wide native broker exposure evidence READ-ONLY (NO DISPATCH)
+After=postgresql.service
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /usr/local/sbin/abutron-customer-wide-risk-readonly
+UMask=0077
+NoNewPrivileges=yes
+CapabilityBoundingSet=CAP_DAC_READ_SEARCH
+ProtectSystem=strict
+ProtectHome=yes
+PrivateDevices=yes
+PrivateTmp=yes
+PrivateNetwork=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+LockPersonality=yes
+RestrictAddressFamilies=AF_UNIX
+ReadWritePaths=/var/lib/abutron-v4-broker-crm-supervisor-6207
+MemoryMax=180M
+TasksMax=25
+TimeoutStartSec=20

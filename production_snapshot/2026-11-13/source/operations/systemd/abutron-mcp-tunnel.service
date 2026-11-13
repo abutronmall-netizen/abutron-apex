@@ -1,0 +1,37 @@
+[Unit]
+Description=ABUTRON Private Non-Root MCP Outbound Tunnel
+After=network-online.target
+Wants=network-online.target
+ConditionPathExists=/etc/abutron-mcp/tunnel.env
+
+[Service]
+Type=simple
+User=abutronmcp
+Group=abutronmcp
+WorkingDirectory=/var/lib/abutron-mcp
+Environment=HOME=/var/lib/abutron-mcp
+Environment=XDG_CONFIG_HOME=/var/lib/abutron-mcp/.config
+EnvironmentFile=/etc/abutron-mcp/tunnel.env
+ExecStart=/usr/local/bin/tunnel-client run --profile abutron-production
+Restart=on-failure
+RestartSec=10
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/abutron-mcp
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectKernelLogs=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+CapabilityBoundingSet=
+AmbientCapabilities=
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+SystemCallArchitectures=native
+
+[Install]
+WantedBy=multi-user.target

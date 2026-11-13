@@ -1,0 +1,9 @@
+[Unit]
+Description=ABUTRON read-only quant-to-native promotion bridge every minute
+[Timer]
+OnCalendar=*-*-* *:*:08 UTC
+AccuracySec=5s
+Persistent=false
+Unit=abutron-quant-native-bridge.service
+[Install]
+WantedBy=timers.target

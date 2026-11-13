@@ -1,0 +1,10 @@
+[Unit]
+Description=ABUTRON APEX customer native receipt archive cadence
+[Timer]
+OnBootSec=35s
+OnUnitActiveSec=45s
+AccuracySec=5s
+RandomizedDelaySec=3s
+Unit=abutron-apex-proof-archive.service
+[Install]
+WantedBy=timers.target

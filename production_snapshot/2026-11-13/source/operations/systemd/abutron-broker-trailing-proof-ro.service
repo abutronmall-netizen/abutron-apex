@@ -1,0 +1,13 @@
+[Unit]
+Description=ABUTRON account-bound broker-native trailing stop evidence only (NO ORDERS)
+After=local-fs.target
+[Service]
+Type=oneshot
+User=root
+ExecStart=/usr/bin/python3 -B /usr/local/sbin/abutron-broker-trailing-proof-ro
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+ReadWritePaths=/var/lib/abutron-native-trailing-proof
+TimeoutStartSec=15

@@ -1,0 +1,9 @@
+[Unit]
+Description=Publish current ABUTRON mandatory AI/SMC/ICT operator status every minute
+[Timer]
+OnCalendar=*:0/1
+AccuracySec=10s
+Persistent=true
+Unit=abutron-apex-ai-smc-ict-ui-publish.service
+[Install]
+WantedBy=timers.target

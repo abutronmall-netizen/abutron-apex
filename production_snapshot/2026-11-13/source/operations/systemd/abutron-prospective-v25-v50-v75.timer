@@ -1,0 +1,11 @@
+[Unit]
+Description=ABUTRON prospective V25/V50/V75 evidence refresh (no orders) every five minutes
+
+[Timer]
+OnCalendar=*-*-* *:00/5:20
+AccuracySec=10s
+Persistent=false
+Unit=abutron-prospective-v25-v50-v75.service
+
+[Install]
+WantedBy=timers.target

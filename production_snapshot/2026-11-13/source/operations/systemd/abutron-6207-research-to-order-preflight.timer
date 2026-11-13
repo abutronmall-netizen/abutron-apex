@@ -1,0 +1,11 @@
+[Unit]
+Description=ABUTRON 6207-only research-to-order safety preflight each minute (NO ORDERS)
+
+[Timer]
+OnCalendar=*-*-* *:*:55
+AccuracySec=1s
+Persistent=false
+Unit=abutron-6207-research-to-order-preflight.service
+
+[Install]
+WantedBy=timers.target

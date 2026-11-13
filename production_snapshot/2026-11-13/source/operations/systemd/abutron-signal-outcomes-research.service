@@ -1,0 +1,31 @@
+[Unit]
+Description=ABUTRON broker-native signal outcomes and historical deal evidence (research only)
+After=abutron-dual-broker-signal-attribution.service abutron-dual-broker-history-research.service
+ConditionPathExists=/opt/abutron-research/signal-outcomes/abutron_signal_outcomes_v1.py
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+SupplementaryGroups=apexagent
+WorkingDirectory=/opt/abutron-research/signal-outcomes
+ExecStart=/usr/bin/python3 -B /opt/abutron-research/signal-outcomes/abutron_signal_outcomes_v1.py
+TimeoutStartSec=35
+CPUQuota=25%
+MemoryMax=192M
+TasksMax=20
+UMask=0077
+NoNewPrivileges=yes
+CapabilityBoundingSet=
+AmbientCapabilities=
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+LockPersonality=yes
+RestrictAddressFamilies=AF_UNIX
+IPAddressDeny=any
+ReadWritePaths=/var/lib/abutron-quant-first/signal-outcomes /var/lib/abutron-quant-first/signal-attribution /var/lib/abutron-quant-first/dual-broker /var/lib/apex/precision-history /var/lib/apex-broker-deal-evidence

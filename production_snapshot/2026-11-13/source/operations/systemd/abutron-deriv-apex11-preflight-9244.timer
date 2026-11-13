@@ -1,0 +1,12 @@
+[Unit]
+Description=ABUTRON Deriv DEMO 9244 independent 12-second APEX native risk preflight
+
+[Timer]
+OnBootSec=15s
+OnUnitInactiveSec=12s
+AccuracySec=2s
+Unit=abutron-deriv-apex11-preflight-9244.service
+Persistent=false
+
+[Install]
+WantedBy=timers.target

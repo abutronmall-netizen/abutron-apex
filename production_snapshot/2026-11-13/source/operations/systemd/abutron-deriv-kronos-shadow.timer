@@ -1,0 +1,10 @@
+[Unit]
+Description=Schedule read-only Deriv M1-D1 Kronos research once daily
+[Timer]
+OnCalendar=*-*-* 03:20:00 UTC
+Persistent=true
+RandomizedDelaySec=60
+AccuracySec=1min
+Unit=abutron-deriv-kronos-shadow.service
+[Install]
+WantedBy=timers.target

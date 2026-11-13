@@ -1,0 +1,12 @@
+[Unit]
+Description=Check Deriv DEMO 6207 broker linked entry/exit records every five minutes
+
+[Timer]
+OnBootSec=5min
+OnUnitInactiveSec=5min
+AccuracySec=20s
+Persistent=false
+Unit=abutron-6207-native-entry-exit-reconciliation.service
+
+[Install]
+WantedBy=timers.target

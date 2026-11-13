@@ -1,0 +1,11 @@
+[Unit]
+Description=ABUTRON owner-wide account coverage monitor (READ ONLY, NO ORDERS)
+
+[Timer]
+OnCalendar=*-*-* *:*:30 UTC
+AccuracySec=5s
+Persistent=false
+Unit=abutron-customer-owner-exposure-readonly.service
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,30 @@
+[Unit]
+Description=ABUTRON isolated RD-Agent(Q)/Qlib broker-data validation ONLY (no orders)
+After=docker.service abutron-dual-broker-history-research.service abutron-precision-history.service
+Requires=docker.service
+ConditionPathExists=/opt/abutron-research/qlib-tools/abutron_qlib_refresh_v1.py
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+SupplementaryGroups=apexagent
+WorkingDirectory=/opt/abutron-research/qlib-tools
+ExecStart=/usr/bin/python3 -B /opt/abutron-research/qlib-tools/abutron_qlib_refresh_v1.py
+TimeoutStartSec=320
+CPUQuota=35%
+MemoryMax=512M
+TasksMax=50
+UMask=0077
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+LockPersonality=yes
+RestrictAddressFamilies=AF_UNIX
+IPAddressDeny=any
+ReadWritePaths=/var/lib/abutron-quant-first/rdagent-qlib

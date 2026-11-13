@@ -1,0 +1,20 @@
+[Unit]
+Description=ABUTRON six-account native historical-window broker ledger reconciliation (read-only)
+After=local-fs.target
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /usr/local/sbin/abutron-six-broker-native-history-reconcile
+ProtectSystem=strict
+ReadWritePaths=/var/lib/abutron-v4-broker-crm-supervisor-6207
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectHome=yes
+UMask=0077
+MemoryMax=120M
+TasksMax=12
+RestrictAddressFamilies=AF_UNIX
+[Install]
+WantedBy=multi-user.target

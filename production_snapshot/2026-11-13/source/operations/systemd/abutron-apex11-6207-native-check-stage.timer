@@ -1,0 +1,11 @@
+[Unit]
+Description=ABUTRON APEX11 Deriv DEMO 6207 refresh native OrderCheck-only evidence
+
+[Timer]
+OnBootSec=45s
+OnUnitActiveSec=5s
+AccuracySec=1s
+Unit=abutron-apex11-6207-native-check-stage.service
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,23 @@
+[Unit]
+Description=ABUTRON APEX11 Deriv DEMO 6207 exact native OrderCheck-only stager (NO OrderSend)
+After=abutron-client-mt5-manager.service
+ConditionPathExists=/var/lib/abutron-mcp/abutron-apex11-6207-stage-native-check-ro.py
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /var/lib/abutron-mcp/abutron-apex11-6207-stage-native-check-ro.py
+WorkingDirectory=/var/lib/abutron-mcp
+TimeoutStartSec=15
+UMask=0077
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ReadWritePaths=/var/lib/private/abutron-client-mt5-d6fc2524ec373b8d1bc278a8be3ec635/terminal/MQL5/Files/ABUTRON
+MemoryMax=128M
+TasksMax=32
+StandardOutput=journal
+StandardError=journal

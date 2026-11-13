@@ -1,0 +1,11 @@
+[Unit]
+Description=ABUTRONFX read-only APEX tenant signal fanout
+
+[Timer]
+OnBootSec=65s
+OnUnitInactiveSec=60s
+AccuracySec=5s
+Unit=abutron-client-shadow-fanout.service
+
+[Install]
+WantedBy=timers.target

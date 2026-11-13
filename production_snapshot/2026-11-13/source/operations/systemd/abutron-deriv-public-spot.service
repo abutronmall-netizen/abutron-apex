@@ -1,0 +1,29 @@
+[Unit]
+Description=ABUTRON Deriv public native spot tick collection and cost research ONLY (no account authentication or orders)
+After=network-online.target
+Wants=network-online.target
+ConditionPathExists=/opt/abutron-research/tick-intelligence/public_spot_calibration_v1.json
+
+[Service]
+Type=oneshot
+DynamicUser=yes
+StateDirectory=abutron-public-spot-research
+StateDirectoryMode=0700
+ExecStart=/usr/bin/node /opt/abutron-research/tick-intelligence/abutron_deriv_public_spot_fetch_v1.js
+ExecStart=/usr/bin/python3 -B /opt/abutron-research/tick-intelligence/abutron_deriv_public_spot_ingest_v1.py
+TimeoutStartSec=90
+UMask=0077
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectSystem=strict
+ProtectHome=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+LockPersonality=yes
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+CapabilityBoundingSet=
+MemoryMax=300M
+CPUQuota=50%
+TasksMax=20

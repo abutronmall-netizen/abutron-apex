@@ -1,0 +1,11 @@
+[Unit]
+Description=ABUTRONFX APEX migration readiness evidence every five minutes
+
+[Timer]
+OnBootSec=90s
+OnUnitInactiveSec=300s
+AccuracySec=10s
+Unit=abutron-apex-handover-readiness.service
+
+[Install]
+WantedBy=timers.target

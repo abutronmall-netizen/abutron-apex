@@ -1,0 +1,12 @@
+[Unit]
+Description=ABUTRON protected Deriv DEMO open-position broker reconciliation every 30 seconds (NO ORDERS)
+
+[Timer]
+OnBootSec=120s
+OnUnitInactiveSec=30s
+AccuracySec=3s
+Persistent=false
+Unit=abutron-apex-native-reconcile-only.service
+
+[Install]
+WantedBy=timers.target

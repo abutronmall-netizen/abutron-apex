@@ -1,0 +1,11 @@
+[Unit]
+Description=Refresh authenticated-symbol-correlated Deriv public tick history every five minutes
+
+[Timer]
+OnBootSec=4min
+OnUnitInactiveSec=5min
+AccuracySec=20s
+Unit=abutron-deriv-public-spot.service
+
+[Install]
+WantedBy=timers.target

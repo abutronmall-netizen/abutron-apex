@@ -1,0 +1,12 @@
+[Unit]
+Description=Abutron V7 private Deriv owner observation freshness checker
+
+[Timer]
+OnBootSec=45s
+OnUnitInactiveSec=90s
+AccuracySec=10s
+Persistent=false
+Unit=abutron-v7-native-sync-watch.service
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,13 @@
+[Unit]
+Description=ABUTRON APEX SMC/ICT shadow-only periodic account research
+
+[Timer]
+OnBootSec=75s
+OnUnitActiveSec=75s
+RandomizedDelaySec=5s
+AccuracySec=3s
+Persistent=false
+Unit=abutron-apex-smc-shadow.service
+
+[Install]
+WantedBy=timers.target

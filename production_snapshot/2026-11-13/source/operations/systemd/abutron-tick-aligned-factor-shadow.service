@@ -1,0 +1,26 @@
+[Unit]
+Description=ABUTRON isolated forward tick-aligned factor research (no orders)
+After=local-fs.target
+ConditionPathExists=/opt/abutron-research/quant-entry/abutron_tick_aligned_factor_shadow_v1.py
+ConditionPathExists=/var/lib/abutron-public-spot-research/public-spot.sqlite3
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /opt/abutron-research/quant-entry/abutron_tick_aligned_factor_shadow_v1.py
+TimeoutStartSec=60
+UMask=0027
+NoNewPrivileges=yes
+ProtectSystem=strict
+ReadWritePaths=/var/lib/abutron-tick-factor-shadow
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_UNIX
+IPAddressDeny=any
+CapabilityBoundingSet=CAP_DAC_READ_SEARCH
+LockPersonality=yes

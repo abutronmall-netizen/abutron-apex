@@ -1,0 +1,13 @@
+[Unit]
+Description=Run read-only TradingAgents Qwen Strategy Scanner reviews
+
+[Timer]
+OnBootSec=120s
+OnUnitInactiveSec=180s
+AccuracySec=15s
+RandomizedDelaySec=10s
+Persistent=false
+Unit=abutron-scanner-llm.service
+
+[Install]
+WantedBy=timers.target

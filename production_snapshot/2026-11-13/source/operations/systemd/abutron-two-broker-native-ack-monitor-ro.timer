@@ -1,0 +1,9 @@
+[Unit]
+Description=Monitor new immutable native broker ACK evidence for 6207 and FP0512
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=1min
+AccuracySec=10s
+Unit=abutron-two-broker-native-ack-monitor-ro.service
+[Install]
+WantedBy=timers.target

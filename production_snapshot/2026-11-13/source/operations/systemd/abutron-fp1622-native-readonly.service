@@ -1,0 +1,31 @@
+[Unit]
+Description=ABUTRON FP DEMO 1622 isolated native inventory (READ ONLY, NO ORDERS)
+After=network-online.target
+Wants=network-online.target
+ConditionPathExists=/usr/local/lib/abutron-fp1622-readonly/fp1622_native_readonly_isolated.py
+
+[Service]
+Type=simple
+DynamicUser=yes
+StateDirectory=abutron-fp1622-native-readonly
+RuntimeDirectory=abutron-fp1622-native-readonly
+StateDirectoryMode=0700
+RuntimeDirectoryMode=0700
+LoadCredentialEncrypted=mt5:/var/lib/abutron-client-mt5-manager/credentials/20c9f7466ee083539972bb7faccddd4c.cred
+ExecStart=/usr/bin/python3 -B /usr/local/lib/abutron-fp1622-readonly/fp1622_native_readonly_isolated.py
+UMask=0077
+NoNewPrivileges=yes
+PrivateDevices=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=read-only
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+LockPersonality=yes
+MemoryMax=3600M
+CPUQuota=350%
+TasksMax=190
+TimeoutStartSec=20
+Restart=no
+

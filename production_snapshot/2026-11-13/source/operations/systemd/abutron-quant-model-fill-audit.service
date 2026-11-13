@@ -1,0 +1,24 @@
+[Unit]
+Description=ABUTRON Deriv DEMO frozen-model to authenticated native broker-fill attribution (no orders)
+After=abutron-6207-native-execution-audit.service
+ConditionPathExists=/opt/abutron-research/quant-entry/abutron_quant_model_fill_audit_v1.py
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /opt/abutron-research/quant-entry/abutron_quant_model_fill_audit_v1.py
+TimeoutStartSec=35
+UMask=0077
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+PrivateNetwork=yes
+ProtectSystem=strict
+ProtectHome=yes
+LockPersonality=yes
+RestrictAddressFamilies=AF_UNIX
+CPUQuota=45%
+MemoryMax=190M
+TasksMax=26
+ReadWritePaths=/var/lib/abutron-quant-first/rdagent-qwen-discovery

@@ -1,0 +1,12 @@
+[Unit]
+Description=Daily broker-native FINSABER-2 shadow backtest for Deriv and FP Markets
+
+[Timer]
+OnCalendar=*-*-* 00:25:00 UTC
+RandomizedDelaySec=60
+AccuracySec=2min
+Persistent=false
+Unit=abutron-finsaber2-daily-research.service
+
+[Install]
+WantedBy=timers.target

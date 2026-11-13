@@ -1,0 +1,12 @@
+[Unit]
+Description=ABUTRON APEX11 6207 V4 binding admission read-only monitor
+
+[Timer]
+OnBootSec=90s
+OnUnitInactiveSec=45s
+AccuracySec=5s
+Persistent=false
+Unit=abutron-apex11-v4-6207-binding-preflight-ro.service
+
+[Install]
+WantedBy=timers.target

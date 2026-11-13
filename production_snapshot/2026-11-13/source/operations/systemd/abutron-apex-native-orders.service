@@ -1,0 +1,21 @@
+[Unit]
+Description=ABUTRON APEX native Deriv DEMO signal-to-order and broker reconciliation
+After=abutron-client-native-feed.service abutron-client-shadow-fanout.service
+Wants=abutron-client-native-feed.timer
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /opt/apex-client-mt5/apex_native_order_runtime.py --dispatch
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ReadWritePaths=/var/lib/apex-client-feed /var/lib/private
+RestrictAddressFamilies=AF_UNIX
+UMask=0077
+TasksMax=40
+MemoryMax=256M
+TimeoutStartSec=35

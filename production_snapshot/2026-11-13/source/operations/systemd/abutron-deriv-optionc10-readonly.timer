@@ -1,0 +1,13 @@
+[Unit]
+Description=ABUTRON Deriv Option C 10-percent DEMO risk monitoring every 5 minutes
+
+[Timer]
+OnBootSec=3min
+OnUnitInactiveSec=5min
+RandomizedDelaySec=10s
+AccuracySec=15s
+Unit=abutron-deriv-optionc10-readonly.service
+Persistent=false
+
+[Install]
+WantedBy=timers.target

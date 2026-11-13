@@ -1,0 +1,27 @@
+[Unit]
+Description=ABUTRON APEX 1.1 authentic 6207 account-bound M5 decision journal (READ ONLY)
+After=abutron-client-mt5-d6fc2524ec373b8d1bc278a8be3ec635.service
+Wants=abutron-client-mt5-d6fc2524ec373b8d1bc278a8be3ec635.service
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/opt/abutron-apex11-staging/native-v4-guarded-20261108/qa-venv/bin/python -B /usr/local/sbin/abutron-apex11-6207-account-publisher-ro
+WorkingDirectory=/opt/abutron-apex11-staging/native-v4-guarded-20261108
+UMask=0077
+NoNewPrivileges=yes
+PrivateNetwork=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectHome=yes
+ProtectSystem=strict
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_UNIX
+CapabilityBoundingSet=CAP_DAC_READ_SEARCH
+ReadWritePaths=/var/lib/abutron-apex11-6207
+TimeoutStartSec=45
+MemoryMax=450M
+TasksMax=40

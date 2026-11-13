@@ -1,0 +1,35 @@
+[Unit]
+Description=ABUTRON 6207 direct CRM/broker revision-fenced authorization (DEMO ONLY)
+After=postgresql.service abutron-native-readonly-mt5-6207.service
+Wants=postgresql.service abutron-native-readonly-mt5-6207.service
+
+[Service]
+Type=simple
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /usr/local/sbin/abutron-v4-readonly-status-6207
+Environment=PYTHONDONTWRITEBYTECODE=1
+Restart=on-failure
+RestartSec=5
+UMask=0077
+NoNewPrivileges=no
+CapabilityBoundingSet=CAP_SETUID CAP_SETGID CAP_DAC_READ_SEARCH CAP_DAC_OVERRIDE
+ProtectSystem=strict
+# Restrict transactional claim/send writes to the CRM store only.
+ReadWritePaths=/var/lib/apex-signup
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+LockPersonality=yes
+RestrictAddressFamilies=AF_UNIX AF_INET
+IPAddressDeny=any
+IPAddressAllow=localhost
+MemoryMax=180M
+TasksMax=30
+TimeoutStartSec=15
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,11 @@
+[Unit]
+Description=ABUTRONFX APEX per-client order preflight every 2 minutes
+
+[Timer]
+OnBootSec=90s
+OnUnitInactiveSec=120s
+AccuracySec=10s
+Unit=abutron-apex-customer-execution-preflight.service
+
+[Install]
+WantedBy=timers.target

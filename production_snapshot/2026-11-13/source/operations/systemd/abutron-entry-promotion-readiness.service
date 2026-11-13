@@ -1,0 +1,25 @@
+[Unit]
+Description=ABUTRON quant prospective evidence and broker cost gate (READONLY NO ORDERS)
+After=abutron-entry-forward-shadow.service
+ConditionPathExists=/opt/apex-client-mt5/quant-first/abutron_entry_promotion_readiness_v1.py
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /opt/apex-client-mt5/quant-first/abutron_entry_promotion_readiness_v1.py
+TimeoutStartSec=18
+UMask=0027
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+PrivateNetwork=yes
+ProtectSystem=strict
+ReadWritePaths=/var/lib/abutron-quant-first
+ProtectHome=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_UNIX
+MemoryMax=128M
+CPUQuota=15%

@@ -1,0 +1,31 @@
+[Unit]
+Description=ABUTRON Deriv Option C 10-percent DEMO adaptive risk research; no order authority
+After=local-fs.target
+ConditionPathExists=/var/backups/abutron-deriv-adaptive10-20261106/deriv_risk10_shadow.py
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+WorkingDirectory=/var/backups/abutron-deriv-adaptive10-20261106
+ExecStart=/usr/bin/python3 -B /var/backups/abutron-deriv-adaptive10-20261106/deriv_risk10_shadow.py
+TimeoutStartSec=30s
+Nice=15
+IOSchedulingClass=idle
+CPUQuota=10%
+MemoryMax=128M
+TasksMax=12
+UMask=0077
+NoNewPrivileges=true
+PrivateNetwork=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/var/backups/abutron-deriv-adaptive10-20261106
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+LockPersonality=true
+RestrictSUIDSGID=true
+RestrictAddressFamilies=AF_UNIX

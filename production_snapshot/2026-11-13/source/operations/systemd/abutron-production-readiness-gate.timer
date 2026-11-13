@@ -1,0 +1,12 @@
+[Unit]
+Description=Automatic 15-minute Abutron production readiness gate (no orders)
+
+[Timer]
+OnCalendar=*-*-* *:00/15:00 UTC
+Persistent=false
+RandomizedDelaySec=10s
+AccuracySec=30s
+Unit=abutron-production-readiness-gate.service
+
+[Install]
+WantedBy=timers.target

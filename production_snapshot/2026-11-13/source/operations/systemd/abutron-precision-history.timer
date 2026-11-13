@@ -1,0 +1,12 @@
+[Unit]
+Description=ABUTRONFX broker-native completed candle history every 5 minutes (non-executing)
+
+[Timer]
+OnBootSec=2min
+OnUnitInactiveSec=5min
+AccuracySec=15s
+Persistent=false
+Unit=abutron-precision-history.service
+
+[Install]
+WantedBy=timers.target

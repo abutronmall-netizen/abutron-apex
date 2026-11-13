@@ -1,0 +1,11 @@
+[Unit]
+Description=ABUTRON 6207 dedicated native cutover verification every 5 seconds
+
+[Timer]
+OnCalendar=*-*-* *:*:00/5
+AccuracySec=1s
+Persistent=false
+Unit=abutron-6207-dedicated-cutover.service
+
+[Install]
+WantedBy=timers.target

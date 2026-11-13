@@ -1,0 +1,28 @@
+[Unit]
+Description=ABUTRON immutable forward native bid/ask and broker-cost research (NO ORDERS)
+After=local-fs.target
+ConditionPathExists=/opt/abutron-research/quant-entry/abutron_native_forward_cost_v1.py
+ConditionPathExists=/var/lib/private/abutron-native-readonly-mt5-6207/worker-health.json
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /opt/abutron-research/quant-entry/abutron_native_forward_cost_v1.py
+TimeoutStartSec=80s
+UMask=0027
+NoNewPrivileges=yes
+ProtectSystem=strict
+ReadWritePaths=/var/lib/abutron-native-forward-cost
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_UNIX
+IPAddressDeny=any
+LockPersonality=yes
+RestrictSUIDSGID=yes
+MemoryMax=256M
+CPUQuota=45%

@@ -1,0 +1,17 @@
+[Unit]
+Description=Abutron V7 encrypted ciphertext Google Drive backup and SHA256 readback
+Wants=network-online.target
+After=network-online.target abutron-v7-backup.service
+ConditionPathExists=/etc/abutron/v7-offsite-rclone.conf
+[Service]
+Type=oneshot
+User=root
+Group=root
+UMask=0077
+ExecStart=/usr/local/sbin/abutron-v7-offsite-upload
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=read-only
+ProtectSystem=strict
+ReadWritePaths=/run/lock
+TimeoutStartSec=20min

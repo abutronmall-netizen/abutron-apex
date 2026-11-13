@@ -1,0 +1,29 @@
+[Unit]
+Description=ABUTRON Deriv DEMO 6207 authenticated native MT5 quote snapshots and broker-linked entry costs (read-only)
+After=abutron-client-mt5-d6fc2524ec373b8d1bc278a8be3ec635.service
+ConditionPathExists=/opt/abutron-research/native-evidence/abutron_native_quote_cost_archive_v1.py
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /opt/abutron-research/native-evidence/abutron_native_quote_cost_archive_v1.py
+TimeoutStartSec=90
+UMask=0027
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectHome=yes
+ProtectSystem=strict
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+LockPersonality=yes
+RestrictAddressFamilies=AF_UNIX
+IPAddressDeny=any
+CapabilityBoundingSet=CAP_DAC_READ_SEARCH
+ReadWritePaths=/var/lib/abutron-native-quote-cost
+CPUQuota=40%
+MemoryMax=384M
+TasksMax=24

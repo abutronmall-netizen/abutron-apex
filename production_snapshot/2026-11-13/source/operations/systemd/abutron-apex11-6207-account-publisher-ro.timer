@@ -1,0 +1,12 @@
+[Unit]
+Description=ABUTRON APEX 1.1 broker-bound M5 publisher (read-only)
+
+[Timer]
+OnBootSec=150s
+OnUnitInactiveSec=60s
+AccuracySec=8s
+Persistent=false
+Unit=abutron-apex11-6207-account-publisher-ro.service
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,27 @@
+[Unit]
+Description=ABUTRON FP DEMO 1622 independently verified broker-native V101 history (READ ONLY)
+After=abutron-client-mt5-manager.service
+ConditionPathExistsGlob=/var/lib/private/abutron-client-mt5-14eef404262094655b2040c8ced86a53/terminal/MQL5/Files/ABUTRON_FP_ACCOUNT_HISTORY_V101_*.txt
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+WorkingDirectory=/opt/apex-client-mt5/fpmarkets-history
+ExecStart=/usr/bin/python3 -B /opt/apex-client-mt5/fpmarkets-history/fp_1622_native_history_publisher.py
+TimeoutStartSec=25
+CPUQuota=60%
+MemoryMax=200M
+TasksMax=20
+UMask=0077
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_UNIX
+IPAddressDeny=any
+ReadWritePaths=/var/lib/apex/operator-live /var/lib/apex-signup/fp-native-history

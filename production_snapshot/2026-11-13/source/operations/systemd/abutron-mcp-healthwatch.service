@@ -1,0 +1,19 @@
+[Unit]
+Description=ABUTRON Desktop Commander local MCP health recovery (no trading actions)
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/abutron-mcp-healthwatch
+User=root
+Group=root
+RuntimeDirectory=abutron-mcp-healthwatch
+RuntimeDirectoryMode=0700
+RuntimeDirectoryPreserve=yes
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+RestrictAddressFamilies=AF_UNIX AF_INET
+TimeoutStartSec=15s

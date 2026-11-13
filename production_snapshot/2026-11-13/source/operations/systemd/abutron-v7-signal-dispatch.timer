@@ -1,0 +1,10 @@
+[Unit]
+Description=Abutron V7 owner signal delivery every 60 seconds (not a broker order scheduler)
+[Timer]
+OnBootSec=60s
+OnUnitActiveSec=60s
+AccuracySec=5s
+Unit=abutron-v7-signal-dispatch.service
+Persistent=false
+[Install]
+WantedBy=timers.target

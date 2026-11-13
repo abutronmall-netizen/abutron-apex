@@ -1,0 +1,11 @@
+[Unit]
+Description=Refresh FP Markets 0512 APEX 1.1 account-bound M5 journal
+
+[Timer]
+OnBootSec=25s
+OnUnitInactiveSec=60s
+AccuracySec=5s
+Unit=abutron-apex11-fp-0512-account-publisher-ro.service
+
+[Install]
+WantedBy=timers.target

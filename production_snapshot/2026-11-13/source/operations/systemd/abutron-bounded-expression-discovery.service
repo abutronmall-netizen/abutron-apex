@@ -1,0 +1,31 @@
+[Unit]
+Description=ABUTRON RD-Agent(Q)-style bounded Qwen expression discovery (no broker orders)
+After=local-fs.target ollama-apex.service abutron-rdagent-qlib-isolated-research.service
+Wants=ollama-apex.service
+ConditionPathExists=/opt/abutron-research/quant-entry/bounded_expression_discovery_v1.py
+ConditionPathExists=/var/lib/abutron-quant-first/rdagent-qlib/latest.json
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /opt/abutron-research/quant-entry/bounded_expression_discovery_v1.py
+TimeoutStartSec=170
+CPUQuota=45%
+MemoryMax=500M
+TasksMax=30
+Nice=14
+UMask=0027
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectSystem=strict
+ProtectHome=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+LockPersonality=yes
+RestrictAddressFamilies=AF_UNIX AF_INET
+IPAddressDeny=any
+IPAddressAllow=localhost
+ReadWritePaths=/var/lib/abutron-quant-first/rdagent-qwen-discovery

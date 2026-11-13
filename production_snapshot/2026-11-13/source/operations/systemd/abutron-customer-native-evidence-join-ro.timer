@@ -1,0 +1,12 @@
+[Unit]
+Description=Update owner-bound read-only Deriv risk evidence join every minute
+
+[Timer]
+OnBootSec=120s
+OnUnitActiveSec=60s
+AccuracySec=15s
+Unit=abutron-customer-native-evidence-join-ro.service
+Persistent=true
+
+[Install]
+WantedBy=timers.target

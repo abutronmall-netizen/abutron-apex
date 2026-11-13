@@ -1,0 +1,23 @@
+[Unit]
+Description=ABUTRON Deriv DEMO 6207 7593 9244 dual-MT5 read-only account reconciliation
+After=local-fs.target
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /usr/local/sbin/abutron-deriv-three-native-reconcile-ro
+UMask=0077
+NoNewPrivileges=yes
+ProtectSystem=strict
+ReadWritePaths=/var/lib/abutron-deriv-multi-native-reconciliation
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+PrivateNetwork=yes
+RestrictAddressFamilies=AF_UNIX
+CapabilityBoundingSet=CAP_DAC_READ_SEARCH
+ProtectControlGroups=yes
+MemoryMax=180M
+TasksMax=20
+TimeoutStartSec=20

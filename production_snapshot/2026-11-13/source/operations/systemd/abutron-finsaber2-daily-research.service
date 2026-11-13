@@ -1,0 +1,33 @@
+[Unit]
+Description=ABUTRON FINSABER-2 cost-scenario native daily research ONLY (no MT5)
+After=abutron-dual-broker-history-research.service abutron-precision-history.service
+ConditionPathExists=/opt/abutron-research/finsaber2/abutron_finsaber2_native_adapter_v1.py
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+WorkingDirectory=/opt/abutron-research/finsaber2
+Environment=PYTHONNOUSERSITE=1
+Environment=PYTHONDONTWRITEBYTECODE=1
+Environment=MPLBACKEND=Agg
+Environment=MPLCONFIGDIR=/tmp/abutron-finsaber-mpl
+Environment=XDG_CACHE_HOME=/tmp/abutron-finsaber-cache
+ExecStart=/opt/abutron-research/finsaber2-venv/bin/python -B /opt/abutron-research/finsaber2/abutron_finsaber2_native_adapter_v1.py
+TimeoutStartSec=150
+MemoryMax=650M
+CPUQuota=65%
+TasksMax=30
+UMask=0077
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+LockPersonality=yes
+RestrictAddressFamilies=AF_UNIX
+IPAddressDeny=any
+ReadWritePaths=/var/lib/abutron-quant-first/finsaber-research /var/lib/abutron-quant-first/dual-broker /var/lib/apex/precision-history

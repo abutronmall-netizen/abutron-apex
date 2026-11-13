@@ -1,0 +1,9 @@
+[Unit]
+Description=Refresh Deriv 6207 all-range native funding and trade ledger every two minutes
+[Timer]
+OnBootSec=3min
+OnUnitActiveSec=1min
+AccuracySec=10s
+Unit=abutron-deriv6207-native-alltime-verify-ro.service
+[Install]
+WantedBy=timers.target

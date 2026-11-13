@@ -1,0 +1,11 @@
+[Unit]
+Description=ABUTRON APEX 15/30-minute completed-signal outcome collector
+[Timer]
+OnBootSec=90s
+OnUnitInactiveSec=90s
+AccuracySec=5s
+RandomizedDelaySec=5s
+Persistent=false
+Unit=abutron-apex-smc-outcomes.service
+[Install]
+WantedBy=timers.target

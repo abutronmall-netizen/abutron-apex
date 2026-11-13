@@ -1,0 +1,12 @@
+[Unit]
+Description=ABUTRON Deriv 6207 production broker/CRM read-only evidence audit
+
+[Timer]
+OnBootSec=120s
+OnUnitActiveSec=60s
+AccuracySec=5s
+Persistent=false
+Unit=abutron-v4-broker-crm-supervisor-6207.service
+
+[Install]
+WantedBy=timers.target

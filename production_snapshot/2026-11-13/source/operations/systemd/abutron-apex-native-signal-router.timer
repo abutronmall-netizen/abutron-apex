@@ -1,0 +1,11 @@
+[Unit]
+Description=ABUTRON APEX native research-to-order router inspection every 30 seconds
+
+[Timer]
+OnBootSec=85s
+OnUnitInactiveSec=30s
+AccuracySec=3s
+Unit=abutron-apex-native-signal-router.service
+
+[Install]
+WantedBy=timers.target

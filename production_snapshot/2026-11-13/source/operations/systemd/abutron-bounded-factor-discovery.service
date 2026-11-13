@@ -1,0 +1,31 @@
+[Unit]
+Description=ABUTRON bounded Qwen-assisted factor discovery (research only, never broker orders)
+After=local-fs.target ollama-apex.service
+Wants=ollama-apex.service
+ConditionPathExists=/opt/abutron-research/quant-entry/bounded_qwen_factor_discovery_v1.py
+ConditionPathExists=/var/lib/abutron-quant-first/rdagent-qlib/latest.json
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /opt/abutron-research/quant-entry/bounded_qwen_factor_discovery_v1.py
+TimeoutStartSec=160
+Nice=16
+CPUQuota=35%
+MemoryMax=650M
+TasksMax=40
+UMask=0027
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectSystem=strict
+ProtectHome=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+LockPersonality=yes
+RestrictAddressFamilies=AF_UNIX AF_INET
+IPAddressDeny=any
+IPAddressAllow=localhost
+ReadWritePaths=/var/lib/abutron-quant-first/rdagent-qwen-discovery

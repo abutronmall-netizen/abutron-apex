@@ -1,0 +1,22 @@
+[Unit]
+Description=Abutron MT5 owner-public-key encrypted vault offsite and independent SHA256 readback
+Wants=network-online.target
+After=network-online.target
+ConditionPathExists=/etc/abutron/mt5-owner-escrow/owner_public_escrow_v1.py
+ConditionPathExists=/etc/abutron/v7-offsite-rclone.conf
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+UMask=0077
+ExecStart=/usr/local/sbin/abutron-mt5-owner-offsite-daily
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+ReadWritePaths=/var/backups/abutron-mt5-owner-escrow /etc/abutron /run/lock
+TimeoutStartSec=20min

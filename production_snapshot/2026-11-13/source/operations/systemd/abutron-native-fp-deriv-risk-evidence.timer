@@ -1,0 +1,12 @@
+[Unit]
+Description=ABUTRON read-only native broker reconciliation every minute (NO ORDERS)
+After=local-fs.target
+
+[Timer]
+OnCalendar=*-*-* *:*:00 UTC
+AccuracySec=5s
+Persistent=false
+Unit=abutron-native-fp-deriv-risk-evidence.service
+
+[Install]
+WantedBy=timers.target

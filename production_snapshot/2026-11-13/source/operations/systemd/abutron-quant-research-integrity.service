@@ -1,0 +1,27 @@
+[Unit]
+Description=ABUTRON quantitative research, TradingAgents and native reconciliation acceptance (READ ONLY)
+After=abutron-client-mt5-d6fc2524ec373b8d1bc278a8be3ec635.service
+ConditionPathExists=/opt/abutron-research/quant-entry/abutron_quant_acceptance_v1.py
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /opt/abutron-research/quant-entry/abutron_quant_acceptance_v1.py --out /var/lib/abutron-quant-first/strategy-workbench-v1/production-acceptance-latest.json --replace
+TimeoutStartSec=35
+UMask=0077
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+PrivateNetwork=yes
+ProtectSystem=strict
+ProtectHome=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+LockPersonality=yes
+RestrictAddressFamilies=AF_UNIX
+CPUQuota=20%
+MemoryMax=120M
+TasksMax=16
+ReadWritePaths=/var/lib/abutron-quant-first/strategy-workbench-v1

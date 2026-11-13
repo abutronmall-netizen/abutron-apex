@@ -1,0 +1,11 @@
+[Unit]
+Description=ABUTRON Qlib quant-five M5 research scorer every five minutes (never orders)
+
+[Timer]
+OnCalendar=*-*-* *:0/5:15 UTC
+AccuracySec=5s
+Persistent=false
+Unit=abutron-quant-entry-shadow.service
+
+[Install]
+WantedBy=timers.target

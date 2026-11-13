@@ -1,0 +1,20 @@
+[Unit]
+Description=ABUTRON six broker-native account equity observations (READ ONLY)
+After=local-fs.target
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /usr/local/sbin/abutron-six-account-native-equity-observer
+ProtectSystem=strict
+ReadWritePaths=/var/lib/abutron-v4-broker-crm-supervisor-6207
+NoNewPrivileges=yes
+PrivateDevices=yes
+PrivateTmp=yes
+ProtectHome=yes
+ProtectControlGroups=yes
+ProtectKernelTunables=yes
+UMask=0077
+MemoryMax=110M
+TasksMax=12
+RestrictAddressFamilies=AF_UNIX

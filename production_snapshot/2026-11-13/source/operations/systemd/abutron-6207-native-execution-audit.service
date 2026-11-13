@@ -1,0 +1,24 @@
+[Unit]
+Description=ABUTRON Deriv DEMO 6207 broker-native protected-order audit refresh (read-only)
+After=abutron-client-mt5-d6fc2524ec373b8d1bc278a8be3ec635.service
+ConditionPathExists=/opt/apex-client-mt5/quant-first/abutron_prospective_execution_audit_v2.py
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /opt/apex-client-mt5/quant-first/abutron_prospective_execution_audit_v2.py
+TimeoutStartSec=28
+UMask=0027
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+PrivateNetwork=yes
+ProtectSystem=strict
+ProtectHome=yes
+LockPersonality=yes
+RestrictAddressFamilies=AF_UNIX
+CPUQuota=35%
+MemoryMax=180M
+TasksMax=24
+ReadWritePaths=/var/lib/abutron-quant-first

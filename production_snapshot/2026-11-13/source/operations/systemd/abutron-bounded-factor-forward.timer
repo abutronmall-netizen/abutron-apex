@@ -1,0 +1,9 @@
+[Unit]
+Description=ABUTRON Qwen factor prospective evidence capture every minute
+[Timer]
+OnCalendar=*-*-* *:*:55 UTC
+AccuracySec=5s
+Persistent=false
+Unit=abutron-bounded-factor-forward.service
+[Install]
+WantedBy=timers.target

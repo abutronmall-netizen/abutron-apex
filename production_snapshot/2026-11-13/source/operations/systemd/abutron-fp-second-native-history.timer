@@ -1,0 +1,12 @@
+[Unit]
+Description=Refresh FP DEMO second account independently verified MT5 history
+
+[Timer]
+OnBootSec=70s
+OnUnitInactiveSec=20s
+AccuracySec=8s
+Unit=abutron-fp-second-native-history.service
+Persistent=false
+
+[Install]
+WantedBy=timers.target

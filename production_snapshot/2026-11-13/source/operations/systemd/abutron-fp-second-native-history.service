@@ -1,0 +1,27 @@
+[Unit]
+Description=ABUTRON FP DEMO second account broker-native history publisher (read only)
+After=fp-native-history-readonly.service
+ConditionPathExistsGlob=/var/lib/private/abutron-client-mt5-80cf848587fcec6311dd93560c1c46c6/terminal/MQL5/Files/ABUTRON_FP_ACCOUNT_HISTORY_V1_*.txt
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+WorkingDirectory=/opt/apex-client-mt5/fpmarkets-history
+ExecStart=/usr/bin/python3 -B /opt/apex-client-mt5/fpmarkets-history/fp_second_native_history_publisher.py
+TimeoutStartSec=25
+CPUQuota=60%
+MemoryMax=200M
+TasksMax=20
+UMask=0077
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_UNIX
+IPAddressDeny=any
+ReadWritePaths=/var/lib/apex/operator-live /var/lib/apex-signup/fp-native-history

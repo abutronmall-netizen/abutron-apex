@@ -1,0 +1,29 @@
+[Unit]
+Description=ABUTRON mandatory quantitative model promotion evidence gate (read-only, never orders)
+After=local-fs.target abutron-bounded-factor-forward.service
+ConditionPathExists=/opt/abutron-research/quant-entry/bounded_promotion_gate_v1.py
+ConditionPathExists=/var/lib/abutron-quant-first/rdagent-qwen-discovery/frozen-cohort-v1.json
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /opt/abutron-research/quant-entry/bounded_promotion_gate_v1.py
+TimeoutStartSec=25
+CPUQuota=20%
+MemoryMax=140M
+TasksMax=20
+Nice=14
+UMask=0027
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+PrivateNetwork=yes
+ProtectSystem=strict
+ProtectHome=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+LockPersonality=yes
+RestrictAddressFamilies=AF_UNIX
+ReadWritePaths=/var/lib/abutron-quant-first/rdagent-qwen-discovery

@@ -1,0 +1,21 @@
+[Unit]
+Description=ABUTRON APEX native broker proof immutable archive (copy only)
+After=local-fs.target
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /opt/apex-smc-shadow-v1/preserve_proofs.py
+TimeoutStartSec=20s
+UMask=0077
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/apex-native-proof-archive
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+CapabilityBoundingSet=CAP_DAC_READ_SEARCH
+RestrictAddressFamilies=AF_UNIX
+MemoryMax=160M
+TasksMax=20

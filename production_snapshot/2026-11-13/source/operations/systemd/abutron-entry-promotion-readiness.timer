@@ -1,0 +1,11 @@
+[Unit]
+Description=ABUTRON entry model no-trade promotion readiness every five minutes
+
+[Timer]
+OnCalendar=*-*-* *:00/5:55
+AccuracySec=10s
+Persistent=false
+Unit=abutron-entry-promotion-readiness.service
+
+[Install]
+WantedBy=timers.target

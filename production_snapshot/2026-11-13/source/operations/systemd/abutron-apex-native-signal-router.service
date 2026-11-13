@@ -1,0 +1,20 @@
+[Unit]
+Description=ABUTRON APEX native per-customer signal router validation (read-only)
+After=abutron-client-native-feed.service abutron-client-shadow-fanout.service
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /opt/apex-client-mt5/apex_signal_native_router_v1.py --inspect
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectSystem=strict
+ProtectHome=yes
+ReadWritePaths=/var/lib/apex-client-feed
+RestrictAddressFamilies=AF_UNIX
+MemoryMax=180M
+TasksMax=40
+TimeoutStartSec=24
+UMask=0077

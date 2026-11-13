@@ -1,0 +1,13 @@
+[Unit]
+Description=ABUTRON APEX quant replay updates every hour
+
+[Timer]
+OnBootSec=5min
+OnUnitInactiveSec=60min
+AccuracySec=1min
+RandomizedDelaySec=30s
+Unit=abutron-quant-replay-readonly.service
+Persistent=false
+
+[Install]
+WantedBy=timers.target

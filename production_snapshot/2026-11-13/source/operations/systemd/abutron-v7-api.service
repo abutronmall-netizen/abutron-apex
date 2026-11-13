@@ -1,0 +1,30 @@
+[Unit]
+Description=Abutron V7 Customer API - PRIVATE READ-ONLY RELEASE CANDIDATE
+After=network-online.target postgresql.service redis-server.service
+Wants=network-online.target
+Requires=postgresql.service redis-server.service
+
+[Service]
+Type=simple
+User=abutron_v7_release_app
+Group=abutron_v7_release_app
+WorkingDirectory=/opt/abutron/v7/backend
+EnvironmentFile=/etc/abutron/v7-api.env
+EnvironmentFile=/etc/abutron/v7-email.env
+ExecStart=/opt/abutron/v7/venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 18110 --no-access-log --proxy-headers --forwarded-allow-ips 127.0.0.1
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+UMask=0077
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target

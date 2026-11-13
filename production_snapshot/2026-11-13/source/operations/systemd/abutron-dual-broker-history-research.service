@@ -1,0 +1,28 @@
+[Unit]
+Description=ABUTRON dual-broker read-only broker-native research history collector
+After=abutron-fpmarkets-native-feed.service abutron-precision-history.service
+ConditionPathExists=/opt/apex-client-mt5/quant-first/abutron_dual_broker_history_research_v1.py
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+WorkingDirectory=/opt/apex-client-mt5/quant-first
+ExecStart=/usr/bin/python3 -B /opt/apex-client-mt5/quant-first/abutron_dual_broker_history_research_v1.py
+TimeoutStartSec=40
+MemoryMax=240M
+CPUQuota=60%
+TasksMax=24
+UMask=0077
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+LockPersonality=yes
+RestrictAddressFamilies=AF_UNIX
+IPAddressDeny=any
+ReadWritePaths=/var/lib/abutron-quant-first/dual-broker /var/lib/apex/precision-history

@@ -1,0 +1,9 @@
+[Unit]
+Description=Update ABUTRON six-account native history and cashflow evidence every two minutes
+[Timer]
+OnBootSec=3min
+OnUnitActiveSec=1min
+AccuracySec=10s
+Unit=abutron-six-broker-native-history-reconcile.service
+[Install]
+WantedBy=timers.target

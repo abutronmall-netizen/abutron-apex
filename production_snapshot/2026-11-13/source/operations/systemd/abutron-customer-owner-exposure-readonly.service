@@ -1,0 +1,26 @@
+[Unit]
+Description=ABUTRON root-only customer owner exposure and disconnected account inventory (READ ONLY)
+After=local-fs.target
+ConditionPathExists=/opt/abutron-v4-readonly-status-6207/abutron_customer_owner_exposure_ro_20261109.py
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /opt/abutron-v4-readonly-status-6207/abutron_customer_owner_exposure_ro_20261109.py
+UMask=0077
+NoNewPrivileges=yes
+CapabilityBoundingSet=CAP_DAC_READ_SEARCH
+PrivateDevices=yes
+PrivateTmp=yes
+PrivateNetwork=yes
+ProtectSystem=strict
+ProtectHome=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_UNIX
+ReadWritePaths=/var/lib/abutron-v4-broker-crm-supervisor-6207
+MemoryMax=150M
+TasksMax=20
+TimeoutStartSec=20

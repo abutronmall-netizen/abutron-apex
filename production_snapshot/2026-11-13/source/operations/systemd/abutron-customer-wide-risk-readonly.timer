@@ -1,0 +1,12 @@
+[Unit]
+Description=ABUTRON customer-wide risk inventory every minute (READ ONLY)
+
+[Timer]
+OnBootSec=45s
+OnUnitInactiveSec=60s
+AccuracySec=5s
+Persistent=false
+Unit=abutron-customer-wide-risk-readonly.service
+
+[Install]
+WantedBy=timers.target

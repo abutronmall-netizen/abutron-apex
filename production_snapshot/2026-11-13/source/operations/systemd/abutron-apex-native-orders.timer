@@ -1,0 +1,12 @@
+[Unit]
+Description=ABUTRON APEX Deriv DEMO native order dispatcher (authorized accounts only)
+
+[Timer]
+OnBootSec=120s
+OnUnitInactiveSec=15s
+AccuracySec=2s
+Persistent=false
+Unit=abutron-apex-native-orders.service
+
+[Install]
+WantedBy=timers.target

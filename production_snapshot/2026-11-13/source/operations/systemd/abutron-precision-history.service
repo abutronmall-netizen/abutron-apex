@@ -1,0 +1,24 @@
+[Unit]
+Description=ABUTRONFX append-only broker candle history (non-executing)
+After=local-fs.target
+ConditionPathExists=/var/lib/apex/operator-live/native-market.json
+
+[Service]
+Type=oneshot
+User=apexagent
+Group=apexagent
+ExecStart=/usr/bin/python3 -B /opt/apex/runtime/abutron_precision_history.py
+WorkingDirectory=/opt/apex/runtime
+TimeoutStartSec=25s
+Nice=15
+IOSchedulingClass=idle
+CPUQuota=20%
+MemoryMax=160M
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+ReadWritePaths=/var/lib/apex/precision-history
+RestrictAddressFamilies=AF_UNIX
+IPAddressDeny=any
+UMask=0077

@@ -1,0 +1,11 @@
+[Unit]
+Description=Run isolated ABUTRON tick-aligned forward factor study every 5 minutes
+
+[Timer]
+OnBootSec=2min
+OnUnitInactiveSec=5min
+AccuracySec=15s
+Unit=abutron-tick-aligned-factor-shadow.service
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,10 @@
+[Unit]
+Description=ABUTRON Deriv DEMO native deal-history importer timer
+[Timer]
+OnBootSec=180s
+OnUnitInactiveSec=300s
+AccuracySec=15s
+Persistent=false
+Unit=abutron-native-deal-history-importer.service
+[Install]
+WantedBy=timers.target

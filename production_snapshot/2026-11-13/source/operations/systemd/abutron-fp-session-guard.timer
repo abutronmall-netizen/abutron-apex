@@ -1,0 +1,12 @@
+[Unit]
+Description=ABUTRON FP Markets DEMO stale-session UI guard schedule
+
+[Timer]
+OnBootSec=45s
+OnUnitActiveSec=60s
+AccuracySec=5s
+Persistent=false
+Unit=abutron-fp-session-guard.service
+
+[Install]
+WantedBy=timers.target

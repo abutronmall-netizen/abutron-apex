@@ -1,0 +1,12 @@
+[Unit]
+Description=Refresh immutable-compatible ABUTRON AI history snapshot
+
+[Timer]
+OnBootSec=1min
+OnUnitActiveSec=120s
+AccuracySec=10s
+Persistent=true
+Unit=abutron-ai-history-snapshot.service
+
+[Install]
+WantedBy=timers.target

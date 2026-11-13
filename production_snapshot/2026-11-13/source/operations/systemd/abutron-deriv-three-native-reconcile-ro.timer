@@ -1,0 +1,10 @@
+[Unit]
+Description=ABUTRON Deriv DEMO three-account native position and deal check every minute
+[Timer]
+OnBootSec=90s
+OnUnitActiveSec=20s
+AccuracySec=15s
+Unit=abutron-deriv-three-native-reconcile-ro.service
+Persistent=true
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,26 @@
+[Unit]
+Description=ABUTRON 6207 causal prospective research to native intent publication (NO ORDERS)
+After=local-fs.target
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+UMask=0077
+ExecStart=/usr/bin/python3 -B /opt/apex-client-mt5/quant-first/abutron_6207_one_shot_pilot_v1.py --publish
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+PrivateNetwork=yes
+ProtectSystem=strict
+ProtectHome=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+LockPersonality=yes
+RestrictAddressFamilies=AF_UNIX
+CapabilityBoundingSet=CAP_DAC_READ_SEARCH
+ReadWritePaths=/var/lib/abutron-6207-pilot
+MemoryMax=256M
+TasksMax=40
+TimeoutStartSec=20

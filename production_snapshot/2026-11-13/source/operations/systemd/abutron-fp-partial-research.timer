@@ -1,0 +1,12 @@
+[Unit]
+Description=FP Markets read-only partial research refresh from broker-native candles
+
+[Timer]
+OnBootSec=30s
+OnUnitInactiveSec=60s
+AccuracySec=5s
+RandomizedDelaySec=3s
+Unit=abutron-fp-partial-research.service
+
+[Install]
+WantedBy=timers.target

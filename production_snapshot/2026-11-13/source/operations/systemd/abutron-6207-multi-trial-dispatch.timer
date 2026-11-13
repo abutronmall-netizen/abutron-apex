@@ -1,0 +1,11 @@
+[Unit]
+Description=ABUTRON 6207 bounded DEMO entries every 5 seconds; hard cutoff 16:00 SAST
+
+[Timer]
+OnCalendar=*-*-* *:*:00/5
+AccuracySec=1s
+Persistent=false
+Unit=abutron-6207-multi-trial-dispatch.service
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,9 @@
+[Unit]
+Description=ABUTRON native fill/slippage audit every two minutes
+[Timer]
+OnCalendar=*-*-* *:0/2:30 UTC
+AccuracySec=5s
+Persistent=false
+Unit=abutron-6207-native-execution-audit.service
+[Install]
+WantedBy=timers.target

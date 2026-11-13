@@ -1,0 +1,11 @@
+[Unit]
+Description=ABUTRON independent quantitative evidence and reconciliation health audit every 5 minutes
+
+[Timer]
+OnBootSec=3min
+OnUnitInactiveSec=5min
+AccuracySec=20s
+Unit=abutron-quant-research-integrity.service
+
+[Install]
+WantedBy=timers.target

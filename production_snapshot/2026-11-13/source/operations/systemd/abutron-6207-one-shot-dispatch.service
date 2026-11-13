@@ -1,0 +1,25 @@
+[Unit]
+Description=ABUTRON 6207 one-shot protected DEMO pilot (MANUAL, FAIL CLOSED)
+After=abutron-client-mt5-d6fc2524ec373b8d1bc278a8be3ec635.service
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+UMask=0077
+ExecStart=/usr/bin/python3 -B /opt/apex-client-mt5/quant-first/abutron_6207_one_shot_pilot_v1.py --dispatch
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+PrivateNetwork=yes
+ProtectSystem=strict
+ProtectHome=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+LockPersonality=yes
+RestrictAddressFamilies=AF_UNIX
+ReadWritePaths=/var/lib/abutron-6207-pilot /var/lib/apex-client-feed /var/lib/private
+MemoryMax=256M
+TasksMax=40
+TimeoutStartSec=25

@@ -1,0 +1,28 @@
+[Unit]
+Description=ABUTRON Option C V2 DEMO execution migration preflight (no order calls)
+After=local-fs.target
+ConditionPathExists=/var/backups/abutron-option-c-v2-release-20261105/v2_preflight_readonly.py
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /var/backups/abutron-option-c-v2-release-20261105/v2_preflight_readonly.py
+TimeoutStartSec=25s
+CPUQuota=10%
+MemoryMax=128M
+TasksMax=16
+Nice=15
+IOSchedulingClass=idle
+UMask=0077
+NoNewPrivileges=true
+PrivateNetwork=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/backups/abutron-option-c-v2-release-20261105
+RestrictAddressFamilies=AF_UNIX
+ProtectControlGroups=true
+ProtectKernelModules=true
+ProtectKernelTunables=true

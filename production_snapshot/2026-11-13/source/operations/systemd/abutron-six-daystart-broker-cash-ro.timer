@@ -1,0 +1,9 @@
+[Unit]
+Description=Update broker-native daystart cash reconstruction every two minutes
+[Timer]
+OnBootSec=3min
+OnUnitActiveSec=2min
+AccuracySec=10s
+Unit=abutron-six-daystart-broker-cash-ro.service
+[Install]
+WantedBy=timers.target

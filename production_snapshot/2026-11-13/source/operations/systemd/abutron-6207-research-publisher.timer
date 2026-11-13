@@ -1,0 +1,11 @@
+[Unit]
+Description=ABUTRON 6207 research-only native intent publisher every minute
+
+[Timer]
+OnCalendar=*-*-* *:*:55
+AccuracySec=1s
+Persistent=false
+Unit=abutron-6207-research-publisher.service
+
+[Install]
+WantedBy=timers.target

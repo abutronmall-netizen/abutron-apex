@@ -1,0 +1,11 @@
+[Unit]
+Description=ABUTRON 6207 ONE-SHOT Deriv DEMO pilot (strictly one guarded research order)
+
+[Timer]
+OnCalendar=*-*-* *:*:00/5
+AccuracySec=1s
+Persistent=false
+Unit=abutron-6207-one-shot-dispatch.service
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,30 @@
+[Unit]
+Description=Abutron MT5 existing owner display INTERACTIVE over authenticated SSH only (2 hour session)
+After=abutron-mt5-demo.service
+BindsTo=abutron-mt5-demo.service
+ConditionPathExists=/usr/local/libexec/abutron-mt5-interactive
+
+[Service]
+Type=simple
+User=abutron_mt5_ui
+Group=abutron_mt5_ui
+RuntimeDirectory=abutron-mt5-interactive
+RuntimeDirectoryMode=0700
+ExecStartPre=+/usr/local/libexec/abutron-mt5-interactive-access-code prepare
+ExecStart=/usr/local/libexec/abutron-mt5-interactive
+ExecStopPost=+/usr/local/libexec/abutron-mt5-interactive-access-code cleanup
+Restart=no
+RuntimeMaxSec=2h
+UMask=0077
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=read-only
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+LimitNOFILE=8192
+
+[Install]
+WantedBy=multi-user.target

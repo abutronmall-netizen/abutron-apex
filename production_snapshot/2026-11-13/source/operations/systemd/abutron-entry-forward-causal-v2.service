@@ -1,0 +1,26 @@
+[Unit]
+Description=ABUTRON broker-native M5 causal prospective entry-outcome capture (NO TRADING)
+After=local-fs.target
+ConditionPathExists=/opt/apex-client-mt5/quant-first/abutron_entry_forward_causal_v2.py
+ConditionPathExists=/var/lib/apex/operator-live/native-market.json
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /opt/apex-client-mt5/quant-first/abutron_entry_forward_causal_v2.py
+TimeoutStartSec=24
+UMask=0027
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+PrivateNetwork=yes
+ProtectSystem=strict
+ReadWritePaths=/var/lib/abutron-quant-first
+ProtectHome=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_UNIX
+MemoryMax=256M
+CPUQuota=20%

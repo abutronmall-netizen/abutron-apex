@@ -1,0 +1,29 @@
+[Unit]
+Description=ABUTRON Deriv DEMO 6207 read-only native entry/exit reconciliation
+After=abutron-native-quote-cost-archive.service
+ConditionPathExists=/opt/abutron-research/native-evidence/abutron_readonly_entry_exit_reconciliation_v1.py
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /opt/abutron-research/native-evidence/abutron_readonly_entry_exit_reconciliation_v1.py
+TimeoutStartSec=80
+UMask=0027
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectSystem=strict
+ProtectHome=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+LockPersonality=yes
+RestrictSUIDSGID=yes
+RestrictAddressFamilies=AF_UNIX
+IPAddressDeny=any
+CapabilityBoundingSet=CAP_DAC_READ_SEARCH
+ReadWritePaths=/var/lib/abutron-native-quote-cost
+MemoryMax=320M
+TasksMax=16
+CPUQuota=30%

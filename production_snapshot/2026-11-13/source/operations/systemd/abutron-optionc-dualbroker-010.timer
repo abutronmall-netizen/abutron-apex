@@ -1,0 +1,13 @@
+[Unit]
+Description=ABUTRON Option C shared Deriv FP 0.10 percent DEMO-only monitoring timer
+
+[Timer]
+OnBootSec=3min
+OnUnitInactiveSec=5min
+AccuracySec=20s
+RandomizedDelaySec=10s
+Persistent=false
+Unit=abutron-optionc-dualbroker-010.service
+
+[Install]
+WantedBy=timers.target

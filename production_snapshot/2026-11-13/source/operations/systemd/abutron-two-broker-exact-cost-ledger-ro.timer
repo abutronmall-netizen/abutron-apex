@@ -1,0 +1,9 @@
+[Unit]
+Description=Refresh Deriv 6207 FP0512 broker native cost and proposal audit each minute
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=1min
+AccuracySec=10s
+Unit=abutron-two-broker-exact-cost-ledger-ro.service
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,9 @@
+[Unit]
+Description=Recheck ABUTRON 6207 WebRequest profile rebuild evidence every two minutes
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=2min
+AccuracySec=10s
+Unit=abutron-6207-webrequest-rebuild-attest.service
+[Install]
+WantedBy=timers.target

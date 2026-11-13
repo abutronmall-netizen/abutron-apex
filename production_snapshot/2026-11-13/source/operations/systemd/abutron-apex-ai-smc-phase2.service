@@ -1,0 +1,26 @@
+[Unit]
+Description=ABUTRON APEX Phase 2 read-only broker exit provenance and AI/SMC comparison
+After=local-fs.target
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+WorkingDirectory=/opt/apex-smc-shadow-v1
+ExecStart=/usr/bin/python3 -B /opt/apex-smc-shadow-v1/ai_smc_phase2_comparison.py
+UMask=0077
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+LockPersonality=yes
+RestrictAddressFamilies=AF_UNIX
+IPAddressDeny=any
+ReadWritePaths=/var/lib/apex-ai-smc-comparison
+MemoryMax=160M
+TasksMax=20
+TimeoutStartSec=35

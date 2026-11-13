@@ -1,0 +1,11 @@
+[Unit]
+Description=ABUTRON causally executable market shadow research every minute (NO ORDERS)
+
+[Timer]
+OnCalendar=*-*-* *:*:45
+AccuracySec=5s
+Persistent=false
+Unit=abutron-entry-forward-causal-v2.service
+
+[Install]
+WantedBy=timers.target

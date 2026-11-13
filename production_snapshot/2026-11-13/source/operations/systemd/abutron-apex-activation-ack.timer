@@ -1,0 +1,11 @@
+[Unit]
+Description=ABUTRON APEX DEMO native bridge account activation check (every 10 sec)
+
+[Timer]
+OnBootSec=20s
+OnUnitActiveSec=10s
+AccuracySec=1s
+Unit=abutron-apex-activation-ack.service
+
+[Install]
+WantedBy=timers.target

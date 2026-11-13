@@ -1,0 +1,30 @@
+[Unit]
+Description=ABUTRON Option C shared Deriv and FP Markets 0.10 percent DEMO risk monitor (read only)
+After=local-fs.target
+ConditionPathExists=/var/backups/abutron-option-c-v2-release-20261105/OPTION_C_010_SHARED_POLICY.json
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /var/backups/abutron-option-c-v2-release-20261105/optionc_dual_broker_010_monitor.py
+TimeoutStartSec=25s
+CPUQuota=10%
+MemoryMax=160M
+TasksMax=16
+Nice=15
+IOSchedulingClass=idle
+UMask=0077
+NoNewPrivileges=true
+PrivateNetwork=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectHome=true
+ProtectSystem=full
+ReadWritePaths=/var/backups/abutron-option-c-v2-release-20261105
+RestrictAddressFamilies=AF_UNIX
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+LockPersonality=true
+RestrictSUIDSGID=true

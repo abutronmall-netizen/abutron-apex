@@ -1,0 +1,24 @@
+[Unit]
+Description=Abutron Deriv Options public research prices (NO AUTH, NO TRADES)
+Wants=network-online.target
+After=network-online.target abutron-v7-api.service
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/opt/abutron/v7/venv/bin/python3 /usr/local/libexec/abutron/deriv_options_public_automated_refresh_v1.py
+TimeoutStartSec=75
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+ReadWritePaths=/var/lib/abutron-v7-deriv-options
+UMask=0077

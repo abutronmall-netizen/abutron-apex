@@ -1,0 +1,11 @@
+[Unit]
+Description=ABUTRON APEX11 Deriv DEMO 9244 account-bound M5 publisher timer
+
+[Timer]
+OnBootSec=90s
+OnUnitInactiveSec=60s
+AccuracySec=2s
+Persistent=false
+
+[Install]
+WantedBy=timers.target

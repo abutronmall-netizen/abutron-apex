@@ -1,0 +1,25 @@
+[Unit]
+Description=ABUTRON FP Markets DEMO verified-session offline UI guard (READ ONLY)
+After=abutron-client-mt5-manager.service
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /opt/apex-client-mt5/fpmarkets-ui/fp_offline_publication_guard.py
+UMask=0077
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateDevices=yes
+PrivateTmp=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_UNIX
+IPAddressDeny=any
+ReadWritePaths=/var/lib/apex/operator-live /var/lib/apex-signup/fp-market-ui
+CPUQuota=40%
+MemoryMax=120M
+TasksMax=10
+TimeoutStartSec=15

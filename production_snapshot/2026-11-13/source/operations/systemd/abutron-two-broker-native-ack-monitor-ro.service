@@ -1,0 +1,18 @@
+[Unit]
+Description=ABUTRON 6207 FP0512 independent native broker ACK monitor (READ ONLY)
+After=local-fs.target
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /usr/local/sbin/abutron-two-broker-native-ack-monitor-ro
+ProtectSystem=strict
+ReadWritePaths=/var/lib/abutron-v4-broker-crm-supervisor-6207
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectHome=yes
+UMask=0077
+MemoryMax=120M
+TasksMax=12
+RestrictAddressFamilies=AF_UNIX

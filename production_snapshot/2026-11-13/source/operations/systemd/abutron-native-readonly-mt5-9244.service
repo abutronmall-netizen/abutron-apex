@@ -1,0 +1,31 @@
+[Unit]
+Description=ABUTRON isolated, broker-authenticated Deriv DEMO 9244 quote and deal evidence (NO ORDER AUTHORITY)
+After=network-online.target local-fs.target
+Wants=network-online.target
+ConditionPathExists=/opt/abutron-research/native-evidence/read-only-sidecar/AbutronDerivReadOnlySidecarAllDemoV1.ex5
+
+[Service]
+Type=simple
+DynamicUser=yes
+StateDirectory=abutron-native-readonly-mt5-9244
+RuntimeDirectory=abutron-native-readonly-mt5-9244
+LoadCredentialEncrypted=mt5:/var/lib/abutron-client-mt5-manager/credentials/1ead1f08b44dc5ae284eadc9554b1381.cred
+ExecStart=/usr/bin/python3 -B /opt/abutron-research/native-evidence/read-only-sidecar/abutron_deriv_readonly_sidecar_9244_worker_v1.py
+Restart=no
+UMask=0077
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+LockPersonality=yes
+RestrictSUIDSGID=yes
+MemoryMax=3600M
+TasksMax=180
+TimeoutStartSec=35s
+
+[Install]
+WantedBy=multi-user.target

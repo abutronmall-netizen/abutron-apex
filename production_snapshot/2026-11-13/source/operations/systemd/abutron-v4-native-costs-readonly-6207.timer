@@ -1,0 +1,12 @@
+[Unit]
+Description=ABUTRON Deriv DEMO 6207 native executable-cost read-only monitor
+
+[Timer]
+OnBootSec=60s
+OnUnitInactiveSec=15s
+AccuracySec=2s
+Persistent=false
+Unit=abutron-v4-native-costs-readonly-6207.service
+
+[Install]
+WantedBy=timers.target

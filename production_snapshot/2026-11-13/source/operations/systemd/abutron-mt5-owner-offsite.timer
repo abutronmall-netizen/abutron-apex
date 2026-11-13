@@ -1,0 +1,11 @@
+[Unit]
+Description=Daily owner-encrypted MT5 vault offsite verification (separate from V7 database backups)
+
+[Timer]
+OnCalendar=*-*-* 06:00:00 UTC
+RandomizedDelaySec=5min
+Persistent=true
+Unit=abutron-mt5-owner-offsite.service
+
+[Install]
+WantedBy=timers.target

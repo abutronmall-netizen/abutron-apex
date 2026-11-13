@@ -1,0 +1,25 @@
+[Unit]
+Description=ABUTRON Deriv DEMO native deal-history read-only importer (3 accounts)
+After=local-fs.target
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /opt/apex-smc-shadow-v1/native_deal_history_importer.py
+UMask=0077
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+LockPersonality=yes
+RestrictAddressFamilies=AF_UNIX
+IPAddressDeny=any
+ReadWritePaths=/var/lib/apex-broker-deal-evidence
+MemoryMax=150M
+TasksMax=15
+TimeoutStartSec=40

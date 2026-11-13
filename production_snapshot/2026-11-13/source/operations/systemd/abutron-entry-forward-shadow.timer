@@ -1,0 +1,11 @@
+[Unit]
+Description=ABUTRON 6 strategy Deriv DEMO candidate forward observation every 5min NO ORDERS
+
+[Timer]
+OnCalendar=*-*-* *:00/5:50
+AccuracySec=10s
+Persistent=false
+Unit=abutron-entry-forward-shadow.service
+
+[Install]
+WantedBy=timers.target

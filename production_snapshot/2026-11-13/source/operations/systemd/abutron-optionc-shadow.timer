@@ -1,0 +1,13 @@
+[Unit]
+Description=ABUTRON Option C five-minute shadow monitor, trading authority unchanged
+
+[Timer]
+OnBootSec=5min
+OnUnitInactiveSec=5min
+AccuracySec=15s
+RandomizedDelaySec=10s
+Unit=abutron-optionc-shadow.service
+Persistent=false
+
+[Install]
+WantedBy=timers.target

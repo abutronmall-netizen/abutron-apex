@@ -1,0 +1,26 @@
+[Unit]
+Description=ABUTRON owner-bound customer risk evidence join (READ ONLY, NO ORDER AUTHORITY)
+After=local-fs.target
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStart=/usr/bin/python3 -B /usr/local/sbin/abutron-customer-native-evidence-join-ro
+UMask=0077
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectHome=yes
+PrivateNetwork=yes
+ProtectSystem=strict
+ReadWritePaths=/var/lib/abutron-customer-native-evidence-join
+RestrictAddressFamilies=AF_UNIX
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+LockPersonality=yes
+CapabilityBoundingSet=CAP_DAC_READ_SEARCH
+MemoryMax=128M
+TasksMax=20
+TimeoutStartSec=20

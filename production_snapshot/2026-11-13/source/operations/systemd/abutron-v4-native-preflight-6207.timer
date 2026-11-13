@@ -1,0 +1,9 @@
+[Unit]
+Description=ABUTRON 6207 fail-closed native V4 preflight every two minutes
+[Timer]
+OnBootSec=90s
+OnUnitActiveSec=120s
+AccuracySec=5s
+Unit=abutron-v4-native-preflight-6207.service
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,32 @@
+[Unit]
+Description=ABUTRON TradingAgents broker-native quant candidate advisory (no orders)
+After=ollama-apex.service abutron-bounded-factor-forward.service
+Wants=ollama-apex.service
+ConditionPathExists=/opt/abutron-research/quant-entry/abutron_tradingagents_quant_advisory_v1.py
+ConditionPathExists=/var/lib/abutron-quant-first/rdagent-qwen-discovery/prospective.sqlite3
+
+[Service]
+Type=oneshot
+User=apexagent
+Group=apexagent
+WorkingDirectory=/opt/apex/apps/tradingagents
+ExecStart=/opt/apex/apps/tradingagents/.venv/bin/python -B /opt/abutron-research/quant-entry/abutron_tradingagents_quant_advisory_v1.py --once
+TimeoutStartSec=120
+CPUQuota=90%
+MemoryMax=1500M
+TasksMax=45
+Nice=13
+UMask=0027
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectSystem=strict
+ProtectHome=no
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+LockPersonality=yes
+RestrictAddressFamilies=AF_UNIX AF_INET
+IPAddressDeny=any
+IPAddressAllow=localhost
+ReadWritePaths=/var/lib/abutron-tradingagents-quant-advisory
