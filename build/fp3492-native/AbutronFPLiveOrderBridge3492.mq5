@@ -506,18 +506,33 @@ void UpdateEvidence()
  FileFindClose(h);
 }
 
+
 int OnInit()
 {
- if(!VerifiedNativeFeed(true))
- {Print("APEX_V2_FRESH_NATIVE_FP_LIVE_FEED_REQUIRED");return INIT_FAILED;}
- FolderCreate("ABUTRON_FP_LIVE");FolderCreate("ABUTRON_FP_LIVE\\receipts");FolderCreate("ABUTRON_FP_LIVE\\evidence");
- gReady="ABUTRON_FP_LIVE_BRIDGE_READY_V2_"+gNonce+".txt";
- WriteReadiness();EventSetTimer(2);
- Print("APEX_V2_BRIDGE_READY; automatic order submission input is ",EnableNativeLiveOrders);
- return INIT_SUCCEEDED;
+   if(!EventSetTimer(2))
+      return INIT_FAILED;
+
+   Print("FP3492 waiting for authenticated native feed");
+   return INIT_SUCCEEDED;
 }
 void OnDeinit(const int reason){EventKillTimer();}
 void OnTimer()
+
+if(gNonce == "")
+{
+   if(!VerifiedNativeFeed(true))
+      return;
+
+   FolderCreate("ABUTRON_FP_LIVE");
+   FolderCreate("ABUTRON_FP_LIVE\\receipts");
+   FolderCreate("ABUTRON_FP_LIVE\\evidence");
+
+   gReady = "ABUTRON_FP_LIVE_BRIDGE_READY_V2_"
+            + gNonce + ".txt";
+
+   Print("FP3492 authenticated native feed ready");
+}
+
 {
  // Do not treat a partially written heartbeat as a permanent disconnect.
  // While any read/identity proof fails, DO NOT publish a fresh readiness proof,
