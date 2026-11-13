@@ -32,7 +32,7 @@ jobs:
             Write-Host "CANONICAL_SOURCE_SHA256=$digest"
             if ($digest -ne $expected) { throw "CANONICAL_SOURCE_SHA_MISMATCH_$file" }
           }
-          Assert-CanonicalSourceHash $source '5cd119dee37ec4c53c5d57cc635e3ab20fb73a6fb808cfad75e9d0ec02fd7276'
+          Assert-CanonicalSourceHash $source 'e051d0537d9e645c64bae88dbfedbac6c630590a3419b1efd17549c3d3e0baba'
           Assert-CanonicalSourceHash $include 'e2e4e01ef5e96f888f687a45e21de83cfc78b419787a0c3667d96914d1cc3c44'
           $body = Get-Content $source -Raw
           if ($body -notmatch 'input bool EnableNativeLiveOrders = false;' -or $body -notmatch 'ACCOUNT_TRADE_MODE_REAL' -or $body -notmatch 'AccountInfoInteger\(ACCOUNT_LOGIN\)==86073492') { throw 'LIVE_SOURCE_CONTRACT_MISMATCH' }
