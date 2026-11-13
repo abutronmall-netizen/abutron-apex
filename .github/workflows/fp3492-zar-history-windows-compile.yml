@@ -2,10 +2,10 @@ name: FP3492 LIVE read-only history - native Windows compile (NO ORDERS)
 on:
   push:
     branches:
-      - build/fp3492-history-metaeditor-20261113
+      - build/fp3492-native-metaeditor-20261113
     paths:
       - 'build/fp3492-history/**'
-      - '.github/workflows/fp3492-history-windows-compile.yml'
+      - '.github/workflows/fp3492-zar-history-windows-compile.yml'
 
 permissions:
   contents: read
