@@ -25,8 +25,15 @@ jobs:
           $srcDir = Join-Path $env:GITHUB_WORKSPACE 'build\fp3492-native'
           $source = Join-Path $srcDir 'AbutronFPLiveOrderBridge3492.mq5'
           $include = Join-Path $srcDir 'AdaptiveRiskProofV2.mqh'
-          if ((Get-FileHash $source -Algorithm SHA256).Hash.ToLower() -ne 'e662f5c8ff4fed4a97aba45a754272baa45c420dc42c34ef1ba14c314bd73a07') { throw 'SOURCE_SHA_MISMATCH' }
-          if ((Get-FileHash $include -Algorithm SHA256).Hash.ToLower() -ne 'e2e4e01ef5e96f888f687a45e21de83cfc78b419787a0c3667d96914d1cc3c44') { throw 'INCLUDE_SHA_MISMATCH' }
+          function Assert-CanonicalSourceHash([string]$file, [string]$expected) {
+            $text = [System.IO.File]::ReadAllText($file)
+            $normalized = $text.Replace(([string][char]13 + [string][char]10), [string][char]10)
+            $digest = ([System.Convert]::ToHexString([Security.Cryptography.SHA256]::HashData([System.Text.Encoding]::UTF8.GetBytes($normalized)))).ToLowerInvariant()
+            Write-Host "CANONICAL_SOURCE_SHA256=$digest"
+            if ($digest -ne $expected) { throw "CANONICAL_SOURCE_SHA_MISMATCH_$file" }
+          }
+          Assert-CanonicalSourceHash $source 'e662f5c8ff4fed4a97aba45a754272baa45c420dc42c34ef1ba14c314bd73a07'
+          Assert-CanonicalSourceHash $include 'e2e4e01ef5e96f888f687a45e21de83cfc78b419787a0c3667d96914d1cc3c44'
           $body = Get-Content $source -Raw
           if ($body -notmatch 'input bool EnableNativeLiveOrders = false;' -or $body -notmatch 'ACCOUNT_TRADE_MODE_REAL' -or $body -notmatch 'AccountInfoInteger\(ACCOUNT_LOGIN\)==86073492') { throw 'LIVE_SOURCE_CONTRACT_MISMATCH' }
           $mt5Root = Join-Path $env:RUNNER_TEMP 'ABUTRON-MT5-NATIVE-COMPILER'
