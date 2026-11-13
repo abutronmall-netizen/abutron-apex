@@ -1,4 +1,4 @@
-name: FP6364 LIVE bridge - Windows native compile (NO ORDERS)
+name: FP6364 LIVE bridge - Windows MetaEditor compile only (execution defaults OFF)
 on:
   push:
     branches:
