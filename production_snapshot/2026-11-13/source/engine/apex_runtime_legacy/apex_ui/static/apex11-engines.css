@@ -1,0 +1,14 @@
+.apex11-kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:15px 0}
+.apex11-kpis .metric{min-height:100px}
+.apex11-status-summary .textbutton{margin-top:7px}
+.apex11-engine-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0}
+.apex11-component{padding:17px;border:1px solid var(--line,#303a47);border-radius:12px;background:rgba(135,157,186,.055);display:flex;flex-direction:column;gap:10px}
+.apex11-component strong{font-size:15px}
+.apex11-component small{opacity:.75;line-height:1.5}
+.apex11-component-state{font-size:12px;font-weight:650;letter-spacing:.025em;color:#b9bac7}
+.apex11-component-state.observed{color:#62d4bc}
+.apex11-stale{opacity:.62}
+@media(max-width:900px){.apex11-engine-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.apex11-kpis,.apex11-engine-grid{grid-template-columns:1fr}}
+
+.apex11-risk-alert{font-weight:700;color:#f1b769}

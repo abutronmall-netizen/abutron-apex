@@ -1,0 +1,49 @@
+/* MetaTrader 5 account manager. */
+#apex-view-accounts>.apex-section-head,
+#apex-view-accounts>.apex-broker-tiles {display:none!important}
+.apex-mt5-manager{margin-bottom:23px}
+.apex-mt5-heading{display:flex;gap:18px;justify-content:space-between;align-items:flex-start;margin-bottom:18px}
+.apex-mt5-heading h2{font-size:25px;letter-spacing:-.035em;margin:9px 0 7px}
+.apex-mt5-heading p{font-size:13px;color:#a4b8c4;margin:0;line-height:1.6}
+.apex-mt5-refresh,.apex-mt5-close{font-size:12px;color:#e5bd7f;background:#1a2933;border:1px solid #5b533e;border-radius:8px;padding:10px 14px;white-space:nowrap;cursor:pointer}
+.apex-mt5-refresh:hover,.apex-mt5-close:hover{background:#2b3b42}
+.apex-mt5-refresh:disabled{opacity:.5;cursor:wait}
+.apex-mt5-summary{color:#a0c5c5;background:#112730;border:1px solid #2a5559;border-radius:10px;padding:13px 17px;margin-bottom:17px;font-size:12px}
+.apex-mt5-broker-grid{display:grid;grid-template-columns:1fr;gap:18px}
+.apex-mt5-broker{border:1px solid #2f4858;border-radius:15px;background:linear-gradient(130deg,#132936,#0e1c2b);padding:23px;min-width:0}
+.apex-mt5-broker-head{display:flex;gap:15px;align-items:center;border-bottom:1px solid #2a4051;padding-bottom:17px}
+.apex-mt5-emblem{flex:0 0 48px;width:48px;height:48px;display:grid;place-items:center;border:1px solid #9b7b49;border-radius:12px;background:#332d23;color:#f1d093;font-size:15px;font-weight:850}
+.apex-mt5-broker-labels{flex:1;min-width:0}
+.apex-mt5-broker-labels h3{font-size:17px;margin:0 0 5px;letter-spacing:.012em;color:#f3f8fc}
+.apex-mt5-broker-labels p{font-size:12px;color:#9fb8c2;margin:0}
+.apex-mt5-count{margin-left:auto;font-size:11px;font-weight:760;white-space:nowrap;color:#9ed8c6;border:1px solid #376153;background:#152e2c;padding:6px 11px;border-radius:999px}
+.apex-mt5-list{margin:15px 0;display:grid;gap:10px}
+.apex-mt5-empty{border:1px dashed #3b5766;color:#a2b7c3;background:#102330;border-radius:10px;margin:0;padding:19px;font-size:12px}
+.apex-mt5-add{background:linear-gradient(120deg,#edc783,#cda05b);color:#18222c;border:1px solid #c69f64;font-size:13px;font-weight:790;border-radius:9px;padding:13px 18px;cursor:pointer}
+.apex-mt5-add:hover{filter:brightness(1.07)}
+.apex-mt5-account{border:1px solid #3e5260;background:#0c202b;padding:16px;border-radius:10px}
+.apex-mt5-account.connected{border-color:#386a63;background:#10302f}
+.apex-mt5-account-top,.apex-mt5-account-bottom{display:flex;justify-content:space-between;align-items:center;gap:14px}
+.apex-mt5-account-details{display:flex;flex-direction:column;gap:5px;min-width:0}
+.apex-mt5-account-details strong{font-size:15px;color:#f4faff}
+.apex-mt5-account-details span{color:#9db8c7;font-size:12px;overflow-wrap:anywhere}
+.apex-mt5-status{white-space:nowrap;color:#dfbf86;border:1px solid #645739;padding:5px 10px;background:#2c2b23;border-radius:999px;font-size:11px;font-weight:710}
+.apex-mt5-status.connected{border-color:#427c64;background:#1d392c;color:#a3f1ca}
+.apex-mt5-account-bottom{margin-top:13px;border-top:1px solid #344957;padding-top:13px}
+.apex-mt5-account-bottom>span{font-size:11px;color:#8facb7}
+.apex-mt5-disconnect{flex-shrink:0;border:1px solid #896264;color:#f2c3c6;border-radius:8px;background:#33252e;padding:10px 13px;font-weight:730;font-size:12px;cursor:pointer}
+.apex-mt5-disconnect:hover{background:#50323b}
+.apex-mt5-disconnect:disabled{opacity:.5;cursor:not-allowed}
+.apex-mt5-message{border:1px solid #607f65;background:#153029;color:#ccf5df;padding:13px 17px;border-radius:9px;font-size:13px;margin:16px 0 0}
+.apex-mt5-message.error{background:#3a222b;color:#ffd9dc;border-color:#95575d}
+.apex-mt5-form-wrap{grid-template-columns:1fr!important;max-width:900px}
+.apex-mt5-form-wrap>section:nth-child(2){display:none!important}
+.apex-mt5-form-wrap>section:first-child{box-shadow:none}
+.apex-mt5-form-wrap[hidden]{display:none!important}
+.apex-mt5-form-header{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:12px}
+.apex-mt5-form-notice{color:#efcc9a;border-left:3px solid #d5ae6a;background:#292b2b;padding:14px 16px;font-size:12px;line-height:1.65;margin:0 0 17px}
+.apex-mt5-password input:disabled{cursor:not-allowed;background:#19232a;color:#9eaab2;opacity:.8}
+.apex-mt5-password-note{display:block;margin:8px 0 18px;color:#d3bd9c;font-size:11px;font-weight:400;line-height:1.65}
+.apex-mt5-entity{margin:0 0 16px;color:#e0c99d;font-size:12px}
+#apex-view-accounts #brokerForm .button.primary{background:linear-gradient(125deg,#e9c887,#caa160)}
+@media(max-width:700px){.apex-mt5-heading{flex-wrap:wrap}.apex-mt5-broker{padding:16px}.apex-mt5-broker-head{flex-wrap:wrap;gap:11px}.apex-mt5-count{margin-left:0}.apex-mt5-account-top,.apex-mt5-account-bottom{align-items:flex-start;flex-direction:column}.apex-mt5-disconnect{width:100%}.apex-mt5-account-bottom>span{margin-bottom:7px}}

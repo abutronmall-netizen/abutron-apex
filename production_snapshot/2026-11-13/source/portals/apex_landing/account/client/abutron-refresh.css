@@ -1,0 +1,68 @@
+/* ABUTRON CLIENT PORTAL - responsive signed-out and signed-in brand polish.
+   All API calls, account controls, legal consents and endpoints stay intact. */
+[hidden]{display:none!important}
+body:not(.apex-authenticated) main.wrap{
+  display:grid;grid-template-columns:minmax(0,1.08fr) minmax(380px,.88fr);
+  gap:20px clamp(24px,4vw,70px);align-items:start;
+  padding-top:clamp(34px,5vw,75px);
+}
+body:not(.apex-authenticated) main.wrap>.intro{
+  grid-column:1;grid-row:1 / span 2;padding:8px 0 0;
+}
+body:not(.apex-authenticated) .intro h1{
+  font-size:clamp(35px,3.7vw,57px);line-height:1.13;letter-spacing:-.048em;
+  margin:20px 0 19px;max-width:680px;
+}
+body:not(.apex-authenticated) .intro>p{font-size:15px;line-height:1.7;max-width:560px;}
+body:not(.apex-authenticated) .intro .notice{
+  max-width:555px;margin-top:28px;padding:17px 19px;line-height:1.7;
+}
+body:not(.apex-authenticated) #loading,
+body:not(.apex-authenticated) #loginSection{
+  grid-column:2;grid-row:1;max-width:none;width:100%;margin:0;
+}
+body:not(.apex-authenticated) #loginSection{
+  padding:clamp(25px,3vw,40px);border-color:#4c655d;
+  box-shadow:0 24px 80px #0004;
+}
+body:not(.apex-authenticated) #loginSection h2{font-size:27px;margin:12px 0 10px;}
+body:not(.apex-authenticated) #loginSection .button.primary{
+  display:flex;width:100%;justify-content:center;align-items:center;
+  padding:14px 20px;font-size:14px;background:linear-gradient(120deg,#72f1d1,#4acaaa);
+}
+body:not(.apex-authenticated) #loginSection .helper{margin:14px 0 0;}
+body:not(.apex-authenticated) #loginSection .under{
+  padding-top:17px;margin-top:20px;border-top:1px solid #38515b;
+  justify-content:space-between;flex-wrap:wrap;
+}
+body:not(.apex-authenticated) main.wrap>#portalSection,
+body:not(.apex-authenticated) main.wrap>#message,
+body:not(.apex-authenticated) main.wrap>footer{grid-column:1 / -1;}
+body:not(.apex-authenticated) main.wrap>footer{
+  margin-top:clamp(24px,5vw,70px);padding-top:24px;
+}
+.header .brand{font-size:19px;letter-spacing:.11em;}
+.header .brand small{letter-spacing:.14em;}
+.apex-side-brand strong{font-size:17px;letter-spacing:.12em;white-space:nowrap;}
+.apex-side-brand small{font-size:8px;letter-spacing:.11em;}
+.apex-side-brand{gap:9px;}
+body.apex-authenticated main.wrap{display:block!important;padding-top:0!important;}
+@media(max-width:900px){
+  body:not(.apex-authenticated) main.wrap{
+    grid-template-columns:1fr;gap:20px;padding-top:35px;max-width:690px;
+  }
+  body:not(.apex-authenticated) main.wrap>.intro{grid-column:1;grid-row:auto;padding:0;}
+  body:not(.apex-authenticated) .intro h1{font-size:clamp(34px,6.5vw,49px);margin:12px 0;}
+  body:not(.apex-authenticated) .intro .notice{margin-top:15px;}
+  body:not(.apex-authenticated) #loading,body:not(.apex-authenticated) #loginSection{
+    grid-column:1;grid-row:auto;
+  }
+  body:not(.apex-authenticated) main.wrap>footer{margin-top:24px;}
+}
+@media(max-width:550px){
+  body:not(.apex-authenticated) main.wrap{padding-top:23px;width:min(100% - 28px,690px);}
+  body:not(.apex-authenticated) .intro h1{font-size:34px;}
+  body:not(.apex-authenticated) #loginSection{padding:21px;}
+  .header .brand{font-size:17px;letter-spacing:.05em;}
+  .apex-side-brand strong{font-size:17px;}
+}

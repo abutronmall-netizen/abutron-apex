@@ -1,0 +1,52 @@
+:root{color-scheme:dark;font:15px/1.45 system-ui,-apple-system,Segoe UI,sans-serif;background:#0a1220;color:#edf3fc}*{box-sizing:border-box}body{margin:0}main.shell{max-width:1140px;margin:0 auto;padding:32px 28px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-bottom:26px;border-bottom:1px solid #26344b}.brand{font-size:21px;font-weight:850;letter-spacing:.12em}.brand span{color:#4ca9ff}.subtitle{color:#8da4c1;font-size:13px;margin:4px 0}.back{color:#c3d6ed;text-decoration:none;font-size:14px}.back:hover{text-decoration:underline}.hero{padding:37px 0 28px}.hero h1{font-size:clamp(24px,4vw,35px);margin:12px 0 10px;letter-spacing:-.02em}.hero p{max-width:760px;color:#9ab0ca;margin:0}.tag{font-size:11px;color:#77c4ff;border:1px solid #31577b;border-radius:25px;padding:5px 10px;letter-spacing:.1em;font-weight:800}.cols{display:grid;grid-template-columns:1fr 1fr;gap:20px}.panel{background:#101d30;border:1px solid #2b3d56;border-radius:14px;padding:26px}.panel h2{margin:0 0 12px;font-size:19px}.intro{font-size:13px;color:#8fa6c3;margin:0 0 20px}.panel label{display:block;font-weight:650;margin:16px 0 7px;font-size:13px}.panel input{display:block;width:100%;background:#081321;color:#fff;border:1px solid #425671;border-radius:8px;padding:13px;font-size:15px}.panel input:focus{outline:2px solid #2c82e5;border-color:transparent}.panel button{width:100%;border:none;background:#267fe1;color:white;border-radius:8px;padding:13px 14px;font-weight:750;font-size:14px;margin:16px 0 0;cursor:pointer}.panel button:disabled{opacity:.45;cursor:not-allowed}.panel button.secondary{background:#223754;border:1px solid #425671;color:#d1e4ff}.hint{color:#92a7bc;font-size:12px;margin:12px 0 2px}.notice{border:1px solid #354969;background:#182b47;color:#bbd5f5;border-radius:8px;padding:12px 14px;font-size:13px}.notice.bad{border-color:#854557;background:#392333;color:#ffd0d6}.notice.good{border-color:#367359;background:#15342e;color:#a0ecc4}.notice.hidden,.hidden{display:none!important}#result{margin-top:18px}.headline{display:flex;align-items:center;justify-content:space-between;gap:8px}.chip{background:#2d3651;color:#cbd1e9;font-size:12px;padding:6px 9px;border-radius:20px}.chip.good{background:#15563e;color:#a1edc6}.griddata{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:22px 0}.griddata div{background:#0b1727;border:1px solid #24374e;border-radius:9px;padding:11px 13px}.griddata dt{font-size:11px;color:#96a9c2}.griddata dd{font-weight:700;margin:5px 0 0;word-break:break-word}.safety{margin-top:24px;border-top:1px solid #2b3d56;padding-top:17px;color:#d9e4f6;font-size:13px}.safety p{color:#90a6c2;margin:7px 0 0}footer{display:flex;justify-content:space-between;gap:12px;color:#788eaa;font-size:11px;margin:24px 0}@media(max-width:800px){.cols{grid-template-columns:1fr}.topbar{align-items:flex-start}.panel{padding:18px}main.shell{padding:20px 15px}footer{flex-direction:column}}/* APEX multi-account profiles; all vendor styles remain untouched. */
+.saved-profiles{margin-bottom:20px}
+.profiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.profile{background:#0b1727;border:1px solid #30435c;border-radius:10px;padding:12px;display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center}
+.profile.selected{border-color:#409aff;background:#122b45}
+.profile-meta{display:grid;gap:3px;min-width:0}
+.profile-meta strong{word-break:break-word;font-size:13px}
+.profile-meta small{color:#a2b6cc;font-size:11px;word-break:break-word}
+.profile-status{color:#f2c77a!important}
+.profile button{width:auto;padding:7px 10px;font-size:12px;margin:0}
+.profile .profile-remove{color:#f5a3aa}
+.embedded body{background:#0b101b}
+.embedded main.shell{padding:14px;max-width:none}
+.embedded .topbar,.embedded footer{display:none}
+.embedded .hero{padding:0 0 18px}
+.embedded .hero h1{font-size:21px}
+.embedded .hero p{font-size:13px}
+.embedded .panel{padding:18px}
+.embedded .cols{grid-template-columns:1fr 1fr}
+@media(max-width:1100px){.embedded .cols{grid-template-columns:1fr}}
+/* Verified MT5 read-only account summary and current position display. */
+.profile-status.good{color:#8ce0af!important}
+#positions-section{border-top:1px solid #2b3d56;padding-top:14px;margin-bottom:14px}
+#positions-section h3{font-size:14px;font-weight:700;margin:0 0 7px}
+#positions-section .intro{margin:0 0 12px}
+.position-scroll{max-width:100%;overflow-x:auto}
+.positions-table{width:100%;border-collapse:collapse;font-size:12px;min-width:460px}
+.positions-table th,.positions-table td{border-bottom:1px solid #2b3d56;padding:8px 6px;text-align:left}
+.positions-table th{color:#94aac5;font-size:11px}
+.positions-table td{color:#e4f1ff;word-break:normal}
+/* APEX account synchronization and MT5 deal history */
+.sync-status{font-size:12px;line-height:18px;margin:-8px 0 13px;padding:8px 10px;border-left:3px solid #3aa87e;background:#142739;color:#9de1c6;border-radius:3px}
+.sync-status.bad{border-left-color:#dc9354;background:#33271e;color:#f6c59f}
+.history-panel{margin-top:20px}
+.history-header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.history-header .intro{margin-bottom:16px}
+.history-controls{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.history-controls label{margin:0;font-size:12px}
+.history-controls select{background:#081321;border:1px solid #425671;color:#f4faff;border-radius:8px;padding:10px;font-size:13px}
+.history-controls button{width:auto;margin:0;white-space:nowrap;font-size:12px;padding:10px 12px}
+.history-metrics{display:grid;grid-template-columns:repeat(4,minmax(120px,1fr));gap:12px;margin:8px 0 18px}
+.history-metrics div{background:#0b1727;border:1px solid #253c53;border-radius:9px;padding:12px;min-width:0}
+.history-metrics small{display:block;font-size:11px;color:#96a9c2;margin-bottom:5px}
+.history-metrics strong{display:block;font-size:16px;overflow-wrap:anywhere}
+.history-metrics strong.loss{color:#f0a1a1}
+.history-metrics strong.gain{color:#9ce6b4}
+.history-panel .position-scroll{overflow-x:auto}
+.history-panel .positions-table{min-width:1070px}
+.history-panel .positions-table td{white-space:nowrap}
+.history-panel .hint{margin-top:12px}
+@media(max-width:900px){.history-header{flex-direction:column}.history-metrics{grid-template-columns:repeat(2,minmax(120px,1fr))}}
+@media(max-width:540px){.history-metrics{grid-template-columns:1fr}}

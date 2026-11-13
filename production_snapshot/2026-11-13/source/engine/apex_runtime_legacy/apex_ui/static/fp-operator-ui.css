@@ -1,0 +1,83 @@
+/* FP Markets supplementary panels; never change original Deriv layout/controls. */
+.fp-panel{margin-top:18px;border-top:2px solid rgba(51,201,159,.45)}
+.fp-panel-head{gap:12px;align-items:flex-start}
+.fp-panel-head .panel-kicker{color:#45dbb7}
+.fp-tag{display:inline-flex;align-items:center;white-space:nowrap;font-size:11px;font-weight:700;
+ border:1px solid #376a63;padding:6px 10px;border-radius:999px;color:#8eecdb}
+.fp-metrics,.fp-account{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:11px}
+.fp-stat{background:rgba(11,36,53,.65);border:1px solid rgba(120,159,188,.20);
+ padding:15px 13px;border-radius:12px;min-width:0;overflow-wrap:anywhere}
+.fp-stat span{font-size:12px;color:#9db7c8;display:block;margin-bottom:7px}
+.fp-stat strong{font-size:17px;color:#e8f5ff;display:block;font-variant-numeric:tabular-nums}
+.fp-muted{font-size:13px;color:#aec7d9;line-height:1.6;padding:12px 0;margin:0}
+.fp-scroll{overflow:auto;max-width:100%}
+.fp-table{width:100%;min-width:840px;border-collapse:collapse}
+.fp-table th,.fp-table td{padding:10px 12px;vertical-align:top;white-space:nowrap;border-bottom:1px solid rgba(124,162,190,.14);font-size:12px}
+.fp-table th{text-align:left;color:#c1d5e4}
+.fp-table td{color:#e0ebf2}
+.fp-table td:last-child{max-width:300px;white-space:normal;line-height:1.4}
+.fp-veto{color:#ffb0a7!important;font-weight:700}
+.fp-pass{color:#64e2b0!important;font-weight:700}
+.fp-hold{color:#f0c77c!important;font-weight:700}
+.fp-search{margin:0 0 13px;max-width:430px;width:100%}
+.fp-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.fp-controls select{min-width:130px;max-width:280px}
+.fp-label{font-size:12px;font-weight:700;color:#b8d1df}
+.fp-chart{display:block;width:100%;max-width:100%;height:280px;border-radius:10px;border:1px solid #294054;background:#091729}
+@media(max-width:700px){
+ .fp-metrics,.fp-account{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .fp-panel-head{flex-wrap:wrap}
+ .fp-stat strong{font-size:14px}
+ .fp-controls{align-items:stretch;flex-direction:column}
+ .fp-controls select{width:100%;max-width:100%}
+}
+
+/* FP Markets Strategy Scanner: same dense broker-scanner presentation as Deriv.
+   Deriv original source and CSS are not modified. */
+#scanner [hidden]{display:none!important}
+.fp-broker-switch{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin:0 0 18px}
+.fp-broker-button{background:#122036;border:1px solid #31425b;color:#a4bdd3;
+ padding:10px 16px;border-radius:9px;font-size:12px;font-weight:650}
+.fp-broker-button.fp-broker-selected{background:#0f3041;border-color:#2b9cb0;color:#e9faff;
+ box-shadow:inset 0 0 0 1px rgba(36,211,232,.12)}
+.fp-broker-button:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+.fp-parity-table{min-width:1640px;table-layout:auto}
+.fp-parity-table th{font-size:9px;line-height:1.35;white-space:normal;
+ letter-spacing:.55px;padding:12px 9px;max-width:120px}
+.fp-parity-table td{padding:14px 9px;vertical-align:middle;white-space:normal;
+ line-height:1.35;min-width:55px;font-size:11px}
+.fp-parity-table td:first-child{min-width:106px;font-weight:700;color:#edf5ff}
+.fp-parity-table td:nth-child(15){min-width:105px}
+.fp-parity-table td:nth-child(16){min-width:250px;max-width:350px;color:#a9bed5;font-size:10px}
+.fp-neutral{color:#91a3b9!important}
+#fp-panel-scanner .fp-panel-head{align-items:center}
+#fp-panel-scanner .fp-table tr:hover{background:#18283e}
+@media(max-width:720px){.fp-broker-switch{gap:6px}.fp-broker-button{flex:1;padding:10px 7px}}
+
+/* Broker parity for all three operator research pages (no trade controls). */
+#scanner > [hidden],#signals > [hidden],#compare > [hidden],
+#scanner [hidden],#signals [hidden],#compare [hidden]{display:none!important}
+#scanner .fp-panel,#signals .fp-panel,#compare .fp-panel{border-top:0;margin-top:0}
+#scanner .fp-panel+.fp-panel,#signals .fp-panel+.fp-panel,#compare .fp-panel+.fp-panel{margin-top:18px}
+.fp-broker-switch{margin:0 0 19px;padding:5px;border:1px solid #29465b;background:rgba(12,28,48,.82);
+ border-radius:12px;display:flex;gap:6px;align-items:center;width:fit-content;max-width:100%}
+.fp-broker-button{font-weight:750;letter-spacing:.35px;min-width:174px;text-align:center;padding:11px 15px;
+ cursor:pointer;transition:background-color .15s,border-color .15s}
+.fp-broker-button.fp-broker-selected{background:#144653;color:#f0fdff;border-color:#50b7ce;
+ box-shadow:0 0 0 1px rgba(75,205,225,.11) inset}
+#signals .fp-ai-stats{margin:19px 0}
+#signals .fp-panel .ai-subtitle{margin:20px 0 12px}
+#signals .fp-ai-top-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin:12px 0}
+.fp-ai-top-card{padding:16px;border-radius:12px;border:1px solid #29465b;background:#102236;
+ display:flex;flex-direction:column;gap:8px;min-width:0}
+.fp-ai-top-card b{font-size:14px;color:#e4f5ff}
+.fp-ai-top-card small{font-size:12px;color:#a6bed1;line-height:1.5}
+.fp-comparison-table{min-width:900px}
+.fp-comparison-table th{white-space:normal;font-size:11px}
+.fp-comparison-table td{font-size:12px}
+.fp-compare-strip{margin:18px 0}
+.fp-comparison-notice{margin:14px 0}
+#fp-panel-compare .fp-controls{margin-top:16px}
+#fp-panel-compare .fp-chart{margin-top:12px}
+@media(max-width:960px){#signals .fp-ai-top-grid{grid-template-columns:repeat(1,minmax(0,1fr))}}
+@media(max-width:720px){.fp-broker-switch{width:100%}.fp-broker-button{min-width:0;flex:1;font-size:10px}}

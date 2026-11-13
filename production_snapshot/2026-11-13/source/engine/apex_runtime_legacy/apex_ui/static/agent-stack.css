@@ -1,0 +1,16 @@
+
+/* Local, read-only AI model status shared by every APEX operator view */
+.agent-stack-strip { margin: 0 0 18px; padding: 14px 18px; }
+.agent-stack-strip .agent-title { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:12px; }
+.agent-stack-strip h2 { margin:0; font-size:1.03rem; }
+.agent-stack-tiles { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; }
+.agent-tile { border:1px solid rgba(130,164,191,.22); border-radius:10px; padding:12px; min-width:0; background:rgba(30,54,76,.24); }
+.agent-tile .agent-label { display:block; font-size:.76rem; color:#92a7b9; margin-bottom:7px; }
+.agent-tile strong { display:block; overflow-wrap:anywhere; font-size:.95rem; color:#e7efff; }
+.agent-tile small { display:block; margin-top:6px; color:#a5b4c4; line-height:1.4; }
+.agent-detail-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+.agent-detail-grid > div {padding:12px; border:1px solid rgba(130,164,191,.22); border-radius:8px; min-width:0;}
+.agent-detail-grid small {display:block; color:#9eb1c6; margin-bottom:7px;}
+.agent-detail-grid b {overflow-wrap:anywhere;}
+@media (max-width:980px) { .agent-stack-tiles {grid-template-columns:repeat(2,minmax(0,1fr));} .agent-detail-grid {grid-template-columns:repeat(2,minmax(0,1fr));} }
+@media (max-width:540px) { .agent-stack-tiles,.agent-detail-grid {grid-template-columns:1fr;} }

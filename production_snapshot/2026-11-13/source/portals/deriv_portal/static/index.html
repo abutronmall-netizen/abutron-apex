@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <title>Deriv MT5 DEMO | ABUTRON</title>
+  <link rel="stylesheet" href="/apex/deriv/style.css">
+  <script src="/apex/deriv/app.js" defer></script>
+</head>
+<body>
+<main class="shell">
+  <header class="topbar">
+    <div><div class="brand">ABUTRON <span>TRADING</span></div><p class="subtitle">Broker connections / Deriv MT5</p></div>
+    <a class="back" href="/">← Back to QuantDinger</a>
+  </header>
+  <section class="hero">
+    <span class="tag">DERIV MT5 DEMO</span>
+    <h1>Deriv MT5 Account Center</h1>
+    <p>Manage several Deriv MT5 DEMO accounts. Submitting login details sends them automatically to the isolated MT5 terminal. Connection verification remains pending until confirmed.</p>
+  </section>
+  <section class="panel saved-profiles">
+    <div class="headline"><h2>Saved Deriv DEMO accounts</h2><span class="chip">Multiple profiles · one MT5 terminal</span></div>
+    <p class="intro">Choose an account to connect or view its trading activity. Profiles store the login ID, server and label, not passwords.</p>
+    <div id="profiles" class="profiles" aria-live="polite">Sign in to load saved accounts.</div>
+  </section>
+  <div class="cols">
+    <section class="panel">
+      <h2>Broker account login</h2>
+      <p class="intro">Connect or switch your Deriv MT5 DEMO account using the server listed in Deriv Trader's Hub.</p>
+      <div id="auth-message" class="notice" role="status">Checking your ABUTRON session…</div>
+      <form id="connect-form" autocomplete="off">
+        <label for="label">Account label (optional)</label>
+        <input id="label" name="label" type="text" maxlength="48" placeholder="Example: Deriv Volatility DEMO" autocomplete="off">
+        <label for="login">MT5 account login</label>
+        <input id="login" name="login" type="text" inputmode="numeric" pattern="[0-9]{4,15}" minlength="4" maxlength="15" placeholder="Your MT5 account number" required autocomplete="off">
+        <label for="server">Broker server</label>
+        <input id="server" name="server" type="text" maxlength="80" placeholder="Deriv-Demo (use your exact server)" required spellcheck="false" autocapitalize="off" autocomplete="off">
+        <label for="password">MT5 account password</label>
+        <input id="password" name="password" type="password" maxlength="160" placeholder="Enter your DEMO password" required autocomplete="new-password">
+        <p class="hint">Use your exact Deriv DEMO server. One MT5 terminal can have only one active account at a time; other saved profiles remain offline.</p>
+        <button id="save-button" class="secondary" type="button" disabled>Save DEMO profile without password</button>
+        <button id="connect-button" type="submit" disabled>Request DEMO login in MT5</button>
+      </form>
+      <div id="result" class="notice hidden" role="status" aria-live="polite"></div>
+    </section>
+    <section class="panel info">
+      <div class="headline"><h2>Selected broker account</h2><span id="connection-badge" class="chip">Unverified</span></div>
+      <p id="connection-help" class="intro">Account balance, positions and P&amp;L synchronize automatically while this page is open.</p>
+      <div id="sync-status" class="sync-status" role="status" aria-live="polite">Checking account connection…</div>
+      <dl id="account-grid" class="griddata hidden">
+        <div><dt>Account</dt><dd id="a-login">—</dd></div>
+        <div><dt>Environment</dt><dd id="a-mode">—</dd></div>
+        <div><dt>Broker</dt><dd id="a-company">—</dd></div>
+        <div><dt>Server</dt><dd id="a-server">—</dd></div>
+        <div><dt>Balance</dt><dd id="a-balance">—</dd></div>
+        <div><dt>Equity</dt><dd id="a-equity">—</dd></div>
+        <div><dt>Used margin</dt><dd id="a-used-margin">—</dd></div>
+        <div><dt>Free margin</dt><dd id="a-margin">—</dd></div>
+        <div><dt>Floating P&amp;L</dt><dd id="a-profit">—</dd></div>
+        <div><dt>Open positions</dt><dd id="a-positions">—</dd></div>
+        <div><dt>Available symbols</dt><dd id="a-symbols">—</dd></div>
+        <div><dt>Execution</dt><dd>Disabled</dd></div>
+      </dl>
+      <section id="positions-section" class="hidden" aria-label="Current MT5 positions">
+        <h3>Current open positions</h3>
+        <p class="intro" id="positions-summary">Current positions from your connected DEMO account.</p>
+        <div class="position-scroll"><table id="positions-table" class="positions-table">
+          <thead><tr><th>Symbol</th><th>Side</th><th>Volume</th><th>Open</th><th>Current</th><th>P&amp;L</th></tr></thead>
+          <tbody id="positions-body"></tbody>
+        </table></div>
+      </section>
+      <button id="refresh-button" class="secondary" type="button" disabled>Refresh account status</button>
+      <p class="hint">Account synchronization runs automatically while this page is open. Trading execution is not enabled.</p>
+    </section>
+  </div>
+  <section class="panel history-panel" id="history-section">
+    <div class="history-header">
+      <div>
+        <h2>MT5 Trade History</h2>
+        <p class="intro" id="history-summary">Connect a DEMO account to load its trade history.</p>
+      </div>
+      <div class="history-controls">
+        <label for="history-days">Period</label>
+        <select id="history-days" aria-label="Trade history period">
+          <option value="7">Last 7 days</option>
+          <option value="30" selected>Last 30 days</option>
+          <option value="90">Last 90 days</option>
+        </select>
+        <button type="button" id="history-refresh" class="secondary" disabled>Refresh history</button>
+      </div>
+    </div>
+    <div id="history-metrics" class="history-metrics hidden">
+      <div><small>Net trading P&amp;L</small><strong id="history-net">—</strong></div>
+      <div><small>Closing executions</small><strong id="history-closed">—</strong></div>
+      <div><small>Trade executions</small><strong id="history-executions">—</strong></div>
+      <div><small>Commissions, swaps and fees</small><strong id="history-costs">—</strong></div>
+    </div>
+    <div class="position-scroll">
+      <table id="history-table" class="positions-table hidden">
+        <thead><tr><th>Time (local)</th><th>Symbol</th><th>Side</th><th>Action</th><th>Volume</th><th>Price</th><th>Profit</th><th>Commission</th><th>Swap</th><th>Fee</th><th>Net P&amp;L</th></tr></thead>
+        <tbody id="history-body"></tbody>
+      </table>
+    </div>
+    <p class="hint">Trade executions are individual MT5 deals. Net P&amp;L includes the deal's profit, commission, swap and fee, and excludes deposits and withdrawals.</p>
+  </section>
+  <footer><span>ABUTRON / Deriv MT5 DEMO</span><span>Private SSH-tunnel access · No passwords saved by this portal</span></footer>
+</main>
+</body>
+</html>

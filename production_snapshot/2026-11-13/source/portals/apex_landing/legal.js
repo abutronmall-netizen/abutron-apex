@@ -1,0 +1,1 @@
+(()=>{const cb=document.querySelector('[data-doc]');if(!cb)return;const key='apex_doc_'+cb.dataset.doc;try{cb.checked=sessionStorage.getItem(key)==='1'}catch{}cb.addEventListener('change',()=>{try{if(cb.checked)sessionStorage.setItem(key,'1');else sessionStorage.removeItem(key)}catch{}})})();

@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>ABUTRON CRM | AbutronFX</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/account/admin/admin.css">
+<script defer src="/account/admin/admin.js"></script>
+
+<link rel="stylesheet" href="/account/admin/apex-fp-markets-ui.css?v=20261104">
+<script src="/account/admin/admin-fp-markets-ui.js?v=20261106-entryquality1" defer></script>
+<script defer src="/account/admin/admin-fp-native-history.js?v=20261104"></script>
+<link rel="stylesheet" href="/account/client/apex-ai-stack-status.css?v=20261105a">
+<script defer src="/account/client/apex-ai-stack-status.js?v=20261110b"></script>
+<link rel="stylesheet" href="/account/client/abutron-runtime-health.css?v=20261106b">
+<script defer src="/account/client/abutron-runtime-health.js?v=20261106b"></script>
+</head><body>
+<div id="authShell">
+  <div class="auth-brand"><span class="logo">A<span>◆</span></span><div>ABUTRON <small>BUSINESS COMMAND</small></div></div>
+  <section class="auth-card" id="loading"><span class="eyebrow">SECURE ADMIN ACCESS</span><h1>Connecting to ABUTRON</h1><p>Checking your administrator session.</p></section>
+  <section class="auth-card" id="loginRequired" hidden><span class="eyebrow">SIGN IN REQUIRED</span><h1>Open your admin workspace</h1><p>Sign into your ABUTRON client account first, then return here.</p><a class="btn primary" href="/account/client/">Sign in to ABUTRON</a></section>
+  <section class="auth-card" id="notAuthorized" hidden><span class="eyebrow">ACCESS RESTRICTED</span><h1>Superadmin required</h1><p>This workspace is available to the designated ABUTRON Superadmin only.</p><a class="btn" href="/account/client/">Return to client portal</a></section>
+  <section class="auth-card" id="mfaSection" hidden><span class="eyebrow">TWO-FACTOR ADMIN ACCESS</span><h1>Verify your identity</h1><p>Sign in with the eight-digit email code for <strong id="emailHint">your admin account</strong>.</p><button id="requestCode" class="btn" type="button">Send verification code</button>
+    <form id="verifyForm"><label>Verification code<input id="verificationCode" type="text" autocomplete="one-time-code" inputmode="numeric" maxlength="8" pattern="[0-9]{8}" required placeholder="8-digit code"></label><button type="submit" class="btn primary">Enter CRM</button></form><p class="help">Code expires after 10 minutes. Your admin session is limited to 30 minutes.</p>
+  </section>
+</div>
+<div id="adminPanel" class="workspace" hidden>
+  <aside class="sidebar">
+   <a class="side-brand" href="/"><span class="logo">A<span>◆</span></span><span>ABUTRON<small>ADMIN & CRM</small></span></a>
+   <div class="side-label">WORKSPACE</div>
+   <nav id="sideNav" aria-label="CRM sections">
+    <button type="button" data-tab="overview" class="active"><span>▦</span> Overview</button>
+    <button type="button" data-tab="clients"><span>♙</span> Clients</button>
+    <button type="button" data-tab="brokers"><span>⬡</span> Brokers & Accounts</button>
+    <button type="button" data-tab="licenses"><span>◇</span> Licenses</button>
+    <button type="button" data-tab="billing"><span>▤</span> Subscriptions</button>
+    <button type="button" data-tab="support"><span>◌</span> Support Desk</button>
+    <button type="button" data-tab="activity"><span>≡</span> Activity Log</button>
+   </nav>
+   <div class="side-bottom"><div class="operator"><span class="online-dot"></span><span>ABUTRON Superadmin<small>Protected by email MFA</small></span></div><a href="/account/client/">Client portal</a><a href="/apex/">ABUTRON trading dashboard</a><button type="button" id="endAdmin">Sign out of admin</button></div>
+  </aside>
+  <div class="content">
+    <header class="topbar"><div class="mobile-brand">ABUTRON / CRM</div><div class="breadcrumb"><span>ABUTRON FX</span><span>/</span><strong id="crumb">Overview</strong></div><div class="top-right"><span class="environment"><span class="online-dot"></span> CRM ONLINE</span><span class="avatar">SA</span></div></header>
+    <main class="main">
+     <section id="tab-overview" class="tab">
+      <div class="page-heading"><div><p class="eyebrow">ABUTRON BUSINESS INTELLIGENCE</p><h1>Command overview<span class="accent">.</span></h1><p>One view of your clients, accounts, revenue records and operations.</p></div><button class="btn" id="refreshBtn" type="button">↻ Refresh</button></div>
+      <div class="stat-grid">
+        <div class="metric"><span>Total clients</span><strong id="statClients">—</strong><small>Registered accounts</small></div>
+        <div class="metric"><span>Active clients</span><strong id="statActive">—</strong><small>Enabled ABUTRON access</small></div>
+        <div class="metric"><span>License records</span><strong id="statLicenses">—</strong><small>Active CRM licenses</small></div>
+        <div class="metric"><span>Subscriptions</span><strong id="statSubs">—</strong><small>Active billing records</small></div>
+        <div class="metric"><span>Connected MT5 accounts</span><strong id="statConnected">—</strong><small>Authenticated Deriv DEMO accounts</small></div>
+        <div class="metric"><span>Broker requests</span><strong id="statBrokers">—</strong><small>Pending account links</small></div>
+        <div class="metric"><span>CRM switches ON</span><strong id="statTradingOn">—</strong><small>ON does not certify broker order execution</small></div>
+        <div class="metric"><span>Support tickets</span><strong id="statTickets">—</strong><small>Open cases</small></div>
+<div class="metric"><span>1-day trials active</span><strong id="statTrials">—</strong><small>24 hours after first verified DEMO broker connection</small></div>
+<div class="metric"><span>License requests</span><strong id="statBuyRequests">—</strong><small>Awaiting manual processing</small></div>
+        <div class="metric"><span>Renewals due in 14 days</span><strong id="statDue">—</strong><small>Manual billing follow-up</small></div>
+        <div class="metric"><span>Overdue renewals</span><strong id="statOverdue">—</strong><small>Manual review required</small></div>
+      </div>
+      <div class="panel apex-ai-card" data-abutron-ai-card>
+ <span class="eyebrow">ABUTRON APEX 1.1 · VERIFIED RESEARCH STATUS</span><h2>Working APEX engines</h2>
+ <div class="apex-ai-metrics">
+   <div><span>Trading engine</span><strong data-ai-field="active-model">VERIFYING</strong></div>
+   <div><span>Active DEMO journals</span><strong data-ai-field="candidate-model">VERIFYING</strong></div>
+   <div><span>Observed components</span><strong data-ai-field="tradingagents-mode">VERIFYING</strong></div>
+   <div><span>APEX publisher orders</span><strong data-ai-field="multiagent-mode">VERIFYING</strong></div>
+ </div>
+ <p class="apex-ai-foot" data-ai-field="ai-note">Platform research status does not prove broker order execution.</p>
+ <p class="apex-ai-foot">Telemetry checkpoint (UTC): <span data-ai-field="ai-checkpoint">VERIFYING</span></p>
+</div>
+
+      <div class="cols"><div class="panel"><div class="panel-heading"><h2>Recent activity</h2><button class="text-btn" data-goto="activity">View all →</button></div><div id="recentActivity" class="record-list"></div></div>
+        <div class="panel"><div class="panel-heading"><h2>Platform connections</h2></div>
+          <div class="system-row"><span>ABUTRON CRM Database</span><b class="state good">CONNECTED</b></div>
+          <div class="system-row"><span>Admin access / email MFA</span><b class="state good">PROTECTED</b></div>
+          <div class="system-row"><span>Client MT5 broker sessions</span><b id="brokerBridgeState" class="state neutral">CHECKING</b></div>
+          <div class="system-row"><span>APEX automatic order execution</span><b id="brokerExecutionState" class="state neutral">CHECKING</b></div>
+          <div class="system-row"><span>Payment gateway</span><b class="state neutral">NOT CONNECTED</b></div>
+          <div class="hint">Trading remains controlled by the separate ABUTRON broker worker. CRM records do not independently enable order execution.</div>
+        </div></div>
+     </section>
+     <section id="tab-clients" class="tab" hidden>
+       <div class="page-heading"><div><p class="eyebrow">CUSTOMER RELATIONSHIPS</p><h1>Clients<span class="accent">.</span></h1><p>Find accounts, update customer profiles and manage access.</p></div><span class="heading-pill" id="clientCount">0 clients</span></div>
+       <div class="panel"><div class="table-tools"><input id="clientSearch" type="search" placeholder="Search name or email"><select id="clientFilter"><option value="all">All clients</option><option value="approved">Active</option><option value="pending_review">Unverified</option><option value="disabled">Suspended</option><option value="rejected">Closed</option></select><button class="btn" id="clientRefresh" type="button">Search</button></div><div class="table-wrap"><table><thead><tr><th>Client</th><th>Account</th><th>Segment</th><th>License</th><th>Broker requests</th><th></th></tr></thead><tbody id="clientRows"></tbody></table></div></div>
+       <section id="clientDetail" class="detail" hidden><div class="panel-heading"><div><span class="eyebrow">CLIENT 360° PROFILE</span><h2 id="detailName">Client details</h2><p id="detailEmail"></p></div><button class="btn" id="closeDetail" type="button">Close</button></div>
+       <div class="panel" id="trialAdminPanel"><h3>One-time customer trial</h3><div id="trialAdminState" class="record-list">Trial status loading…</div><div id="trialCustomerRequests" class="record-list"></div></div>
+<div class="detail-grid"><form id="profileForm" class="panel form-block"><h3>Account & relationship</h3><label>Full name<input name="full_name" maxlength="120" required></label><label>Customer segment<select name="segment"><option value="standard">Standard</option><option value="vip">VIP</option><option value="business">Business</option></select></label><label>Tags<input name="tags" maxlength="240" placeholder="Example: priority, enterprise"></label><label>Internal notes<textarea name="internal_notes" rows="4" maxlength="4000"></textarea></label><p id="detailState" class="help"></p><div class="form-actions"><button type="submit" class="btn primary">Save client</button><button type="button" id="accountAction" class="btn danger" hidden>Suspend access</button></div></form>
+       <form id="licenseForm" class="panel form-block"><h3>License management</h3><label>Plan<select name="plan"><option>Starter</option><option>Professional</option><option>Enterprise</option></select></label><p class="help" id="licensePriceNote">Plan price displayed when a client is selected.</p><label>License state<select name="status"><option value="active">Active</option><option value="paused">Paused</option><option value="expired">Expired</option></select></label><label>Included broker-account seats<input name="seats" type="number" min="1" max="3" value="1" readonly></label><label>Expiry date<input name="expires_on" type="date"></label><label>Admin note<input name="internal_notes" maxlength="1000"></label><div class="code-line" id="detailLicenseCode">Not assigned</div><p class="help"><strong>LICENSE EXCLUDES TRADING CAPITAL:</strong> For live trading, customers must fund their own broker accounts directly with Deriv, IC Markets or FP Markets. ABUTRON license payments are software fees only.</p><button type="submit" class="btn primary">Save license</button>
+<hr style="border:0;border-top:1px solid var(--edge);margin:25px 0">
+<h3>License access control</h3>
+<p id="licenseRevocationNote" class="help">New entries require a valid license. Existing position protection is preserved.</p>
+<label id="licenseRevokeReasonLabel">Revocation reason (required for revoking)<textarea id="licenseRevokeReason" rows="2" maxlength="500" placeholder="Reason for revocation"></textarea></label>
+<button type="button" id="licenseRevoke" class="btn danger">Revoke client license</button>
+<p class="help">Pause, expiry or revocation denies new entries. Existing positions remain under broker-side SL/TP. License records do not automatically stop the separate trading engine until its client worker is connected.</p></form>
+       <form id="subscriptionForm" class="panel form-block"><h3>Subscription</h3><label>Plan<select name="plan"><option value="Starter">Starter</option><option value="Professional">Professional</option><option value="Enterprise">Enterprise</option></select></label><div class="two-field"><label>Currency<input name="currency" value="ZAR" readonly></label><label>Price / month (ZAR)<input name="amount" type="number" min="0" step="0.01" value="1000.00" readonly></label></div><div class="two-field"><label>Billing cycle<select name="billing_interval"><option value="monthly">Monthly</option></select></label><label>Status<select name="status"><option value="trial">Trial</option><option value="active">Active</option><option value="paused">Paused</option><option value="cancelled">Cancelled</option></select></label></div><label>Next renewal<input name="renewal_on" type="date"></label><button type="submit" class="btn primary">Save subscription</button><p class="help"><strong>No trading equity is included.</strong> Customer funds go directly to an approved broker for LIVE trading. This is a manual software subscription record, not a brokerage deposit or proof of payment.</p>
+        <div class="form-block" id="renewSubscriptionBox">
+         <h4>Record renewal date adjustment</h4>
+         <label>New renewal date<input id="renewNewDate" type="date"></label>
+         <label>Reason for change<input id="renewReason" maxlength="300" placeholder="Reason for administrative adjustment"></label>
+         <button class="btn" type="button" id="renewSubscriptionBtn">Change renewal date</button>
+         <p class="help" id="renewState">Requires active or trial recurring subscription.</p>
+        </div><h4>Subscription change history</h4><div id="detailSubscriptionHistory" class="record-list"></div></form>
+       <div class="panel form-block"><h3>Broker accounts</h3><div id="detailBrokers" class="record-list"></div><h3 style="margin-top:24px">Per-account license seats</h3>
+<div id="detailAccountLicenses" class="record-list"></div>
+<form id="brokerLicenseForm" style="margin-top:22px">
+  <label>Registered broker account<select name="source" id="brokerLicenseSource" required></select></label>
+  <div class="two-field"><label>Seat state<select name="state"><option value="assigned">Assigned</option><option value="paused">Paused</option></select></label>
+  <label>Expires<input name="expires_on" type="date"></label></div>
+  <button class="btn primary" type="submit" id="saveAccountLicense">Save account license</button>
+</form>
+<p class="help">Requires an active customer license and an available seat. This is a CRM record, not live broker trading authorization.</p>
+<h3>Support history</h3><div id="detailTickets" class="record-list"></div></div></div></section>
+     </section>
+     <section id="tab-brokers" class="tab" hidden><div class="page-heading"><div><p class="eyebrow">BROKER INTEGRATIONS</p><h1>Brokers & accounts<span class="accent">.</span></h1><p>Manage intake for Deriv, IC Markets and FP Markets. See requests versus real connections.</p></div></div><div class="panel"><div class="panel-heading"><h2>Broker access channels</h2><small>Changes affect intake only, not execution</small></div><div id="brokerCatalog" class="broker-grid"></div></div><div class="panel"><div class="panel-heading"><h2>Client broker requests</h2></div><div class="table-wrap"><table><thead><tr><th>Client</th><th>Broker</th><th>Environment</th><th>Account reference</th><th>State</th><th></th></tr></thead><tbody id="brokerRequests"></tbody></table></div></div><div class="panel"><div class="panel-heading"><h2>Authenticated broker connections</h2></div><div id="brokerConnections" class="record-list"></div></div></section>
+     <section id="tab-licenses" class="tab" hidden><div class="page-heading"><div><p class="eyebrow">LICENSE OPERATIONS</p><h1>Licenses<span class="accent">.</span></h1><p>One customer license with a seat allowance; allocate independent seats to registered broker accounts. No payment provider.</p></div><button class="btn primary" data-goto="clients" type="button">Assign customer license</button></div><div class="panel"><div class="table-wrap"><table><thead><tr><th>Client</th><th>License</th><th>Plan</th><th>Status</th><th>Seats</th><th>Expiry</th><th></th></tr></thead><tbody id="licenseRows"></tbody></table></div></div>
+<div class="panel"><div class="panel-heading"><h2>Broker account allocations</h2><small>CRM entitlements only — no trading execution change</small></div><div class="table-wrap">
+<table><thead><tr><th>Customer</th><th>Broker account</th><th>Environment</th><th>Seat state</th><th>Broker link</th><th></th></tr></thead><tbody id="accountLicenseRows"></tbody></table></div></div>
+<div class="panel"><div class="panel-heading"><h2>License purchase requests</h2><small>Manual payment confirmation required</small></div>
+<p class="hint">Customers request a fixed-seat software license. Confirm payment for the ABUTRON license separately before activating it. <strong>Do not accept trading equity deposits:</strong> customers fund their own LIVE trading accounts directly with their approved broker. No gateway is configured.</p>
+<div class="table-wrap"><table><thead><tr><th>Customer</th><th>Requested plan</th><th>Broker seats</th><th>Status</th><th>Created</th><th>Actions</th></tr></thead>
+<tbody id="licenseRequestsRows"></tbody></table></div></div></section>
+     <section id="tab-billing" class="tab" hidden><div class="page-heading"><div><p class="eyebrow">COMMERCIAL MANAGEMENT</p><h1>Subscriptions<span class="accent">.</span></h1><p>Track subscriptions using fixed monthly ZAR plan prices. No payment provider is integrated.</p></div><button class="btn primary" data-goto="clients" type="button">Manage customer subscriptions</button></div><div class="panel"><div class="panel-heading"><h2>Monthly plan pricing</h2><small>Fixed ZAR list prices · no automatic charges</small></div><div id="pricingOverview" class="record-list"></div><p class="hint"><strong>ABUTRON LICENSES DO NOT INCLUDE TRADING EQUITY.</strong> Clients fund LIVE accounts independently with approved brokers: Deriv, IC Markets or FP Markets. Each price includes only the indicated number of linked broker-account seats; no extra seats are included.</p></div><div class="panel"><div class="table-wrap"><table><thead><tr><th>Client</th><th>Plan</th><th>Amount</th><th>Interval</th><th>Status</th><th>Renewal</th><th></th></tr></thead><tbody id="subscriptionRows"></tbody></table></div><p class="hint">Payment integration is deferred. Subscription records are manually administered only: no checkout, invoices, charges, or payment provider credentials.</p></div></section>
+     <section id="tab-support" class="tab" hidden><div class="page-heading"><div><p class="eyebrow">CUSTOMER SUCCESS</p><h1>Support desk<span class="accent">.</span></h1><p>Log internal cases, prioritize issues and track resolution.</p></div></div><div class="panel"><h2>New support case</h2><form id="newTicketForm" class="ticket-form"><label>Client<select id="ticketClient" name="account_id" required></select></label><label>Subject<input name="subject" placeholder="Brief issue description" required maxlength="150"></label><label>Priority<select name="priority"><option value="normal">Normal</option><option value="low">Low</option><option value="high">High</option></select></label><label>Internal notes<input name="internal_notes" maxlength="2000"></label><button type="submit" class="btn primary">Create ticket</button></form></div><div class="panel"><h2>Support cases</h2><div id="ticketList" class="record-list"></div></div></section>
+     <section id="tab-activity" class="tab" hidden><div class="page-heading"><div><p class="eyebrow">SECURITY & OPERATIONS</p><h1>Activity log<span class="accent">.</span></h1><p>Timestamped records of administrative changes.</p></div></div><div class="panel"><div id="activityList" class="record-list"></div></div></section>
+    </main>
+  </div>
+</div><div id="toast" role="status" aria-live="polite" hidden></div>
+</body></html>

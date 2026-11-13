@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#071018">
+<meta name="description" content="ABUTRON client portal: sign in, verify email and manage MT5 broker connection requests.">
+<title>Client Portal | ABUTRON</title><link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/account/client/client.css?v=20261106-autotoggle1" type="text/css">
+<link rel="stylesheet" href="/account/client/apex-shell.css?v=20261101c" type="text/css">
+<link rel="stylesheet" href="/account/client/apex-mt5-accounts.css?v=20261101b" type="text/css">
+<script defer src="/account/client/client.js?v=20261108-live-trading-switch"></script>
+<script defer src="/account/client/apex-shell.js?v=20261101c"></script>
+<script defer src="/account/client/apex-mt5-accounts.js?v=20261103fp4"></script><script defer src="/account/client/apex-mt5-auth-ui.js?v=20261108-deriv-live-login-v3"></script><link rel="stylesheet" href="/account/client/abutron-refresh.css?v=20261101c">
+<link rel="stylesheet" href="/account/client/apex-fp-markets-ui.css?v=20261104">
+<script src="/account/client/apex-fp-markets-ui.js?v=20261106-entryquality1" defer></script>
+<script defer src="/account/client/apex-fp-native-history.js?v=20261104"></script>
+<link rel="stylesheet" href="/account/client/abutron-runtime-health.css?v=20261106b">
+<script defer src="/account/client/abutron-runtime-health.js?v=20261106b"></script>
+<link rel="stylesheet" href="/account/client/apex-ai-stack-status.css?v=20261110">
+<script defer src="/account/client/apex-ai-stack-status.js?v=20261110b"></script>
+</head>
+<body>
+<header class="header"><div class="wrap nav"><a href="/" class="brand"><span class="mark">A<span>◆</span></span><span>ABUTRON<small>CLIENT WORKSPACE</small></span></a>
+<nav><a href="/">Home</a><a href="/account/">Create account</a><a href="/legal/">Legal centre</a></nav></div></header>
+<main class="wrap">
+<div class="intro"><span class="eyebrow">ABUTRON / CLIENT PORTAL</span><h1>Your trading accounts.<br><em>One secure workspace.</em></h1>
+<p>Connect your existing MT5 trading account using its broker login, password and exact server. Each connected account requires its own dedicated MT5 terminal.</p>
+<div class="notice"><span class="dot"></span><strong>Important:</strong> Broker accounts are shown as Connected only after a dedicated terminal confirms a persistent broker session. Your MT5 password is submitted only through the secured client sign-in; no additional email code. Connection and trading authorization are separate.</div></div>
+<section id="loading" class="panel" aria-live="polite">Checking your session…</section>
+<section id="loginSection" class="panel narrow" hidden><span class="eyebrow">SECURE SIGN-IN</span><h2>Sign in to ABUTRON</h2>
+<p>Use the email and password you chose when registering.</p>
+<form id="loginForm" autocomplete="on">
+<label>Email address<input type="email" name="email" autocomplete="username" placeholder="you@example.com" required maxlength="254"></label>
+<label>Password<input type="password" name="password" autocomplete="current-password" placeholder="Your ABUTRON password" required></label>
+<button type="submit" class="button primary">Sign in <span>→</span></button>
+</form><p class="helper"><a href="/account/reset/">Forgot password?</a> · <a href="/account/verify/">Resend verification email</a></p>
+<div class="under"><span>New to ABUTRON?</span><a href="/account/">Create an account →</a></div></section>
+<section id="portalSection" hidden>
+<div class="account-top"><div><span class="eyebrow">ACCOUNT OVERVIEW</span><h2>Welcome, <span id="clientName">Client</span></h2><p id="clientEmail"></p></div><a id="adminNavLink" href="/account/admin/" class="button secondary" hidden>Superadmin →</a><button id="logoutBtn" type="button" class="button secondary">Sign out</button></div>
+<div class="grid stats">
+<div class="stat"><span>ABUTRON account status</span><b id="accountStatus">Checking</b><small id="approvalNote">Awaiting verification</small></div>
+<div class="stat"><span>Broker connections</span><b id="verifiedCount">0 active</b><small>Broker authorization required</small></div>
+<div class="stat"><span>DEMO trading</span><b class="warn" id="demoTradeStatus">OFF</b><small>Independent account switches below</small></div>
+<div class="stat"><span>LIVE trading</span><b class="warn" id="liveTradeStatus">OFF</b><small>Independent account switches below</small></div>
+<div class="stat"><span>ABUTRON license / 24-hour trial</span><b id="crmLicense">Not assigned</b><small id="crmLicenseNote">One trial per verified account</small></div>
+<div class="stat"><span>ABUTRON subscription</span><b id="crmSubscription">Not assigned</b><small id="crmSubscriptionNote">Managed by ABUTRON Admin · No checkout</small></div>
+</div>
+<section class="panel apex-ai-card" data-abutron-ai-card aria-label="APEX 1.1 trading engine research status">
+ <span class="eyebrow">ABUTRON APEX 1.1 · PLATFORM RESEARCH</span><h2>Working engine status</h2>
+ <div class="apex-ai-metrics">
+  <div><span>Trading engine</span><strong data-ai-field="active-model">VERIFYING</strong></div>
+  <div><span>Active DEMO journals</span><strong data-ai-field="candidate-model">VERIFYING</strong></div>
+  <div><span>Observed engine components</span><strong data-ai-field="tradingagents-mode">VERIFYING</strong></div>
+  <div><span>APEX publisher orders</span><strong data-ai-field="multiagent-mode">VERIFYING</strong></div>
+ </div>
+ <p class="apex-ai-foot" data-ai-field="ai-note">Platform-wide research status only. Your broker account's automatic trading controls remain separate.</p>
+ <p class="apex-ai-foot">Telemetry checkpoint (UTC): <span data-ai-field="ai-checkpoint">VERIFYING</span></p>
+</section>
+<section class="panel" id="licenseShop">
+<span class="eyebrow">ABUTRON / LICENSES</span><h2 id="trialHeading">1-day trial &amp; licenses</h2>
+<p id="trialStatusText">Your one-time 24-hour trial starts only when your first DEMO broker account is actually authenticated and marked CONNECTED. Email verification and pending account linking do not start the countdown.</p>
+<p id="buyLicenseNotice" class="helper">After the trial expires, new trades require a paid license. You can request a license here; payment is arranged outside ABUTRON and activated manually by Superadmin.</p>
+<form id="licenseRequestForm" class="field-grid">
+<label>Paid license plan<select name="plan"><option>Starter</option><option>Professional</option><option>Enterprise</option></select></label><p class="helper" id="licensePlanQuote">Plan pricing loading…</p><p class="helper"><strong>Your subscription pays for ABUTRON software and the listed broker-account seats ONLY — it does not fund any trading account.</strong></p>
+<label>Included broker-account seats<input type="number" name="seats" min="1" max="3" value="1" readonly required></label>
+<label>Notes to ABUTRON<input name="note" maxlength="500" placeholder="Any additional information"></label>
+<label class="check"><input type="checkbox" name="acknowledge_broker_deposit" required><span>I understand that my ABUTRON license does not include trading capital or account equity. For LIVE trading, I must deposit my own money directly with my approved broker, separately from the ABUTRON license fee.</span></label>
+<button class="button primary" type="submit" id="requestPaidLicense">Request a paid license →</button>
+</form>
+<div id="licensePurchaseStatus" class="helper" aria-live="polite"></div>
+<div class="hint"><strong>IMPORTANT — LICENSE FEE IS NOT TRADING CAPITAL.</strong> ABUTRON sells software access only. No account equity, trading deposit, funded account or guaranteed profits are included. For LIVE trading, deposit your own funds directly into your own account with an approved broker (Deriv, IC Markets or FP Markets). DEMO uses virtual funds. ABUTRON does not receive your broker trading deposit. No card entry or automatic checkout is available; requesting a license does not activate trading.</div>
+</section>
+<div class="split"><section class="panel"><span class="eyebrow">TRADING ACCOUNTS / ADD ACCOUNT</span><h2>Link a broker trading account</h2>
+<p>Connect your existing MT5 account using its username, password and exact broker server. ABUTRON will display Connected only after your own MT5 terminal establishes a verified broker session. Automatic trading authorization is separate.</p>
+ <div class="hint" id="brokerLinkVerificationNotice" hidden>
+ <strong>VERIFY YOUR ABUTRON EMAIL FIRST.</strong> Your account cannot connect to a broker until you verify your ABUTRON account email and sign in.
+ <a href="/account/verify/">Resend or complete email verification</a>, then refresh this page and choose Begin account linking.
+ </div>
+<form id="brokerForm">
+<div class="field-grid"><label>Broker<select name="broker" id="broker" required><option value="Deriv">Deriv</option><option value="IC Markets">IC Markets</option><option value="FP Markets">FP Markets</option></select></label>
+<label>Platform<select name="platform" id="platform" required><option value="MT5">MetaTrader 5</option><option value="cTrader">cTrader</option></select></label></div>
+<div class="field-grid"><label>Account environment<select name="environment" required><option value="DEMO">DEMO</option><option value="LIVE">LIVE</option></select></label>
+<label>Broker account number / ID<input name="account_reference" required minlength="4" maxlength="40" pattern="[A-Za-z0-9_.-]{4,40}" autocomplete="off" placeholder="Broker account number"></label></div>
+<label>Broker server<input name="broker_server" required minlength="3" maxlength="100" pattern="[A-Za-z0-9 _.-]{3,100}" autocomplete="off" placeholder="Example: broker-provided server name"></label>
+<p class="helper">Select the exact broker server. Enter your MT5 password only in this secure client portal. The dedicated DEMO terminal attempts a persistent broker connection; no additional email code is required. ABUTRON marks Connected only after a fresh native broker heartbeat. Do not share passwords or recovery codes in notes, email, chats or support tickets. cTrader uses a separate OAuth flow.</p>
+<label class="check"><input type="checkbox" id="requestAck" required><span>I understand my broker account is not connected until ABUTRON verifies the broker session. Automatic trading stays OFF.</span></label>
+<button class="button primary" type="submit" id="requestBtn">Submit linking request <span>→</span></button>
+</form></section>
+<section class="panel"><span class="eyebrow">ACCOUNT CONNECTIONS</span><h2>Previous account attempts</h2><p>Older account requests made before direct connection was available are shown here for reference or removal. They are NOT connected trading accounts. New requests are not saved unless a dedicated MT5 broker session can be established.</p>
+<div id="requestsList" aria-live="polite"><div class="empty">Loading requests…</div></div>
+<div class="hint"><strong>What happens next?</strong><ol><li>Sign in with your verified ABUTRON account before connecting.</li><li>Enter your MT5 username, password and server. Connection will be attempted only when the dedicated terminal service is online.</li><li>Broker permissions and account type are verified before any activation.</li></ol></div></section></div>
+<section class="panel trade-controls" aria-labelledby="tradeControlsHeading">
+  <span class="eyebrow">ABUTRON / ACCOUNT-SPECIFIC EXECUTION</span>
+  <h2 id="tradeControlsHeading">Automatic trading — independent ON / OFF</h2>
+  <p>Each MT5 account has its own control. All accounts start OFF. A broker verification request is not a connected account; its ON switch stays unavailable until the MT5 execution gateway is working.</p>
+  <div id="tradingControlsList" aria-live="polite"><div class="empty">Loading independent controls…</div></div>
+  <div class="helper">A CRM ON switch does not prove a broker order was accepted, filled or protected. Check current broker-native execution receipts and stop modifications separately. Switching one account never activates another. LIVE authorization is separate from DEMO. An OFF status does not close existing broker positions.</div>
+</section>
+</section>
+<p id="message" class="message" role="status" aria-live="polite" hidden></p>
+<footer><span>© 2026 AbutronFX · ABUTRON</span><span>DEMO/LIVE connections require explicit broker verification. Trading involves risk.</span></footer>
+</main></body></html>

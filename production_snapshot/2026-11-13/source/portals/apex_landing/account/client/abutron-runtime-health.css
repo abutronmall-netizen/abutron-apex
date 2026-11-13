@@ -1,0 +1,11 @@
+
+.abutron-runtime-health{margin:16px 0 22px;padding:18px 20px;border:1px solid #34475a;border-radius:14px;background:#101e2b;color:#eaf1f9;box-sizing:border-box}
+.abutron-runtime-health .arh-head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.abutron-runtime-health .arh-head h2{margin:0;font-size:1.1rem;color:#f7fbff}
+.abutron-runtime-health .arh-clock{font-size:.76rem;color:#aec3d7}
+.abutron-runtime-health .arh-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(205px,1fr));gap:10px}
+.abutron-runtime-health .arh-item{padding:12px;border:1px solid #33495f;border-radius:10px;background:#182a3b;min-width:0;overflow-wrap:anywhere}
+.abutron-runtime-health .arh-label{display:block;color:#aec3d7;font-size:.75rem;margin-bottom:5px}
+.abutron-runtime-health .arh-value{display:block;color:#f8fcff;font-size:1rem;line-height:1.4}
+.abutron-runtime-health .arh-detail{display:block;color:#c8d5e2;font-size:.78rem;line-height:1.5;margin-top:5px}
+.abutron-runtime-health .arh-note{font-size:.78rem;color:#aec3d7;margin:12px 0 0;line-height:1.6}

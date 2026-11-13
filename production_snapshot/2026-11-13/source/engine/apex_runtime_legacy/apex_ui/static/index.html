@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>ABUTRON | APEX Trading Operations</title>
+<link rel="stylesheet" href="/apex/assets/style.css">
+<script src="/apex/assets/app.js" defer></script>
+<link rel="stylesheet" href="/apex/assets/agent-stack.css?v=20261105a">
+<script src="/apex/assets/agent-stack.js?v=20261106q1" defer></script>
+<link rel="stylesheet" href="/apex/assets/runtime-health.css?v=20261106b">
+<script defer src="/apex/assets/runtime-health.js?v=20261106b"></script>
+
+<link rel="stylesheet" href="/apex/assets/fp-operator-ui.css?v=20261104-fp-3view2">
+<script src="/apex/assets/fp-operator-ui.js?v=20261106-multi-account2" defer></script>
+<script src="/apex/assets/fp-native-history-operator.js?v=20261104" defer></script>
+<script src="/apex/assets/fp-quality-diagnostics.js?v=20261106-readonly1" defer></script>
+<link rel="stylesheet" href="/apex/assets/apex11-engines.css?v=20261110">
+<script src="/apex/assets/apex11-engines.js?v=20261110b" defer></script>
+<script src="/apex/assets/apex11-broker-evidence.js?v=20261111a" defer></script>
+</head>
+<body>
+<div class="shell">
+<aside class="sidebar">
+  <div class="brand"><span class="brandmark">A<span>▲</span></span><div><b>ABUTRON</b><small>APEX TRADING ENGINE</small></div></div>
+  <div class="side-label">WORKSPACE</div>
+  <nav class="nav" aria-label="Operations navigation">
+    <button class="navitem active" data-view="overview"><span>◫</span> Overview</button>
+    <button class="navitem" data-view="markets"><span>▥</span> Markets <small>13</small></button>
+    <button class="navitem" data-view="apexengines"><span>◆</span> APEX 1.1 Engines</button>
+    <button class="navitem" data-view="signals"><span>⌁</span> APEX Signals</button>
+    <button class="navitem" data-view="agents"><span>◇</span> Legacy AI diagnostics</button>
+    <button class="navitem" data-view="scanner"><span>◈</span> Legacy scanner</button>
+    <button class="navitem" data-view="compare"><span>◷</span> Candle Comparison <small>8 TF</small></button>
+    <button class="navitem" data-view="account"><span>▣</span> Account & Trades</button>
+    <button class="navitem" data-view="execution"><span>▤</span> Execution Checks</button>
+    <button class="navitem" data-view="systems"><span>⬡</span> System & Risk</button>
+  </nav>
+  <div class="side-bottom">
+    <div class="state-row"><i class="dot" id="connectionDot"></i><span id="connectionLabel">Connecting to broker feed</span></div>
+    <div class="engine-label">BROKER ENVIRONMENT</div><div class="broker-title">Deriv MT5 · DEMO</div>
+    <div class="fineprint">Local access through your SSH tunnel. No external dashboard account needed.</div>
+  </div>
+</aside>
+
+<div class="workspace">
+<header class="topbar">
+  <div class="crumb">APEX <span>/</span> <strong id="screenName">Operations Overview</strong></div>
+  <div class="top-actions">
+    <span class="live-pill" title="Broker data freshness is checked separately from the UTC clock"><span class="pulse"></span><span id="refreshLabel">LIVE FEED</span></span>
+    <div class="market-datetime" role="group" aria-label="Market date and time, UTC" title="Live UTC clock. Broker snapshot timestamps are independent.">
+      <span class="market-stamp"><small>Market time · UTC</small><span id="clockUtc" class="clock">--:--:-- UTC</span></span>
+      <span class="market-stamp"><small>Market date · UTC</small><span id="marketDateUtc" class="clock">-- --- ----</span></span>
+    </div>
+    <button class="refresh" id="refreshNow" title="Refresh now" aria-label="Refresh dashboard">↻</button>
+  </div>
+</header>
+
+<main>
+<section class="intro">
+  <div><p class="eyebrow">YOUR APEX TRADING SYSTEM</p><h1 id="pageHeading">Operations overview</h1><p class="subhead" id="pageSubhead">Broker-backed DEMO execution status, AI research and signal qualification are verified independently.</p></div>
+  <div class="mode-stack"><div class="mode on">● AUTOMATIC ANALYSIS <b id="analysisStatus">CHECKING</b></div><div class="mode off" id="demoMode">● AUTOMATIC DEMO <b id="demoModeValue">CHECKING</b></div></div>
+</section>
+
+<div class="notice" id="safetyNotice"><span class="notice-icon">◈</span><div><b>Deriv DEMO environment</b><span id="safetyNoticeText">Checking controlled DEMO execution and broker reconciliation. LIVE trading is disabled.</span></div></div>
+
+<section class="panel apex11-status-summary" aria-label="APEX 1.1 working engine status">
+ <div class="panel-head"><div><p class="panel-kicker">CURRENT ACCOUNT-BOUND APEX 1.1 · DERIV DEMO</p><h2>Working engine evidence</h2></div><span class="chip" id="apex11SummaryState">CHECKING</span></div>
+ <div class="apex11-kpis">
+  <article class="metric"><span>Account journals</span><strong id="apex11AccountCount">—</strong><small>Deriv DEMO publishers</small></article>
+  <article class="metric"><span>Observed engine components</span><strong id="apex11EngineCount">—</strong><small>Regime · Trend · Mean Reversion · Breakout · Portfolio · Risk</small></article>
+  <article class="metric"><span>APEX publisher orders</span><strong id="apex11OrderCount">—</strong><small>Research decisions are not broker orders</small></article>
+ </div>
+ <p class="muted" id="apex11OverviewNote">Checking account-bound APEX 1.1 journals across Deriv and FP Markets DEMO.</p>
+ <button type="button" class="textbutton" data-view="apexengines">Open APEX 1.1 engine details ›</button>
+</section>
+
+<section id="overview" class="view active">
+  <div class="kpis">
+    <article class="metric"><span>Verified instruments</span><strong id="kpiSymbols">—</strong><small>Deriv synthetic indices</small></article>
+    <article class="metric"><span>Timeframe coverage</span><strong id="kpiTimeframes">—</strong><small>M1 · M5 · M15 · H1 · H4 · D1</small></article>
+    <article class="metric"><span>Latest AI direction</span><strong id="kpiSignal">—</strong><small id="kpiSignalName">No completed signal yet</small></article>
+    <article class="metric"><span>Broker feed</span><strong id="kpiFreshness">—</strong><small id="kpiAge">Verifying update time</small></article>
+  </div>
+
+<div class="account-strip">
+    <article class="metric"><span>Primary owner broker balance · USD</span><strong id="homeBalance">—</strong><small>Authenticated Deriv DEMO</small></article>
+    <article class="metric"><span>Primary owner broker equity · USD</span><strong id="homeEquity">—</strong><small>Including open P&amp;L</small></article>
+    <article class="metric"><span>Open broker positions</span><strong id="homePositions">—</strong><small>Confirmed by MetaTrader 5</small></article>
+    <article class="metric"><span>Risk kill switch</span><strong id="homeRiskLock">—</strong><small>Broker orders use independent native execution and risk controls</small></article>
+  </div>
+
+  <div class="main-grid">
+  <article class="panel chart-panel">
+    <div class="panel-head"><div><p class="panel-kicker">MARKET DATA · DERIV MT5</p><h2 id="chartTitle">Volatility index</h2></div><div class="control-group"><select id="symbolSelect" aria-label="Select broker symbol"></select><select id="timeframeSelect" aria-label="Select timeframe"><option>M1</option><option selected>M5</option><option>M15</option><option>H1</option><option>H4</option><option>D1</option></select></div></div>
+    <div class="chart-meta"><span id="lastPrice" class="quote">—</span><span id="priceChange" class="price-diff">—</span><span class="mini-source">Completed broker candles</span></div>
+    <div class="chart-wrap"><canvas id="marketChart" role="img" aria-label="Historical Deriv broker candlestick chart"></canvas><div class="chart-empty" id="chartEmpty">Loading broker candles…</div></div>
+    <div class="chart-footer"><span>Broker source: Deriv MT5 DEMO</span><span id="chartUpdated">Last refresh: —</span></div>
+  </article>
+  <article class="panel decision-panel">
+    <div class="panel-head"><div><p class="panel-kicker">ORIGINAL TRADINGAGENTS + LOCAL QWEN</p><h2>Latest AI decision</h2></div><span class="chip" id="agentCycleChip">CHECKING</span></div>
+    <p class="last-symbol" id="decisionSymbol">Waiting for decision</p>
+    <div class="decision-card"><div><span>Technical direction</span><strong id="technicalAction">—</strong></div><div class="separator">→</div><div><span>Agent rating</span><strong id="agentRating">—</strong></div></div>
+    <div class="final-decision"><span>FINAL SHADOW DIRECTION</span><strong id="shadowAction">—</strong></div>
+    <p class="decision-reason" id="decisionReason">The first verified decision will appear here.</p>
+    <div class="decision-bottom"><div><span>AI model</span><b id="decisionModel">—</b></div><div><span>Recorded at</span><b id="decisionTime">—</b></div></div>
+  </article>
+  </div>
+
+  <div class="bottom-grid">
+    <article class="panel"><div class="panel-head"><div><p class="panel-kicker">LIVE BROKER RESEARCH</p><h2>Current APEX research signals · broker trades in Account & Trades</h2></div><button class="textbutton" data-jump="signals">All decisions ›</button></div><div id="signalPreview" class="history-rows"><div class="empty">Loading decision journal…</div></div></article>
+    <article class="panel"><div class="panel-head"><div><p class="panel-kicker">INFRASTRUCTURE</p><h2>System health</h2></div><button class="textbutton" data-jump="systems">Details ›</button></div><div id="servicePreview" class="service-list"><div class="empty">Checking system services…</div></div></article>
+  </div>
+</section>
+
+<section id="compare" class="view">
+  <article class="panel" style="margin-bottom:18px">
+    <div class="panel-head"><div><p class="panel-kicker">DERIV DEMO MT5 · 8 VERIFIED TIMEFRAMES</p><h2>APEX strategy signal vs. completed candle and EMA/RSI trend</h2></div><select id="comparisonSymbol" aria-label="Select instrument for candle comparison"></select></div>
+    <p class="muted" style="margin-top:-4px">APEX uses only the connected <b>Deriv USD DEMO MT5</b> terminal. Single-candle direction compares the last completed candle's close with its open; EMA/RSI trend uses multiple completed broker candles. Neither display sends orders or depends on another trading platform.</p>
+    <div class="account-strip comparison-strip">
+      <article class="metric comparison-decision"><span>APEX STRATEGY SIGNAL · SAME AS SCANNER</span><strong id="comparisonStrategyGate">VERIFYING</strong><small id="comparisonStrategyGateMeta">Only displays a decision when the scanner uses the identical broker snapshot</small></article>
+      <article class="metric"><span>M5 CANDLE BODY · NOT A TRADE SIGNAL</span><strong id="comparisonM5Bias">—</strong><small id="comparisonM5Time">Waiting for candle timestamp</small></article>
+      <article class="metric"><span>M5 MULTI-CANDLE EMA/RSI TREND</span><strong id="comparisonM5Trend">—</strong><small id="comparisonM5Direction">M5 strategy direction pending</small></article>
+      <article class="metric"><span>SCANNER / BROKER SNAPSHOT SYNC</span><strong id="comparisonSource">—</strong><small id="comparisonFreshness">Checking independent MT5 source</small></article>
+    </div>
+    <div class="notice"><span class="notice-icon">◈</span><div><b id="comparisonScannerMatch">Verifying Strategy Scanner alignment</b><span id="comparisonScannerDetails">Checking M5 candle timestamp, indicators and final strategy gate against the scanner.</span><span id="comparisonScannerReason">Waiting for current broker candle evidence.</span></div></div>
+    <p class="muted"><b>Only APEX Strategy Signal is the trading-strategy decision.</b> The M5 candle body (close minus open) is descriptive price movement, not a BUY/SELL recommendation. Scanner entry also requires M15/H1/H4 trend agreement and RSI confirmation; Crash/Boom need a tested spike model. Identical broker candle timestamps are required to compare these pages. This panel does not submit orders.</p>
+    <div class="table-scroll"><table><thead><tr><th>Timeframe</th><th>Candle body (NOT a signal)</th><th>EMA/RSI trend</th><th>Open</th><th>Close</th><th>Closed at (UTC)</th><th>Time since close</th></tr></thead><tbody id="comparisonRows"><tr><td colspan="7">Loading verified broker candles…</td></tr></tbody></table></div>
+    <p class="table-foot">All timestamps are actual candle closing times, not opening times. M3/M30 EMA/RSI trend is marked unavailable because the supplemental feed currently provides only completed-candle observations, not enough bars for an EMA21 history. No execution signal is implied.</p>
+  </article>
+</section>
+
+<section id="account" class="view">
+  <div class="kpis">
+    <article class="metric"><span>Balance · USD</span><strong id="accountBalance">—</strong><small>Broker-confirmed DEMO</small></article>
+    <article class="metric"><span>Equity · USD</span><strong id="accountEquity">—</strong><small>Current account snapshot</small></article>
+    <article class="metric"><span>Free margin · USD</span><strong id="accountFreeMargin">—</strong><small>Not available for automatic execution</small></article>
+    <article class="metric"><span>Today's realized P&amp;L · USD</span><strong id="accountTodayPnl">—</strong><small>All broker trades, not APEX-only</small></article>
+  </div>
+  <article class="panel"><div class="panel-head"><div><p class="panel-kicker">OFFICIAL DERIV MT5 ACCOUNT</p><h2>Open positions</h2></div><span class="chip" id="accountFreshness">CHECKING</span></div>
+  <div class="table-scroll"><table><thead><tr><th>Ticket</th><th>APEX request · UTC</th><th>Symbol</th><th>Side</th><th>Volume</th><th>Open</th><th>Current</th><th>Stop</th><th>Target</th><th>Floating USD</th></tr></thead><tbody id="accountPositions"></tbody></table></div>
+  <p class="table-foot">Request timestamp comes from the verified APEX execution ledger, not MT5 position opening time. Broker execution timestamp is not provided by the current MT5 exporter. No order-entry controls are available on this page.</p></article>
+  <article class="panel"><div class="panel-head"><div><p class="panel-kicker">APEX BROKER-ACKNOWLEDGED ENTRIES</p><h2>Recorded APEX entry deals</h2></div><span class="chip">APEX LEDGER / PARTIAL</span></div>
+  <div class="table-scroll"><table><thead><tr><th>APEX request · UTC</th><th>Deal ID</th><th>Symbol</th><th>Side</th><th>Event</th><th>Volume</th><th>Price</th><th>Gross P&amp;L</th><th>Net cashflow</th></tr></thead><tbody id="accountDeals"></tbody></table></div>
+  <p class="table-foot">The table contains only APEX entries with broker-acknowledged deal IDs. UTC timestamps are APEX order request times, NOT broker execution times. Complete MT5 history, execution timestamps and realized P&amp;L are not available from the current native exporter.</p></article>
+</section>
+
+<section id="scanner" class="view">
+  <div class="kpis">
+    <article class="metric"><span>Instruments scanned</span><strong id="scanSymbols">—</strong><small>Volatility, Crash &amp; Boom</small></article>
+    <article class="metric"><span>Research proposals</span><strong id="scanCandidates">—</strong><small>Research only; broker and risk gates decide</small></article>
+    <article class="metric"><span>Scanner freshness</span><strong id="scanFreshness">—</strong><small id="scanAge">Checking scanner output</small></article>
+    <article class="metric"><span>Research governor (legacy)</span><strong id="scanRisk">LOCKED</strong><small>Separate from controlled DEMO multi v3</small></article>
+  </div>
+  <article class="panel"><div class="panel-head"><div><p class="panel-kicker">DETERMINISTIC MULTI-TIMEFRAME RESEARCH</p><h2>All 13 Deriv strategy proposals</h2></div><span class="chip" id="scannerLlmState">QWEN PENDING</span><button class="textbutton" data-jump="compare">Compare closed candles ›</button></div>
+  <div class="table-scroll"><table><thead><tr><th>Instrument</th><th>Family</th><th>M1 trend</th><th>M5 candle body (NOT signal)</th><th>M5 EMA/RSI trend</th><th>M5 EMA/RSI direction</th><th>M15 trend</th><th>H1 trend</th><th>H4 trend</th><th>D1 trend</th><th>RSI M5</th><th>APEX Strategy Signal</th><th>Qwen research (advisory)</th><th>Legacy research lock</th><th>DEMO execution status</th><th>Evidence / Reason</th></tr></thead><tbody id="scannerBody"></tbody></table></div>
+  <p class="table-foot">**M5 candle** = direction of one completed candle (same method as V7). **M5 EMA trend** = multi-candle EMA/RSI direction. **Strategy Gate** = additional entry rules. These are three different calculations, not interchangeable BUY/SELL signals. UP means EMA9 &gt; EMA21 with confirming RSI; DOWN means EMA9 &lt; EMA21 with confirming RSI. Experimental EMA/RSI logic using completed Deriv candles. Crash/Boom research is held pending dedicated spike-model testing. Legacy research lock is not the same as the separately verified v3 DEMO controller. The DEMO status column shows broker-confirmed positions when available, or states why an entry is waiting. A strategy proposal is not a guaranteed profitable or executed trade. Qwen reviews are informative, never order authorization, and do not modify existing signal-to-order execution.</p></article>
+  <article class="panel"><div class="panel-head"><div><p class="panel-kicker">ACCOUNT-WIDE DEMO RISK</p><h2>Independent Risk Governor</h2></div><span class="chip">FAIL CLOSED</span></div>
+  <div class="risk-numbers"><div><span>Daily loss headroom · USD</span><strong id="governorHeadroom">—</strong></div><div><span>Per-order risk allowance · USD</span><strong id="governorSingle">—</strong></div><div><span>Kill switch</span><strong id="governorKill">LOCKED</strong></div></div>
+  <p class="muted" id="governorNotes">The risk governor independently validates broker snapshots, active positions, aggregate exposure, loss history and minimum-lot USD estimates.</p>
+  <p class="warning-copy">Legacy research governor remains locked; controlled DEMO execution uses its own independent per-symbol SL/TP and broker margin controls (no account-wide USD loss cap). LIVE stays disabled. Broker stops may slip beyond estimated loss.</p></article>
+</section>
+
+<section id="execution" class="view">
+  <div class="kpis">
+    <article class="metric"><span>Broker directions tested</span><strong id="execEvaluated">—</strong><small>13 instruments × BUY and SELL</small></article>
+    <article class="metric"><span>MT5 checks accepted</span><strong id="execAccepted">—</strong><small>Official order_check, not actual fills</small></article>
+    <article class="metric"><span>Broker-confirmed APEX orders</span><strong id="execOrders">0</strong><small id="execOrdersNote">Never count prechecks as fills</small></article>
+    <article class="metric"><span>Controlled DEMO controller</span><strong id="execLock">CHECKING</strong><small id="execGateNote">Verified status from APEX DEMO multi v3</small></article>
+  </div>
+  <div class="notice"><span class="notice-icon">◈</span><div><b>Prechecks do not place trades</b><span>The legacy broker precheck table tests minimum-lot ATR requests. The new USD workbook profile above is independently validated in the controlled DEMO execution engine; prechecks are not broker fills.</span></div></div>
+  <article class="panel"><div class="panel-head"><div><p class="panel-kicker">BROKER-NATIVE CONTROLLED DEMO · LIVE EXECUTION STATE</p><h2>Automatic M5 DEMO orders · up to 13 simultaneous symbols</h2></div><span class="chip" id="demoCycleFreshness">CHECKING</span></div>
+    <div class="risk-numbers">
+      <div><span>Open APEX positions / 13</span><strong id="demoBudgetRemaining">—</strong></div>
+      <div><span>Confirmed APEX positions opened</span><strong id="demoConfirmedTotal">0</strong></div>
+      <div><span>Unreconciled attempts</span><strong id="demoUncertainTotal">0</strong></div>
+    </div>
+    <p class="muted" id="demoLastReason">Awaiting the next controlled DEMO cycle.</p>
+    <p class="table-foot">This controller is separate from the legacy research intent preview. A qualified M5 signal is required. Each order uses its own configured USD SL/TP and broker margin checks. No account-wide loss cap is enforced; losses may exceed stated stops after slippage and costs.</p>
+  </article>
+  <article class="panel"><div class="panel-head"><div>
+    <p class="panel-kicker">DERIV INDICES.XLSX · USER CONFIGURATION + LOT OVERRIDES</p>
+    <h2>Active USD lot / stop-loss / take-profit profile · 13 symbols (Excel + overrides)</h2>
+  </div><span class="chip" id="demoProfileState">VERIFYING</span></div>
+    <div class="table-scroll"><table><thead><tr><th>Instrument</th><th>Configured lot</th><th>Stop-loss · USD</th><th>Take-profit · USD</th><th>Contract / strategy</th></tr></thead>
+      <tbody id="demoUsdProfiles"><tr><td colspan="5">Verifying broker-backed USD profile</td></tr></tbody>
+    </table></div>
+    <p class="table-foot">USD amounts represent broker-calculated gross position P&amp;L, not MT5 points. Commission, fees, spread, swap and slippage can alter net realized P&amp;L. Each symbol has its own broker-side SL and TP. There is no account-wide USD loss cap; quoted stop-loss and realized net loss can differ. A qualified M5 strategy signal and broker precheck are required separately.</p>
+  </article>
+  <article class="panel"><div class="panel-head"><div><p class="panel-kicker">OFFICIAL DERIV USD DEMO · BROKER ORDER VALIDATION</p><h2>Broker-native stop/target prechecks</h2></div><span class="chip" id="execFreshness">CHECKING</span></div>
+    <div class="execution-market-strip" role="group" aria-label="UTC market clock and broker precheck freshness">
+      <div><span>Market time · UTC</span><strong id="executionMarketTimeUtc">--:--:-- UTC</strong></div>
+      <div><span>Market date · UTC</span><strong id="executionMarketDateUtc">-- --- ----</strong></div>
+      <div><span>Last MT5 check</span><strong id="executionCheckAge">CHECKING</strong></div>
+    </div>
+    <div class="table-scroll"><table><thead><tr><th>Instrument</th><th>Side</th><th>Minimum lot</th><th>Stop-loss</th><th>Take-profit</th><th>Buffered loss · USD</th><th>Broker check</th><th>Checked at · UTC</th></tr></thead><tbody id="execPrechecks"></tbody></table></div>
+    <p class="table-foot">Each check timestamp comes from the MT5 precheck collector. Older checks show their batch snapshot time until individual check timestamps are available. These are validations, not trades or fills. Risk estimates are not guaranteed loss limits.</p></article>
+  <article class="panel"><div class="panel-head"><div><p class="panel-kicker">DURABLE SQLITE EXECUTION INTENT JOURNAL</p><h2>Duplicate prevention and recovery state</h2></div><span class="chip">LEGACY RESEARCH PREVIEW</span></div>
+    <div class="risk-numbers"><div><span>Unique signal intents</span><strong id="execIntents">—</strong></div><div><span>Unreconciled orders</span><strong id="execUncertain">—</strong></div><div><span>Execution state</span><strong id="execMode">LOCKED</strong></div></div>
+    <p class="muted">Signal identities survive service restarts. Unexpected/uncertain states prevent attempts from being repeated automatically.</p></article>
+</section>
+
+<section id="apexengines" class="view">
+ <article class="panel">
+  <div class="panel-head"><div><p class="panel-kicker">APEX 1.1 · NATIVE M5 JOURNAL</p><h2>Actual engine contributions</h2></div><span class="chip" id="apex11StatusChip">CHECKING</span></div>
+  <p class="muted">The six components below are identified from the latest APEX 1.1 account-bound decision journal payloads. An observed contribution is research computation, not evidence of executed trades.</p>
+  <div class="apex11-engine-grid" id="apex11Components"><p>Loading verified engine contributions…</p></div>
+  <p class="table-foot" id="apex11Checked">Last checked: —</p>
+ </article>
+ <article class="panel">
+  <div class="panel-head"><div><p class="panel-kicker">DERIV + FP MARKETS · SIX DEMO ACCOUNTS</p><h2>Latest research directions by account</h2></div></div>
+  <div class="table-scroll"><table><thead><tr><th>Account</th><th>Symbol</th><th>APEX 1.1</th><th>Closed M5 bar · UTC</th><th>Journal freshness</th></tr></thead><tbody id="apex11Signals"><tr><td colspan="5">Loading broker-linked decisions…</td></tr></tbody></table></div>
+  <p class="table-foot">These are account-bound APEX 1.1 DEMO research directions, not broker orders. Deriv LIVE 0178 is shown separately as outside the DEMO research publishers.</p>
+ </article>
+ <article class="panel" aria-label="Independent broker execution evidence">
+  <div class="panel-head"><div><p class="panel-kicker">DERIV + FP MARKETS · NATIVE BROKER EVIDENCE</p><h2>Broker positions, stops and risk exceptions</h2></div><span class="chip" id="apex11BrokerState">CHECKING</span></div>
+  <div class="apex11-kpis">
+   <article class="metric"><span>Positions in fresh broker snapshots</span><strong id="apex11BrokerPositions">—</strong><small>Account-bound, no cross-account trading claim</small></article>
+   <article class="metric"><span>Native risk-budget alerts</span><strong id="apex11BrokerRisk">—</strong><small>Other accounts' USD stop-risk not independently assessed</small></article>
+   <article class="metric"><span>Execution authority</span><strong>NOT INFERRED</strong><small>Publisher and history exporter do not place orders</small></article>
+  </div>
+  <div class="table-scroll"><table><thead><tr><th>Broker account</th><th>Evidence</th><th>Open positions</th><th>Protected stops</th><th>Historical broker deals</th><th>Risk observation</th><th>Source freshness</th></tr></thead><tbody id="apex11BrokerRows"><tr><td colspan="7">Checking independent broker evidence…</td></tr></tbody></table></div>
+  <p class="table-foot" id="apex11BrokerChecked">Checking source timestamps…</p>
+  <p class="table-foot">Position and deal evidence does not establish that the latest APEX signal caused an order, that CRM effective execution is ON, or that portfolio 20% risk headroom is verified. The Deriv 6207 native budget flag is shown even when protective stops are attached. LIVE 0178 is never assumed enabled by DEMO evidence.</p>
+ </article>
+</section>
+
+<section id="markets" class="view">
+  <article class="panel"><div class="panel-head"><div><p class="panel-kicker">BROKER DATA / 13 SYNTHETIC INSTRUMENTS</p><h2>Market watch</h2></div><input id="marketSearch" class="search" type="search" placeholder="Search instruments…" aria-label="Search instruments"></div>
+  <div class="table-scroll"><table><thead><tr><th>Instrument</th><th>Last close</th><th>M5 change</th><th>M15</th><th>H1</th><th>H4</th><th>Last candle (UTC)</th></tr></thead><tbody id="marketsBody"></tbody></table></div>
+  <p class="table-foot">Values use the last completed broker candles. Trend = 9/21-period EMA comparison, not trade authorization.</p>
+  </article>
+</section>
+
+<section id="signals" class="view">
+ <article class="panel"><div class="panel-head"><div><p class="panel-kicker">CURRENT APEX 1.1 · BROKER-LINKED</p><h2>Latest APEX 1.1 signals</h2></div><span class="chip" id="apex11SignalsState">CHECKING</span></div>
+ <div class="table-scroll"><table><thead><tr><th>DEMO account</th><th>Symbol</th><th>Decision</th><th>M5 candle close · UTC</th><th>Age</th></tr></thead><tbody id="apex11SignalsExtra"><tr><td colspan="5">Loading account-bound research…</td></tr></tbody></table></div>
+ <p class="table-foot">Only the APEX 1.1 native M5 journals above are current strategy decisions. They do not constitute submitted broker orders.</p></article>
+    <article class="panel ai-insights">
+    <div class="panel-head"><div><p class="panel-kicker">DERIV DEMO · VERIFIED LIVE + BROKER HISTORY</p><h2>Legacy research rankings · not APEX 1.1 decisions</h2></div><span class="chip" id="aiResearchStatus">CHECKING</span></div>
+    <p class="muted">Original APEX scanner rules, native MT5 prices and completed broker M5 history. Selective TradingAgents reviews are advisory, and these rankings are descriptive only. Legacy SMC/ICT veto requirements are not displayed as active. Scores measure <b>current rule alignment, not win probability</b>. This legacy research view does not represent the current APEX 1.1 decision engine or broker order authority.</p>
+    <div class="ai-stats">
+      <div><span>Symbols reviewed</span><strong id="aiSymbolCount">—</strong></div>
+      <div><span>Current BUY/SELL setups</span><strong id="aiCandidateCount">—</strong></div>
+      <div><span>Historical M5 coverage</span><strong id="aiHistorySpan">—</strong></div>
+      <div><span>Native feed age</span><strong id="aiFeedAge">—</strong></div>
+    </div>
+    <h3 class="ai-subtitle">Top three qualifying research setups</h3>
+    <div id="aiTopThree" class="ai-top-grid"><div class="empty">Checking fresh native broker evidence…</div></div>
+    <p class="table-foot" id="aiHistoryCaveat">Historical volatility is descriptive only. There is no validated strategy win-rate estimate yet. Trades still require the existing broker, risk and duplicate-position checks.</p>
+    <h3 class="ai-subtitle">All 13 symbols · ranked by current confluence</h3>
+    <div class="table-scroll"><table><thead><tr><th>Rank</th><th>Instrument</th><th>APEX proposal</th><th>Confluence</th><th>Higher TF alignment</th><th>Historical M5 bars</th><th>Volatility regime</th><th>Qwen advisory</th><th>Reason / limit</th></tr></thead><tbody id="aiAllSymbols"><tr><td colspan="9">Loading verified research…</td></tr></tbody></table></div>
+    <p class="table-foot" id="aiResearchUpdated">No executable recommendations are produced by this panel. DEMO orders are controlled by the existing APEX router.</p>
+  </article>
+  <article class="panel"><div class="panel-head"><div><p class="panel-kicker">PERSISTENT HISTORICAL DECISION JOURNAL</p><h2>Archived legacy TradingAgents decisions</h2></div><span class="chip">HISTORICAL · SHADOW</span></div>
+  <div class="table-scroll"><table><thead><tr><th>Recorded (UTC)</th><th>Symbol</th><th>Technical</th><th>AI rating</th><th>Final shadow</th><th>Execution</th></tr></thead><tbody id="signalsBody"></tbody></table></div>
+  <p class="table-foot">A BUY or SELL research direction does not execute an order. Order execution requires separately verified risk controls and authorization.</p>
+  </article>
+</section>
+
+<section id="agents" class="view">
+<section class="panel agent-stack-strip" aria-label="Verified AI and TradingAgents runtime">
+  <div class="agent-title"><h2>APEX AI &amp; TradingAgents — verified runtime</h2><span class="chip" id="agentStackHealth">CHECKING</span></div>
+  <div class="agent-stack-tiles">
+    <div class="agent-tile"><span class="agent-label">Production LLM / selective reviewer</span><strong id="agentStackPrimary">CHECKING</strong><small id="agentStackPrimaryMeta">Checking local model and timer</small></div>
+    <div class="agent-tile"><span class="agent-label">New Qwen3 LLM candidate</span><strong id="agentStackNext">CHECKING</strong><small id="agentStackNextMeta">Checking canary integrity</small></div>
+    <div class="agent-tile"><span class="agent-label">Three-agent production workflow</span><strong id="agentStackMulti">CHECKING</strong><small id="agentStackMultiMeta">Technical · Regime · Risk</small></div>
+    <div class="agent-tile"><span class="agent-label">Latest exact-candle AI review</span><strong id="agentStackReview">CHECKING</strong><small id="agentStackReviewMeta">Checking verified research evidence</small></div>
+  </div>
+</section>
+
+
+  <article class="panel"><div class="panel-head"><div><p class="panel-kicker">BROKER-ONLY INFERENCE · READ-ONLY TELEMETRY</p><h2>Production TradingAgents and Qwen3 upgrade readiness</h2></div></div>
+  <p class="muted">The original APEX scanner remains the setup detector. Selective TradingAgents evaluates verified broker evidence. The next-generation Qwen3 4B three-agent canary is NOT wired into order execution and is NOT an additional veto. No SMC, ICT or Kronos components are activated by this dashboard.</p>
+  <div class="agent-detail-grid">
+    <div><small>Running model</small><b id="agentsProductionModel">CHECKING</b></div>
+    <div><small>Production workflow</small><b id="agentsLiveMode">CHECKING</b></div>
+    <div><small>Local Ollama service</small><b id="agentsOllama">CHECKING</b></div>
+    <div><small>Deriv selective reviewer</small><b id="agentsDeriv">CHECKING</b></div>
+    <div><small>FP Markets selective reviewer</small><b id="agentsFp">CHECKING</b></div>
+    <div><small>Unified decision observer</small><b id="agentsUnified">CHECKING</b></div>
+    <div><small>New LLM (candidate only)</small><b id="agentsNextModel">CHECKING</b></div>
+    <div><small>Technical / Regime / Risk roles</small><b id="agentsRoles">CHECKING</b></div>
+    <div><small>Three-agent canary verification</small><b id="agentsCanary">CHECKING</b></div>
+    <div><small>Fresh broker-candle three-agent proof</small><b id="agentsEvidence">CHECKING</b></div>
+    <div><small>AI telemetry checked (UTC)</small><b id="agentsChecked">CHECKING</b></div>
+  </div>
+  <p class="table-foot" id="agentsSafety">No new model is authorized to send broker orders.</p>
+  </article>
+  <article class="panel" aria-label="Quant-first adaptive statistical research status">
+    <div class="panel-head"><div><p class="panel-kicker">QUANTITATIVE FINANCE · BROKER DATA · SHADOW RESEARCH</p><h2>Quant-first adaptive — verified progress</h2></div><span class="chip" id="quantMode">CHECKING</span></div>
+    <p class="muted">Quantitative price features and verified quote-cost analysis are separate from automatic trade authorization. No institutional order-book data has been claimed for Deriv or FP Markets. SMC/ICT are not mandatory quant signal vetoes.</p>
+    <div class="agent-detail-grid">
+      <div><small>Deriv quantitative research</small><b id="quantDeriv">CHECKING</b></div>
+      <div><small>FP Markets account-isolated research</small><b id="quantFp">CHECKING</b></div>
+      <div><small>Verified order flow / Level 2</small><b id="quantFlow">CHECKING</b></div>
+      <div><small>Historical walk-forward readiness</small><b id="quantValidation">CHECKING</b></div>
+      <div><small>SMC / ICT mandatory veto</small><b id="quantVeto">CHECKING</b></div>
+      <div><small>Quant report checked (UTC)</small><b id="quantChecked">CHECKING</b></div>
+    </div>
+    <p class="table-foot" id="quantResearchCaveat">Unvalidated research cannot authorize MT5 orders. Existing broker, equity, reconciliation and execution-safety controls remain independent.</p>
+  </article>
+</section>
+
+<section id="systems" class="view">
+  <div class="system-grid">
+  <article class="panel"><div class="panel-head"><div><p class="panel-kicker">SERVICE SUPERVISION</p><h2>Infrastructure services</h2></div></div><div id="serviceDetails" class="service-list"></div></article>
+  <article class="panel"><div class="panel-head"><div><p class="panel-kicker">CONTRACT-LOSS ESTIMATES · DEMO</p><h2>Broker contract risk</h2></div></div>
+    <div class="risk-numbers"><div><span>Verified contract estimates</span><strong id="riskBelow">—</strong></div><div><span>Unverified contracts</span><strong id="riskAbove">—</strong></div></div>
+    <p class="muted" id="riskAge">Risk assessment not yet loaded.</p><p class="warning-copy">These are hypothetical single-trade estimates from MT5 contract calculations. They are <b>not</b> an enforceable cumulative-loss limit, trade authorization or a guarantee against slippage.</p>
+  </article>
+  </div>
+  <article class="panel"><div class="panel-head"><div><p class="panel-kicker">DERIV CONTRACT SPECIFICATIONS</p><h2>Minimum-lot estimated stop losses</h2></div></div>
+  <div class="table-scroll"><table><thead><tr><th>Instrument</th><th>Minimum lot</th><th>BUY estimated loss</th><th>SELL estimated loss</th><th>Validation</th></tr></thead><tbody id="riskBody"></tbody></table></div></article>
+</section>
+</main>
+<footer><span>ABUTRON © 2026 · APEX native DEMO operations</span><span id="footerUpdated">Data refreshes every 20 seconds</span></footer>
+</div>
+</div>
+</body></html>
