@@ -518,10 +518,27 @@ int OnInit()
 void OnDeinit(const int reason){EventKillTimer();}
 void OnTimer()
 {
- if(gNonce == "")
+ // A candidate nonce alone is not proof that the native account is verified.
+ // An earlier failed account check must not permanently bypass initialization.
+ if(gReady == "")
  {
    if(!VerifiedNativeFeed(true))
+   {
+      static int checks=0;
+      checks++;
+      if(checks==1 || checks%30==0)
+      {
+         string firm=AccountInfoString(ACCOUNT_COMPANY);
+         Print("FP3492_AUTHENTICATED_FEED_PENDING check=",checks,
+               " live_account_verified=",VerifiedLiveAccount(),
+               " connected=",TerminalInfoInteger(TERMINAL_CONNECTED),
+               " trade_mode=",AccountInfoInteger(ACCOUNT_TRADE_MODE),
+               " currency=",AccountInfoString(ACCOUNT_CURRENCY),
+               " company=",firm,
+               " expected_server=",AccountInfoString(ACCOUNT_SERVER));
+      }
       return;
+   }
 
    FolderCreate("ABUTRON_FP_LIVE");
    FolderCreate("ABUTRON_FP_LIVE\\receipts");
@@ -530,7 +547,7 @@ void OnTimer()
    gReady = "ABUTRON_FP_LIVE_BRIDGE_READY_V2_"
             + gNonce + ".txt";
 
-   Print("FP3492 authenticated native feed ready");
+   Print("FP3492 authenticated native feed ready; orders_input=",EnableNativeLiveOrders);
  }
  // Do not treat a partially written heartbeat as a permanent disconnect.
  // While any read/identity proof fails, DO NOT publish a fresh readiness proof,
