@@ -517,9 +517,9 @@ int OnInit()
 }
 void OnDeinit(const int reason){EventKillTimer();}
 void OnTimer()
-
-if(gNonce == "")
 {
+ if(gNonce == "")
+ {
    if(!VerifiedNativeFeed(true))
       return;
 
@@ -531,9 +531,7 @@ if(gNonce == "")
             + gNonce + ".txt";
 
    Print("FP3492 authenticated native feed ready");
-}
-
-{
+ }
  // Do not treat a partially written heartbeat as a permanent disconnect.
  // While any read/identity proof fails, DO NOT publish a fresh readiness proof,
  // accept an order request, or certify a broker position. Fail closed.
