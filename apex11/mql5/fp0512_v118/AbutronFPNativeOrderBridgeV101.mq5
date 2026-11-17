@@ -1,5 +1,5 @@
 #property strict
-#property version "1.17"
+#property version "1.19"
 #property description "ABUTRON APEX account-bound FP Markets DEMO one-shot native order bridge"
 
 // Attach to an FP Markets DEMO MT5 chart in each isolated customer terminal.
@@ -202,20 +202,20 @@ bool DollarPrice(string sym,bool buy,double vol,double entry,double dollars,bool
 // Native Option C V2: broker-equity budget <=0.10% per new position.
 // Requires a trusted versioned request from the EXISTING single-writer router.
 // The legacy fixed-$50/$100 path does not call this function.
-bool NativeAdaptivePlan(string sym,bool buy,double bid,double ask,
+string NativeAdaptivePlan(string sym,bool buy,double bid,double ask,
                         double &vol,double &sl,double &tp,
                         double &stopRisk,double &targetCash)
 {
  double equity=AccountInfoDouble(ACCOUNT_EQUITY);
- if(!MathIsValidNumber(equity)||equity<=0.0||OrdersTotal()!=0)return false;
+ if(!MathIsValidNumber(equity)||equity<=0.0||OrdersTotal()!=0)return "ACCOUNT_OR_PENDING_ORDERS";
  MqlRates bars[30];
- if(CopyRates(sym,PERIOD_M5,1,30,bars)!=30)return false;
- if(TimeCurrent()-(long)bars[29].time>630)return false;
+ if(CopyRates(sym,PERIOD_M5,1,30,bars)!=30)return "M5_UNAVAILABLE";
+ if(TimeCurrent()-(long)bars[29].time>630)return "M5_STALE";
  double recent=0.0,prior=0.0,low=1.0e99,high=0.0;
  for(int i=1;i<30;i++)
  {
   if(bars[i].high<=0.0||bars[i].low<=0.0||bars[i-1].close<=0.0 ||
-     bars[i].high<bars[i].low)return false;
+     bars[i].high<bars[i].low)return "M5_INVALID_BAR";
   double tr=MathMax(bars[i].high-bars[i].low,
           MathMax(MathAbs(bars[i].high-bars[i-1].close),
                   MathAbs(bars[i].low-bars[i-1].close)));
@@ -224,36 +224,36 @@ bool NativeAdaptivePlan(string sym,bool buy,double bid,double ask,
   if(i>=18){low=MathMin(low,bars[i].low);high=MathMax(high,bars[i].high);}
  }
  double atr=(prior+recent)/14.0,accel=recent/MathMax(prior,0.000000001);
- if(!MathIsValidNumber(atr)||atr<=0)return false;
+ if(!MathIsValidNumber(atr)||atr<=0)return "ATR_INVALID";
  double entry=buy?ask:bid;
  double rawStop=buy?MathMin(low-0.35*atr,entry-1.2*atr):
                     MathMax(high+0.35*atr,entry+1.2*atr);
  double tick=SymbolInfoDouble(sym,SYMBOL_TRADE_TICK_SIZE);
  if(tick<=0)tick=SymbolInfoDouble(sym,SYMBOL_POINT);
- if(!MathIsValidNumber(tick)||tick<=0)return false;
+ if(!MathIsValidNumber(tick)||tick<=0)return "TICK_INVALID";
  int digits=(int)SymbolInfoInteger(sym,SYMBOL_DIGITS);
  sl=NormalizeDouble((buy?MathFloor(rawStop/tick+1e-9):
                          MathCeil(rawStop/tick-1e-9))*tick,digits);
- if(sl<=0||((buy&&sl>=entry)||(!buy&&sl<=entry)))return false;
+ if(sl<=0||((buy&&sl>=entry)||(!buy&&sl<=entry)))return "SL_GEOMETRY";
  double distance=MathAbs(entry-sl);
  double rr=(accel>=1.6?1.5:(accel>=1.3?1.75:(accel<=.75?2.25:2.0)));
  tp=NormalizeDouble((buy?
      MathFloor((entry+rr*distance)/tick+1e-9):
      MathCeil((entry-rr*distance)/tick-1e-9))*tick,digits);
- if(tp<=0||((buy&&tp<=entry)||(!buy&&tp>=entry)))return false;
+ if(tp<=0||((buy&&tp<=entry)||(!buy&&tp>=entry)))return "TP_GEOMETRY";
  // Spread and broker stop/freeze distances are enforced on the close-side.
- if(ask<bid || (ask-bid)/distance>0.15)return false;
+ if(ask<bid || (ask-bid)/distance>0.15)return "SPREAD";
  double point=SymbolInfoDouble(sym,SYMBOL_POINT);
  double minstop=MathMax((double)SymbolInfoInteger(sym,SYMBOL_TRADE_STOPS_LEVEL),
                         (double)SymbolInfoInteger(sym,SYMBOL_TRADE_FREEZE_LEVEL))*point;
  if((buy&&(bid-sl<minstop||tp-bid<minstop))||
-    (!buy&&(sl-ask<minstop||ask-tp<minstop)))return false;
+    (!buy&&(sl-ask<minstop||ask-tp<minstop)))return "MINSTOP_FREEZE";
  // Broker-native gross risk for every position on this account, all symbols.
  double existing=0.0;
  for(int k=0;k<PositionsTotal();k++)
  {
   ulong ticket=PositionGetTicket(k);
-  if(ticket==0)return false;
+  if(ticket==0)return "POSITION_TICKET_INVALID";
   string name=PositionGetString(POSITION_SYMBOL);
   long type=PositionGetInteger(POSITION_TYPE);
   double qty=PositionGetDouble(POSITION_VOLUME);
@@ -263,38 +263,38 @@ bool NativeAdaptivePlan(string sym,bool buy,double bid,double ask,
   if(qty<=0||opened<=0||stop<=0||target<=0||
      (type!=POSITION_TYPE_BUY&&type!=POSITION_TYPE_SELL)||
      !((type==POSITION_TYPE_BUY&&stop<opened&&opened<target)||
-       (type==POSITION_TYPE_SELL&&target<opened&&opened<stop)))return false;
+       (type==POSITION_TYPE_SELL&&target<opened&&opened<stop)))return "POSITION_DATA_INVALID";
   double cash=0.0;
   if(!OrderCalcProfit(type==POSITION_TYPE_BUY?ORDER_TYPE_BUY:ORDER_TYPE_SELL,
-                      name,qty,opened,stop,cash)||!MathIsValidNumber(cash))return false;
+                      name,qty,opened,stop,cash)||!MathIsValidNumber(cash))return "OPEN_POSITION_CALCPROFIT";
   existing+=MathMax(0.0,-cash);
  }
  double headroom=MathMax(0.0,equity*0.20-existing);
  double maxBudget=MathMin(equity*0.001,headroom);
  // 15% reservation for estimated fees and slippage. Gaps remain unbounded.
  double budget=.85*maxBudget;
- if(budget<=0||!MathIsValidNumber(budget))return false;
+ if(budget<=0||!MathIsValidNumber(budget))return "BUDGET_INVALID";
  double minv=SymbolInfoDouble(sym,SYMBOL_VOLUME_MIN);
  double maxv=SymbolInfoDouble(sym,SYMBOL_VOLUME_MAX);
  double step=SymbolInfoDouble(sym,SYMBOL_VOLUME_STEP);
- if(minv<=0||maxv<minv||step<=0)return false;
+ if(minv<=0||maxv<minv||step<=0)return "LOT_RULES_INVALID";
  ENUM_ORDER_TYPE direction=buy?ORDER_TYPE_BUY:ORDER_TYPE_SELL;
  double minCash=0.0;
- if(!OrderCalcProfit(direction,sym,minv,entry,sl,minCash)||minCash>=0)return false;
+ if(!OrderCalcProfit(direction,sym,minv,entry,sl,minCash)||minCash>=0)return "MIN_LOT_CALCPROFIT";
  double rawLots=minv*budget/(-minCash);
- if(rawLots<minv)return false; // never force the minimum lot over risk.
+ if(rawLots<minv)return "MIN_LOT_ABOVE_RISK_BUDGET"; // never force the minimum lot over risk.
  vol=NormalizeDouble(minv+MathFloor((rawLots-minv)/step+1e-9)*step,8);
- if(vol<minv||vol>maxv)return false;
+ if(vol<minv||vol>maxv)return "LOT_RANGE";
  double projected=0.0,profit=0.0,margin=0.0;
  if(!OrderCalcProfit(direction,sym,vol,entry,sl,projected)||
-    !OrderCalcProfit(direction,sym,vol,entry,tp,profit)||
-    !OrderCalcMargin(direction,sym,vol,entry,margin))return false;
+    !OrderCalcProfit(direction,sym,vol,entry,tp,profit))return "PROJECTED_CALCPROFIT";
+ if(!OrderCalcMargin(direction,sym,vol,entry,margin))return "MARGIN_INVALID";
  stopRisk=-projected;targetCash=profit;
- if(stopRisk<=0||stopRisk>budget+0.005 ||
-    targetCash/stopRisk<1.50 ||
-    !MathIsValidNumber(margin)||margin<0||
-    margin>AccountInfoDouble(ACCOUNT_MARGIN_FREE)*0.10)return false;
- return true;
+ if(stopRisk<=0||stopRisk>budget+0.005)return "STOP_RISK_BUDGET";
+ if(targetCash/stopRisk<1.50)return "REWARD_RISK";
+ if(!MathIsValidNumber(margin)||margin<0)return "MARGIN_INVALID";
+ if(margin>AccountInfoDouble(ACCOUNT_MARGIN_FREE)*0.10)return "MARGIN";
+ return "";
 }
 
 bool PortfolioCanAdd(string next_symbol)
@@ -375,10 +375,15 @@ void HandleRequest()
  {Receipt(key,"BLOCKED","BROKER_TICK_NOT_AVAILABLE");return;}
  bool buy=(side=="BUY");
  double entry=(buy?tick.ask:tick.bid),sl=0.0,tp=0.0,loss=0.0,gain=0.0;
- if(adaptive?
-    !NativeAdaptivePlan(sym,buy,tick.bid,tick.ask,vol,sl,tp,loss,gain):
-    (!DollarPrice(sym,buy,vol,entry,50.0,false,sl,loss)||
-     !DollarPrice(sym,buy,vol,entry,100.0,true,tp,gain)))
+ if(adaptive)
+ {
+  // Preserve the immutable 10-field receipt while identifying the failed V2 predicate.
+  string stopFail=NativeAdaptivePlan(sym,buy,tick.bid,tick.ask,vol,sl,tp,loss,gain);
+  if(stopFail!="")
+  {Receipt(key,"BLOCKED","NATIVE_USD_STOP_CALCULATION_FAILED:"+stopFail);return;}
+ }
+ else if(!DollarPrice(sym,buy,vol,entry,50.0,false,sl,loss)||
+         !DollarPrice(sym,buy,vol,entry,100.0,true,tp,gain))
  {Receipt(key,"BLOCKED","NATIVE_USD_STOP_CALCULATION_FAILED");return;}
  double minstop=(double)SymbolInfoInteger(sym,SYMBOL_TRADE_STOPS_LEVEL)*SymbolInfoDouble(sym,SYMBOL_POINT);
  // Protective levels are evaluated relative to the broker CLOSE-side quote.
